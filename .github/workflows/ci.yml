@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Check application
+        run: |
+          if [ ! -f package-lock.json ]; then
+            echo "::notice::CI is ready and will activate when the application scaffold adds package-lock.json."
+            exit 0
+          fi
+          npm ci
+          npm run lint --if-present
+          npm test --if-present
+          npm run build
