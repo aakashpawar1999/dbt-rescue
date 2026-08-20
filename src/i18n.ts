@@ -1,0 +1,387 @@
+import type { RecoveryState } from './domain/recovery'
+
+export type Language = 'en' | 'hi'
+
+export const TEXT = {
+  en: {
+    brandKicker: 'Paisa Kahan Atka?',
+    title: 'DBT Rescue',
+    startOver: 'Start over',
+    startAnother: 'Start another demo',
+    safetyLabel: 'Safety notice',
+    prototype: 'Independent hackathon prototype',
+    fictionalRecords: 'All records and integrations are fictional or simulated.',
+    noRealInfo: 'Do not enter real Aadhaar, bank, OTP, or government-login information.',
+    language: 'Language',
+    english: 'English',
+    hindi: 'हिन्दी',
+    assistedMode: 'Use assisted mode',
+    directMode: 'Use citizen mode',
+    helperRole: 'Helper mode',
+    helperIntro: 'You are helping {{beneficiary}}. Their documents and acknowledgement belong to this fictional beneficiary.',
+    citizenIntro: 'This journey is written for the fictional beneficiary.',
+    disclosureTitle: 'What works and what is simulated',
+    disclosureBody: 'Lookup, diagnosis, instructions, packet rendering, and tracker controls work locally for three fictional cases. Government, PFMS, NPCI, Aadhaar, bank, acknowledgement, reissue, and credit systems are simulated.',
+    findPayment: 'Find payment',
+    paymentJourney: 'Payment journey',
+    whyStopped: 'Why it stopped',
+    fixIt: 'Fix it',
+    correctionPacket: 'Correction packet',
+    acknowledgement: 'Acknowledgement',
+    recoveryTracker: 'Recovery tracker',
+    stepOf: 'Step {{step}} of 7',
+    findYourPayment: 'Find your payment',
+    findLead: 'See where a government benefit payment stopped, why it stopped, and what to do next.',
+    findLeadAssisted: 'Choose a fictional payment to help the beneficiary understand what stopped and what to do next.',
+    chooseFictional: 'Choose a fictional payment',
+    enterReference: 'Or enter a demo payment reference',
+    referenceHelp: 'Try the fictional reference shown above. No personal information is needed.',
+    showJourney: 'Show payment journey',
+    unknownReference: 'We could not find that demo reference. Try DBT-MEENA-003.',
+    whereNow: 'Where is the payment now?',
+    whereStopped: 'Where did it stop?',
+    journeyLead: 'This is the path taken by the fictional payment. The latest confirmed event is marked below.',
+    route: 'Route',
+    latestConfirmed: 'Latest confirmed',
+    noConfirmed: 'No confirmed event',
+    source: 'Source',
+    simulatedEvent: 'SIMULATED EVENT',
+    confirmed: 'Confirmed',
+    failed: 'Stopped here',
+    conflict: 'Conflicting report',
+    missing: 'No response',
+    back: 'Back',
+    explainStatus: 'Explain this status',
+    paymentReached: 'Payment reached another mapped account',
+    paymentStopped: 'Payment stopped',
+    showTechnical: 'Show technical detail',
+    demoReason: 'Demo reason code: {{code}}',
+    reviewedRule: 'This response is a reviewed, deterministic demo rule. It is not a live payment response.',
+    seeFix: 'See how to fix it',
+    whatCheck: 'What to check next?',
+    whoCanFix: 'Who can fix this?',
+    startWith: 'Start with {{owner}}',
+    carryDocuments: 'Carry these documents',
+    nextSimulated: 'Next simulated state: {{state}}. This demo does not change a real bank or scheme record.',
+    prepareTrace: 'Prepare trace request',
+    prepareCorrection: 'Prepare correction request',
+    fictionalTraceRequest: 'Fictional trace request',
+    fictionalCorrectionRequest: 'Fictional correction request',
+    traceRequest: 'trace request',
+    correctionRequest: 'correction request',
+    packetTitle: 'Take this to {{owner}}',
+    packetLead: 'Print this page or show it at the branch. It contains only synthetic demo information.',
+    demoReference: 'Demo reference',
+    beneficiary: 'Beneficiary',
+    benefit: 'Benefit',
+    accountShown: 'Account shown in demo',
+    askAction: 'Ask for this action',
+    carry: 'Carry',
+    printRequest: 'Print request',
+    recordAcknowledgement: 'Record fictional acknowledgement',
+    fictionalAcknowledgement: 'Fictional acknowledgement',
+    recorded: 'Your {{request}} is recorded',
+    acknowledgementLead: 'This acknowledgement is simulated for the demo. In a real service, the responsible organisation would provide its own confirmation.',
+    bankTraceSubmitted: 'Bank trace request submitted',
+    correctionSubmitted: '{{owner}} correction submitted',
+    ackReference: 'Reference: ACK-DEMO-{{reference}} · 18 August 2026, 10:05 AM IST',
+    trackRecovery: 'Track recovery',
+    simulatedTracker: 'Simulated tracker',
+    trackerTitle: 'Follow what happens next',
+    trackerLead: 'This demo keeps the next steps visible without claiming that a local action changed a real account.',
+    showNext: 'Show next simulated update',
+    finalState: '{{state}} in this demo. This is a simulated final state, not a real bank confirmation.',
+    viewRequest: 'View request',
+    technicalReason: 'Demo reason code: {{code}}',
+    routeAadhaar: 'Aadhaar-based',
+    routeAccount: 'Account-based',
+  },
+  hi: {
+    brandKicker: 'पैसा कहाँ अटका?',
+    title: 'DBT रेस्क्यू',
+    startOver: 'फिर से शुरू करें',
+    startAnother: 'दूसरा डेमो शुरू करें',
+    safetyLabel: 'सुरक्षा सूचना',
+    prototype: 'स्वतंत्र हैकाथॉन प्रोटोटाइप',
+    fictionalRecords: 'सभी रिकॉर्ड और इंटीग्रेशन काल्पनिक या सिम्युलेटेड हैं।',
+    noRealInfo: 'असली आधार, बैंक, OTP या सरकारी लॉगिन की जानकारी न डालें।',
+    language: 'भाषा',
+    english: 'English',
+    hindi: 'हिन्दी',
+    assistedMode: 'सहायता मोड इस्तेमाल करें',
+    directMode: 'नागरिक मोड इस्तेमाल करें',
+    helperRole: 'सहायक मोड',
+    helperIntro: 'आप {{beneficiary}} की मदद कर रहे हैं। दस्तावेज़ और पावती इसी काल्पनिक लाभार्थी की हैं।',
+    citizenIntro: 'यह यात्रा काल्पनिक लाभार्थी के लिए लिखी गई है।',
+    disclosureTitle: 'क्या काम करता है और क्या सिम्युलेटेड है',
+    disclosureBody: 'तीन काल्पनिक मामलों के लिए खोज, जाँच, निर्देश, पैकेट और ट्रैकर स्थानीय रूप से काम करते हैं। सरकारी, PFMS, NPCI, आधार, बैंक, पावती, दोबारा भेजने और जमा होने वाली प्रणालियाँ सिम्युलेटेड हैं।',
+    findPayment: 'भुगतान खोजें',
+    paymentJourney: 'भुगतान यात्रा',
+    whyStopped: 'क्यों रुका',
+    fixIt: 'सुधार करें',
+    correctionPacket: 'सुधार पैकेट',
+    acknowledgement: 'पावती',
+    recoveryTracker: 'रिकवरी ट्रैकर',
+    stepOf: 'चरण {{step}} / 7',
+    findYourPayment: 'अपना भुगतान खोजें',
+    findLead: 'जानें कि सरकारी लाभ का भुगतान कहाँ और क्यों रुका और अब क्या करना है।',
+    findLeadAssisted: 'लाभार्थी को समझाने के लिए काल्पनिक भुगतान चुनें कि क्या रुका और अब क्या करना है।',
+    chooseFictional: 'काल्पनिक भुगतान चुनें',
+    enterReference: 'या डेमो भुगतान संदर्भ लिखें',
+    referenceHelp: 'ऊपर दिखाया गया काल्पनिक संदर्भ आज़माएँ। किसी निजी जानकारी की ज़रूरत नहीं है।',
+    showJourney: 'भुगतान यात्रा दिखाएँ',
+    unknownReference: 'यह डेमो संदर्भ नहीं मिला। DBT-MEENA-003 आज़माएँ।',
+    whereNow: 'भुगतान अभी कहाँ है?',
+    whereStopped: 'कहाँ रुका?',
+    journeyLead: 'यह काल्पनिक भुगतान का रास्ता है। सबसे हाल की पक्की घटना नीचे दिखाई गई है।',
+    route: 'रास्ता',
+    latestConfirmed: 'सबसे हाल की पक्की स्थिति',
+    noConfirmed: 'कोई पक्की घटना नहीं',
+    source: 'स्रोत',
+    simulatedEvent: 'सिम्युलेटेड घटना',
+    confirmed: 'पुष्ट',
+    failed: 'यहाँ रुका',
+    conflict: 'विरोधी रिपोर्ट',
+    missing: 'कोई उत्तर नहीं',
+    back: 'वापस',
+    explainStatus: 'यह स्थिति समझें',
+    paymentReached: 'भुगतान दूसरे मैप किए गए खाते में पहुँचा',
+    paymentStopped: 'भुगतान रुक गया',
+    showTechnical: 'तकनीकी विवरण दिखाएँ',
+    demoReason: 'डेमो कारण कोड: {{code}}',
+    reviewedRule: 'यह जाँचा हुआ, निश्चित डेमो नियम है। यह लाइव भुगतान उत्तर नहीं है।',
+    seeFix: 'सुधार का तरीका देखें',
+    whatCheck: 'अब क्या जाँचें?',
+    whoCanFix: 'इसे कौन सुधार सकता है?',
+    startWith: '{{owner}} से शुरू करें',
+    carryDocuments: 'ये दस्तावेज़ साथ ले जाएँ',
+    nextSimulated: 'अगली सिम्युलेटेड स्थिति: {{state}}। यह डेमो असली बैंक या योजना रिकॉर्ड नहीं बदलता।',
+    prepareTrace: 'ट्रेस अनुरोध तैयार करें',
+    prepareCorrection: 'सुधार अनुरोध तैयार करें',
+    fictionalTraceRequest: 'काल्पनिक ट्रेस अनुरोध',
+    fictionalCorrectionRequest: 'काल्पनिक सुधार अनुरोध',
+    traceRequest: 'ट्रेस अनुरोध',
+    correctionRequest: 'सुधार अनुरोध',
+    packetTitle: '{{owner}} को दें',
+    packetLead: 'यह पृष्ठ प्रिंट करें या शाखा में दिखाएँ। इसमें केवल सिंथेटिक डेमो जानकारी है।',
+    demoReference: 'डेमो संदर्भ',
+    beneficiary: 'लाभार्थी',
+    benefit: 'लाभ',
+    accountShown: 'डेमो में दिखाया खाता',
+    askAction: 'यह कार्रवाई माँगें',
+    carry: 'साथ ले जाएँ',
+    printRequest: 'अनुरोध प्रिंट करें',
+    recordAcknowledgement: 'काल्पनिक पावती दर्ज करें',
+    fictionalAcknowledgement: 'काल्पनिक पावती',
+    recorded: 'आपका {{request}} दर्ज है',
+    acknowledgementLead: 'यह पावती डेमो के लिए सिम्युलेटेड है। असली सेवा में जिम्मेदार संस्था अपनी पुष्टि देगी।',
+    bankTraceSubmitted: 'बैंक ट्रेस अनुरोध भेजा गया',
+    correctionSubmitted: '{{owner}} को सुधार अनुरोध भेजा गया',
+    ackReference: 'संदर्भ: ACK-DEMO-{{reference}} · 18 अगस्त 2026, सुबह 10:05 IST',
+    trackRecovery: 'रिकवरी ट्रैक करें',
+    simulatedTracker: 'सिम्युलेटेड ट्रैकर',
+    trackerTitle: 'अगले कदम देखें',
+    trackerLead: 'यह डेमो अगले कदम दिखाता है, लेकिन यह दावा नहीं करता कि स्थानीय कार्रवाई से असली खाता बदला है।',
+    showNext: 'अगली सिम्युलेटेड स्थिति दिखाएँ',
+    finalState: 'इस डेमो में {{state}}। यह सिम्युलेटेड अंतिम स्थिति है, बैंक की असली पुष्टि नहीं।',
+    viewRequest: 'अनुरोध देखें',
+    technicalReason: 'डेमो कारण कोड: {{code}}',
+    routeAadhaar: 'आधार-आधारित',
+    routeAccount: 'खाता-आधारित',
+  },
+} as const
+
+export type TextKey = keyof typeof TEXT.en
+
+export function t(language: Language, key: TextKey, values: Record<string, string> = {}) {
+  return TEXT[language][key].replace(/\{\{(\w+)\}\}/g, (_, name: string) => values[name] ?? '')
+}
+
+type EventText = { stage: string; source: string; detail: string }
+type LocalizedEventText = Record<Language, EventText>
+
+export const CASE_REFERENCES = ['DBT-SUNITA-001', 'DBT-ARJUN-002', 'DBT-MEENA-003'] as const
+
+const event = (en: EventText, hi: EventText): LocalizedEventText => ({ en, hi })
+
+export const EVENT_COPY: Record<string, LocalizedEventText> = {
+  'DBT-SUNITA-001:scheme-created': event(
+    { stage: 'Scheme department', source: 'Farmer benefit demo office', detail: 'The farmer-benefit payment was approved for this fictional case.' },
+    { stage: 'योजना विभाग', source: 'किसान लाभ डेमो कार्यालय', detail: 'इस काल्पनिक मामले के लिए किसान लाभ भुगतान मंजूर हुआ।' },
+  ),
+  'DBT-SUNITA-001:pfms-validated': event(
+    { stage: 'PFMS', source: 'PFMS demo response', detail: 'The payment instruction passed the fictional validation step.' },
+    { stage: 'PFMS', source: 'PFMS डेमो उत्तर', detail: 'भुगतान निर्देश काल्पनिक जाँच चरण से गुजर गया।' },
+  ),
+  'DBT-SUNITA-001:mapper-routed': event(
+    { stage: 'NPCI mapper', source: 'NPCI mapper demo response', detail: 'The newer mapped bank for this fictional Aadhaar route is Bank B.' },
+    { stage: 'NPCI मैपर', source: 'NPCI मैपर डेमो उत्तर', detail: 'इस काल्पनिक आधार रास्ते के लिए नया मैप किया गया बैंक Bank B है।' },
+  ),
+  'DBT-SUNITA-001:destination-credited': event(
+    { stage: 'Destination bank', source: 'Bank B demo response', detail: 'The payment was credited to the newer mapped Bank B account.' },
+    { stage: 'गंतव्य बैंक', source: 'Bank B डेमो उत्तर', detail: 'भुगतान नए मैप किए गए Bank B खाते में जमा हुआ।' },
+  ),
+  'DBT-SUNITA-001:older-account-not-found': event(
+    { stage: 'Citizen checked account', source: 'Bank A statement demo response', detail: 'The older Bank A account shows no credit, which conflicts with the confirmed Bank B credit.' },
+    { stage: 'नागरिक ने खाता जाँचा', source: 'Bank A स्टेटमेंट डेमो उत्तर', detail: 'पुराने Bank A खाते में जमा नहीं दिखता, जो पक्के Bank B जमा से अलग है।' },
+  ),
+  'DBT-ARJUN-002:scheme-created': event(
+    { stage: 'Scheme department', source: 'Scholarship demo office', detail: 'The scholarship payment was approved for this fictional case.' },
+    { stage: 'योजना विभाग', source: 'छात्रवृत्ति डेमो कार्यालय', detail: 'इस काल्पनिक मामले के लिए छात्रवृत्ति भुगतान मंजूर हुआ।' },
+  ),
+  'DBT-ARJUN-002:pfms-validated': event(
+    { stage: 'PFMS', source: 'PFMS demo response', detail: 'The account-based payment instruction passed fictional validation.' },
+    { stage: 'PFMS', source: 'PFMS डेमो उत्तर', detail: 'खाता-आधारित भुगतान निर्देश काल्पनिक जाँच से गुजर गया।' },
+  ),
+  'DBT-ARJUN-002:legacy-record': event(
+    { stage: 'Scheme beneficiary record', source: 'Legacy beneficiary snapshot', detail: 'A stale snapshot shows a different branch code and remains visible for review.' },
+    { stage: 'योजना लाभार्थी रिकॉर्ड', source: 'पुराना लाभार्थी स्नैपशॉट', detail: 'पुराने स्नैपशॉट में अलग शाखा कोड है और वह जाँच के लिए दिखता रहता है।' },
+  ),
+  'DBT-ARJUN-002:destination-failed': event(
+    { stage: 'Destination bank', source: 'Receiving bank demo response', detail: 'The payment was returned because the IFSC in the scheme record is invalid.' },
+    { stage: 'गंतव्य बैंक', source: 'प्राप्तकर्ता बैंक डेमो उत्तर', detail: 'योजना रिकॉर्ड में IFSC गलत होने के कारण भुगतान लौट आया।' },
+  ),
+  'DBT-ARJUN-002:reconciliation-missing': event(
+    { stage: 'Payment reconciliation', source: 'Reconciliation demo response', detail: 'No later reprocessing response is available in this fictional record.' },
+    { stage: 'भुगतान मिलान', source: 'मिलान डेमो उत्तर', detail: 'इस काल्पनिक रिकॉर्ड में बाद की दोबारा प्रक्रिया का उत्तर उपलब्ध नहीं है।' },
+  ),
+  'DBT-MEENA-003:scheme-created': event(
+    { stage: 'Scheme department', source: 'Social pension demo office', detail: 'The pension payment was approved for this fictional case.' },
+    { stage: 'योजना विभाग', source: 'सामाजिक पेंशन डेमो कार्यालय', detail: 'इस काल्पनिक मामले के लिए पेंशन भुगतान मंजूर हुआ।' },
+  ),
+  'DBT-MEENA-003:pfms-validated': event(
+    { stage: 'PFMS', source: 'PFMS demo response', detail: 'The payment instruction passed the fictional validation step.' },
+    { stage: 'PFMS', source: 'PFMS डेमो उत्तर', detail: 'भुगतान निर्देश काल्पनिक जाँच चरण से गुजर गया।' },
+  ),
+  'DBT-MEENA-003:sponsor-sent': event(
+    { stage: 'Sponsor bank', source: 'Sponsor bank demo response', detail: 'The payment file was sent into the simulated payment network.' },
+    { stage: 'प्रायोजक बैंक', source: 'प्रायोजक बैंक डेमो उत्तर', detail: 'भुगतान फ़ाइल सिम्युलेटेड भुगतान नेटवर्क में भेजी गई।' },
+  ),
+  'DBT-MEENA-003:mapper-failed': event(
+    { stage: 'NPCI mapper', source: 'NPCI mapper demo response', detail: 'No active bank mapping was available for this fictional DBT route.' },
+    { stage: 'NPCI मैपर', source: 'NPCI मैपर डेमो उत्तर', detail: 'इस काल्पनिक DBT रास्ते के लिए कोई सक्रिय बैंक मैप उपलब्ध नहीं था।' },
+  ),
+  'DBT-MEENA-003:destination-missing': event(
+    { stage: 'Destination bank', source: 'Destination bank demo response', detail: 'No credit confirmation is available because routing stopped earlier.' },
+    { stage: 'गंतव्य बैंक', source: 'गंतव्य बैंक डेमो उत्तर', detail: 'रास्ता पहले रुक जाने के कारण जमा की पुष्टि उपलब्ध नहीं है।' },
+  ),
+}
+
+type CaseText = { scheme: string; benefit: string; maskedAccount: string; events: EventText[] }
+const CASE_COPY: Record<string, Record<Language, Omit<CaseText, 'events'>>> = {
+  'DBT-SUNITA-001': {
+    en: { scheme: 'Farmer benefit demo', benefit: 'Farmer benefit instalment', maskedAccount: 'Fictional Bank B account ending ••17' },
+    hi: { scheme: 'किसान लाभ डेमो', benefit: 'किसान लाभ की किस्त', maskedAccount: 'काल्पनिक Bank B खाता, अंतिम अंक ••17' },
+  },
+  'DBT-ARJUN-002': {
+    en: { scheme: 'Scholarship demo', benefit: 'Student scholarship', maskedAccount: 'Fictional account ending ••58' },
+    hi: { scheme: 'छात्रवृत्ति डेमो', benefit: 'छात्रवृत्ति', maskedAccount: 'काल्पनिक खाता, अंतिम अंक ••58' },
+  },
+  'DBT-MEENA-003': {
+    en: { scheme: 'Social pension demo', benefit: 'Monthly social pension', maskedAccount: 'Fictional account ending ••42' },
+    hi: { scheme: 'सामाजिक पेंशन डेमो', benefit: 'मासिक सामाजिक पेंशन', maskedAccount: 'काल्पनिक खाता, अंतिम अंक ••42' },
+  },
+}
+
+const EVENT_IDS: Record<string, string[]> = {
+  'DBT-SUNITA-001': ['scheme-created', 'pfms-validated', 'mapper-routed', 'destination-credited', 'older-account-not-found'],
+  'DBT-ARJUN-002': ['scheme-created', 'pfms-validated', 'legacy-record', 'destination-failed', 'reconciliation-missing'],
+  'DBT-MEENA-003': ['scheme-created', 'pfms-validated', 'sponsor-sent', 'mapper-failed', 'destination-missing'],
+}
+
+export function getCaseCopy(reference: string, language: Language): CaseText | undefined {
+  const base = CASE_COPY[reference]?.[language]
+  const ids = EVENT_IDS[reference]
+  if (!base || !ids) return undefined
+  return { ...base, events: ids.map((id) => EVENT_COPY[`${reference}:${id}`][language]) }
+}
+
+export type DiagnosisCopy = { reason: string; explanation: string; owner: string; action: string; documents: string[]; nextState: string }
+
+export const DIAGNOSIS_COPY: Record<string, Record<Language, DiagnosisCopy>> = {
+  'DBT-SUNITA-001': {
+    en: {
+      reason: 'Payment reached the newer mapped bank',
+      explanation: 'The payment succeeded through the Aadhaar-based route and reached the newer mapped Bank B, not the older Bank A. Check Bank B\'s statement before filing a grievance.',
+      owner: 'Bank B trace desk',
+      action: 'Check Bank B before filing a grievance. If the credit is not visible, ask Bank B to trace payment DBT-SUNITA-001 using the fictional reference.',
+      documents: ['Bank B statement or passbook', 'Fictional payment reference', 'Permitted identity document'],
+      nextState: 'Check mapped Bank B or request a trace',
+    },
+    hi: {
+      reason: 'भुगतान नए मैप किए गए बैंक में पहुँचा',
+      explanation: 'भुगतान आधार-आधारित रास्ते से सफल होकर पुराने Bank A के बजाय नए मैप किए गए Bank B में पहुँचा। शिकायत करने से पहले Bank B का स्टेटमेंट जाँचें।',
+      owner: 'Bank B ट्रेस डेस्क',
+      action: 'शिकायत करने से पहले Bank B जाँचें। जमा न दिखे तो काल्पनिक संदर्भ DBT-SUNITA-001 से Bank B से भुगतान ट्रेस करने को कहें।',
+      documents: ['Bank B स्टेटमेंट या पासबुक', 'काल्पनिक भुगतान संदर्भ', 'मान्य पहचान दस्तावेज़'],
+      nextState: 'मैप किए गए Bank B को जाँचें या ट्रेस माँगें',
+    },
+  },
+  'DBT-ARJUN-002': {
+    en: {
+      reason: 'Invalid IFSC in the scheme record',
+      explanation: 'The scheme has an incorrect or outdated branch code, so the account-based payment cannot reach the correct bank branch.',
+      owner: 'Scholarship department',
+      action: 'Update the scheme beneficiary record with the current IFSC. Confirm it with your bank first; the receiving bank cannot edit the government scheme record for you.',
+      documents: ['Bank letter or passbook showing the current IFSC', 'Fictional scholarship reference', 'Scheme beneficiary record details'],
+      nextState: 'Scheme record correction needed',
+    },
+    hi: {
+      reason: 'योजना रिकॉर्ड में IFSC गलत है',
+      explanation: 'योजना में शाखा कोड गलत या पुराना है, इसलिए खाता-आधारित भुगतान सही बैंक शाखा तक नहीं पहुँच सकता।',
+      owner: 'छात्रवृत्ति विभाग',
+      action: 'योजना लाभार्थी रिकॉर्ड में वर्तमान IFSC अपडेट कराएँ। पहले बैंक से इसकी पुष्टि करें; प्राप्तकर्ता बैंक आपके लिए सरकारी योजना रिकॉर्ड नहीं बदल सकता।',
+      documents: ['वर्तमान IFSC वाला बैंक पत्र या पासबुक', 'काल्पनिक छात्रवृत्ति संदर्भ', 'योजना लाभार्थी रिकॉर्ड का विवरण'],
+      nextState: 'योजना रिकॉर्ड में सुधार ज़रूरी है',
+    },
+  },
+  'DBT-MEENA-003': {
+    en: {
+      reason: 'No active bank is mapped for DBT',
+      explanation: 'The payment could not be routed because no active bank was available in the DBT mapping for this fictional case.',
+      owner: 'Your bank branch',
+      action: 'Ask your bank to seed Aadhaar to your account and update the NPCI mapper for DBT. Then ask the pension office to reprocess the payment.',
+      documents: ['Permitted identity document', 'Bank passbook or account proof', 'Scheme or beneficiary reference'],
+      nextState: 'Bank mapping correction needed',
+    },
+    hi: {
+      reason: 'DBT के लिए कोई सक्रिय बैंक मैप नहीं है',
+      explanation: 'भुगतान आगे नहीं जा सका क्योंकि इस काल्पनिक मामले के DBT मैप में कोई सक्रिय बैंक उपलब्ध नहीं था।',
+      owner: 'आपकी बैंक शाखा',
+      action: 'बैंक से अपने खाते में आधार सीड करने और DBT के लिए NPCI मैपर अपडेट करने को कहें। फिर पेंशन कार्यालय से भुगतान दोबारा प्रोसेस करने को कहें।',
+      documents: ['मान्य पहचान दस्तावेज़', 'बैंक पासबुक या खाते का प्रमाण', 'योजना या लाभार्थी संदर्भ'],
+      nextState: 'बैंक मैप में सुधार ज़रूरी है',
+    },
+  },
+}
+
+export function getDiagnosisCopy(reference: string, language: Language) {
+  return DIAGNOSIS_COPY[reference]?.[language]
+}
+
+export const RECOVERY_COPY: Record<Language, Record<RecoveryState, string>> = {
+  en: {
+    'needs-correction': 'Correction needed',
+    'correction-submitted': 'Correction submitted',
+    'record-updated': 'Pension record updated',
+    'payment-reissued': 'Payment reissued',
+    'account-credited': 'Account credited',
+    'needs-trace': 'Check mapped bank or request a trace',
+    'trace-requested': 'Bank trace requested',
+    'trace-confirmed': 'Bank trace completed',
+  },
+  hi: {
+    'needs-correction': 'सुधार ज़रूरी है',
+    'correction-submitted': 'सुधार अनुरोध भेजा गया',
+    'record-updated': 'पेंशन रिकॉर्ड अपडेट हुआ',
+    'payment-reissued': 'भुगतान फिर भेजा गया',
+    'account-credited': 'खाते में जमा हुआ',
+    'needs-trace': 'मैप किए गए बैंक को जाँचें या ट्रेस माँगें',
+    'trace-requested': 'बैंक ट्रेस माँगा गया',
+    'trace-confirmed': 'बैंक ट्रेस पूरा हुआ',
+  },
+}
+
+export function recoveryLabel(language: Language, state: RecoveryState) {
+  return RECOVERY_COPY[language][state]
+}
