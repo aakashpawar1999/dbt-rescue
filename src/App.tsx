@@ -166,7 +166,7 @@ export default function App() {
 
       {step === 0 && <section className="card hero-card" aria-labelledby="lookup-title">
         <StepHeader step={0} payment={localizedPayment} language={language} />
-        {assisted && <p className="assisted-banner">{t(language, 'helperIntro', { beneficiary: payment?.beneficiaryName ?? '' })}</p>}
+        {assisted && payment && <p className="assisted-banner">{t(language, 'helperIntro', { beneficiary: payment.beneficiaryName })}</p>}
         <h2 id="lookup-title">{t(language, 'findYourPayment')}</h2>
         <p className="lead">{t(language, assisted ? 'findLeadAssisted' : 'findLead')}</p>
         <form onSubmit={lookup}>
