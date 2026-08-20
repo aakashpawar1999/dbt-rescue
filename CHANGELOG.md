@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.2.0] — dbt-rescue 0.2.0 — 2026-08-20
+
+### Added
+
+- Three fictional DBT Rescue cases across Aadhaar-based and account-based routes.
+- Source-preserving timelines with missing and conflicting event states.
+- Deterministic mapped-account, invalid-IFSC, and unavailable-mapping diagnoses.
+- Scenario-specific trace and correction requests with masked synthetic values.
+- Bun install, lockfile, scripts, CI, and release verification.
+
+### Limits
+
+- Government, PFMS, NPCI, Aadhaar, bank, authentication, grievance, and payment integrations remain simulated.
+- The prototype does not determine eligibility, correct real records, or move money.
+
 ## [0.1.0] — dbt-rescue 0.1.0 — 2026-08-20
 
 ### Added
