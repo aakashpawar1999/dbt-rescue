@@ -86,12 +86,12 @@ chatbot or model-generated banking remedy.
 
 ## Links and release identity
 
-These are the intended public links. The manifest records whether each was
-actually verified; do not submit this document until the pending links have
-been checked in a signed-out browser.
+These are the public links for the transcript-only release package. The
+manifest records the verification status; the organiser submission destination
+remains unknown in the local research snapshot.
 
 - Demo: <https://aakashpawar1999.github.io/dbt-rescue/>
 - Repository: <https://github.com/aakashpawar1999/dbt-rescue>
 - Release: <https://github.com/aakashpawar1999/dbt-rescue/releases/tag/v0.5.0>
-- Video: pending the user's captioned recording and public host.
+- Transcript: <https://github.com/aakashpawar1999/dbt-rescue/blob/main/docs/demo-transcript.md>
 - Submission destination: not published in the local research snapshot.
