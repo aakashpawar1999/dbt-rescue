@@ -61,5 +61,20 @@ The manual test record is in
 terminology and screen-reader review remain human approval gates before any
 real deployment or official-service claim.
 
-See [functional-versus-simulated disclosure](docs/functional-vs-simulated.md)
-and the [dependency and asset inventory](docs/dependencies-and-assets.md).
+## 0.4.0 audit and production boundary
+
+The audit view connects each supported diagnosis to its fictional source event,
+versioned rule, source URL, review date, and reviewer status. The production
+documents are proposals only; they do not add live integrations or make the
+prototype an official service.
+
+Reviewer evidence:
+
+- [functional-versus-simulated disclosure](docs/functional-vs-simulated.md)
+- [known limitations](docs/known-limitations.md)
+- [rule provenance](docs/rules-inventory.md)
+- [architecture](docs/architecture.md)
+- [privacy and security](docs/privacy-security.md)
+- [operating model](docs/operating-model.md)
+- [Codex contribution log](docs/codex-contribution-log.md)
+- [licence inventory](docs/dependencies-and-assets.md)
