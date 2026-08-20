@@ -1,20 +1,20 @@
 # DBT Rescue 0.5.0 submission manifest
 
-Status: release package prepared locally; public deployment, video publication,
-and organiser submission remain unverified human-controlled gates.
+Status: transcript-only release package; public deployment and release identity
+are verified; organiser submission destination remains unknown.
 
 | Item | Value | Verification |
 | --- | --- | --- |
-| Repository | <https://github.com/aakashpawar1999/dbt-rescue> | Pending signed-out check |
-| Intended demo | <https://aakashpawar1999.github.io/dbt-rescue/> | Pending GitHub Pages deployment and private-window check |
-| Intended release | <https://github.com/aakashpawar1999/dbt-rescue/releases/tag/v0.5.0> | Pending tag, Actions, and GitHub Release |
-| Video | User-provided captioned recording URL | Unknown; do not invent |
+| Repository | <https://github.com/aakashpawar1999/dbt-rescue> | Verified public and readable signed-out |
+| Intended demo | <https://aakashpawar1999.github.io/dbt-rescue/> | Verified HTTPS Pages deployment and signed-out browser flow |
+| Intended release | <https://github.com/aakashpawar1999/dbt-rescue/releases/tag/v0.5.0> | Verified published GitHub Release |
+| Transcript | <https://github.com/aakashpawar1999/dbt-rescue/blob/main/docs/demo-transcript.md> | Public transcript artifact; verify after documentation publication |
 | Submission destination | Organiser-provided URL or form | Unknown in the local research snapshot |
-| Release tag | `v0.5.0` | Pending release commit |
-| Commit | Record the exact release commit here | Pending release commit |
-| Build date | Record the UTC/IST build date here | Pending final artifact |
-| Functional scope | Three fictional cases, deterministic diagnosis, provenance, bilingual journey, assisted mode, masked packet, simulated tracker | Verified locally; repeat on final artifact |
-| Simulated scope | Government, PFMS, NPCI, Aadhaar, bank, identity, grievance, acknowledgement, reissue, and credit behavior | Must remain visible |
+| Release tag | `v0.5.0` | Verified |
+| Commit | `6a97eb3ad68be423c7cb39bc0508f79b393da165` | Verified deployed release commit |
+| Build date | `2026-08-20` UTC / `2026-08-20` IST | Verified release date |
+| Functional scope | Three fictional cases, deterministic diagnosis, provenance, bilingual journey, assisted mode, masked packet, simulated tracker | Verified on public release path |
+| Simulated scope | Government, PFMS, NPCI, Aadhaar, bank, identity, grievance, acknowledgement, reissue, and credit behavior | Visible in public release |
 | Known limitations | No live integrations, eligibility decision, real correction, real payment movement, or real credit confirmation | See [known limitations](known-limitations.md) |
 
 ## Freeze checklist
@@ -23,7 +23,7 @@ and organiser submission remain unverified human-controlled gates.
 - [ ] GitHub Actions CI is green for the release commit.
 - [ ] GitHub Pages opens over HTTPS in a signed-out private window.
 - [ ] The tagged GitHub Release points at the deployed commit.
-- [ ] The captioned video shows the actual release build and matches the transcript.
-- [ ] Repository, demo, release, video, source, and submission links open without editor access.
-- [ ] Exact tag, commit, build date, and verified URLs are filled above.
+- [x] The timed demo script and transcript describe the actual release build.
+- [x] Repository, demo, transcript, release, and source links open without editor access.
+- [x] Exact tag, commit, build date, and verified URLs are filled above.
 - [ ] No real personal data, credential, secret, unsupported claim, or unfinished feature appears in the package.

@@ -16,6 +16,5 @@ real account, credential, editor, or live government response.
 | 2:40–2:55 | Advance to the trace-confirmed receipt. | The local tracker records a simulated resolution state while keeping the boundary clear: this is not a bank confirmation. |
 | 2:55–3:00 | Return to the disclosure and show the submission links. | The build is functional for three synthetic cases; integrations, eligibility, correction, and payment movement remain outside the prototype. Codex contributed to research translation, implementation, testing, accessibility, debugging, and documentation. |
 
-If the public page fails, use the matching local `dist` artifact. If the local
-artifact fails, play the captioned recording or read the transcript; do not
-claim that an unverified path works.
+If the public page fails, use the matching local `dist` artifact or read this
+transcript; do not claim that an unverified path works.
