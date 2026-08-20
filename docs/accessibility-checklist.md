@@ -1,7 +1,7 @@
 # DBT Rescue 0.3.0 accessibility and print checklist
 
-Test date: 20 August 2026  
-Browser: Codex In-app Browser  
+Test date: 20 August 2026
+Browser: Codex In-app Browser
 Application: local Vite development build at 360 × 800 CSS pixels
 
 This checklist records observed prototype behavior. The user approved the
