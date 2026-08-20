@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CASE_REFERENCES, DIAGNOSIS_COPY, EVENT_COPY, TEXT, getCaseCopy, getDiagnosisCopy, t } from './i18n'
+import { CASE_REFERENCES, DIAGNOSIS_COPY, EVENT_COPY, TEXT, getCaseCopy, getDiagnosisCopy, t, type TextKey } from './i18n'
 
 function interpolationTokens(value: string) {
   return [...value.matchAll(/\{\{(\w+)\}\}/g)].map((match) => match[1]).sort()
@@ -9,7 +9,7 @@ describe('reviewed bilingual copy', () => {
   it('keeps English and Hindi translation keys and interpolation tokens in parity', () => {
     expect(Object.keys(TEXT.en).sort()).toEqual(Object.keys(TEXT.hi).sort())
 
-    for (const key of Object.keys(TEXT.en)) {
+    for (const key of Object.keys(TEXT.en) as TextKey[]) {
       expect(interpolationTokens(TEXT.hi[key])).toEqual(interpolationTokens(TEXT.en[key]))
       expect(TEXT.en[key]).toBeTruthy()
       expect(TEXT.hi[key]).toBeTruthy()
