@@ -221,11 +221,11 @@ const MEENA: PaymentCase = {
   ],
 }
 
-const CASES = [SUNITA, ARJUN, MEENA]
+export const PAYMENT_CASES = [SUNITA, ARJUN, MEENA]
 
 export function findPaymentCase(reference: string): PaymentCase | null {
   const safeReference = reference.trim().toUpperCase()
-  return CASES.find((payment) => payment.reference === safeReference) ?? null
+  return PAYMENT_CASES.find((payment) => payment.reference === safeReference) ?? null
 }
 
 export function latestConfirmedEvent(payment: PaymentCase): PaymentEvent | null {
