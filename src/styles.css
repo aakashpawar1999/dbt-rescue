@@ -90,6 +90,13 @@ input, select { width: 100%; border: 1px solid var(--border); border-radius: 10p
 .technical-details { margin: 22px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 13px 0; color: var(--muted); }
 .technical-details summary { cursor: pointer; font-weight: 800; }
  .technical-details p { margin: 12px 0 0; font-size: .88rem; line-height: 1.5; }
+.audit-details { margin-top: 14px; }
+.audit-decision { color: var(--accent); }
+.audit-grid { display: grid; gap: 10px; margin: 14px 0 0; }
+.audit-grid div { display: grid; gap: 3px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.audit-grid dt { font-size: .78rem; font-weight: 800; }
+.audit-grid dd { margin: 0; overflow-wrap: anywhere; color: var(--ink); }
+.audit-grid a { color: var(--accent); }
 code { border-radius: 5px; background: oklch(0.94 0.01 150); padding: 2px 5px; }
 .owner-card { margin: 22px 0; border: 1px solid oklch(0.78 0.06 150); border-radius: 10px; background: var(--soft); padding: 18px; }
 .check-list { display: grid; gap: 10px; margin: 10px 0 0; padding-left: 22px; color: var(--accent); line-height: 1.45; }

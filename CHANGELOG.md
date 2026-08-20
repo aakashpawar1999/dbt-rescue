@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.4.0] — 2026-08-20
+
+- Added versioned provenance for each supported diagnosis: matched fictional event, raw reason, stable rule ID/version, source URL, scheme scope, route, review date, and reviewer status.
+- Added a progressive `How this diagnosis was decided` audit view that preserves the citizen journey and exposes the exact evidence behind owner, action, documents, and next state.
+- Added a safe unknown-rule fallback that withholds a specific remedy instead of guessing.
+- Added automated fixture, provenance, masking, source-allowlist, package-version, lint, test, and build checks.
+- Added proposed production architecture, privacy/security model, operating model, status-and-resolution contract, failure-mode matrix, known limitations, rule sign-off register, licence inventory, and 0.4.0 Codex contribution record.
+
+All government, PFMS, NPCI, Aadhaar, bank, identity, grievance, acknowledgement, reissue, and credit behavior remains fictional or simulated. The production documents are proposals and do not represent approval or a live integration.
+
 ## [0.3.0] — 2026-08-20
 
 - Added reviewed English and Hindi journey copy with state-preserving language switching.
