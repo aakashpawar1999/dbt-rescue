@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
 import { findPaymentCase, latestConfirmedEvent, PAYMENT_CASES, type PaymentCase, type PaymentEvent } from './domain/cases'
 import { advanceRecovery, buildCorrectionRequest, getRecoveryStates, type RecoveryState } from './domain/recovery'
-import { diagnosePayment } from './domain/rules'
+import { diagnosePayment, type PaymentDiagnosis } from './domain/rules'
 import { getCaseCopy, getDiagnosisCopy, recoveryLabel, t, type Language, type TextKey } from './i18n'
 
 const STEP_KEYS: TextKey[] = ['findPayment', 'paymentJourney', 'whyStopped', 'fixIt', 'correctionPacket', 'acknowledgement', 'recoveryTracker']
@@ -47,6 +47,25 @@ function StepHeader({ step, payment, language }: { step: number; payment: Paymen
     <p className="step-name">{t(language, STEP_KEYS[step])}</p>
     {payment && <p className="muted">{payment.reference} · {payment.scheme}</p>}
   </div>
+}
+
+export function DiagnosisAudit({ payment, diagnosis, language }: { payment: PaymentCase; diagnosis: PaymentDiagnosis; language: Language }) {
+  const event = payment.events.find((candidate) => candidate.id === diagnosis.provenance.matchedEventId)
+  const provenance = diagnosis.provenance
+
+  return <details className="technical-details audit-details">
+    <summary>{t(language, 'auditTitle')}</summary>
+    <p className="audit-decision">{t(language, provenance.reviewerStatus === 'human-reviewed' ? 'auditDecision' : 'auditUnreviewed', { owner: diagnosis.owner })}</p>
+    <dl className="audit-grid">
+      <div><dt>{t(language, 'auditEvent')}</dt><dd>{event?.id ?? provenance.matchedEventId} · {event?.stage ?? payment.scheme}</dd></div>
+      <div><dt>{t(language, 'auditRawReason')}</dt><dd><code>{provenance.rawReason}</code></dd></div>
+      <div><dt>{t(language, 'auditRule')}</dt><dd>{provenance.ruleId}</dd></div>
+      <div><dt>{t(language, 'auditVersion')}</dt><dd>{provenance.version}</dd></div>
+      <div><dt>{t(language, 'auditScope')}</dt><dd>{provenance.schemeScope} · {routeLabel(provenance.route, language)}</dd></div>
+      <div><dt>{t(language, 'auditReview')}</dt><dd>{provenance.reviewerStatus} · {provenance.reviewDate}</dd></div>
+      <div><dt>{t(language, 'auditSource')}</dt><dd>{provenance.sourceUrl ? <a href={provenance.sourceUrl} target="_blank" rel="noreferrer">{provenance.sourceTitle}</a> : provenance.sourceTitle}</dd></div>
+    </dl>
+  </details>
 }
 
 export default function App() {
@@ -198,7 +217,7 @@ export default function App() {
 
       {step === 2 && localizedPayment && localizedDiagnosis && <section className="card" aria-labelledby="diagnosis-title">
         <StepHeader step={2} payment={localizedPayment} language={language} /><div className="signal-card"><span className="signal-icon" aria-hidden="true">!</span><div><p className="eyebrow">{t(language, localizedDiagnosis.recoveryType === 'trace' ? 'paymentReached' : 'paymentStopped')}</p><h2 id="diagnosis-title">{localizedDiagnosis.reason}</h2></div></div>
-        <p className="lead">{localizedDiagnosis.explanation}</p><details className="technical-details"><summary>{t(language, 'showTechnical')}</summary><p>{t(language, 'technicalReason', { code: localizedDiagnosis.technicalReason })}</p><p>{t(language, 'reviewedRule')}</p></details>
+        <p className="lead">{localizedDiagnosis.explanation}</p><details className="technical-details"><summary>{t(language, 'showTechnical')}</summary><p>{t(language, 'technicalReason', { code: localizedDiagnosis.technicalReason })}</p><p>{t(language, 'reviewedRule')}</p></details><DiagnosisAudit payment={localizedPayment} diagnosis={localizedDiagnosis} language={language} />
         <div className="button-row"><button className="secondary-button" type="button" onClick={() => goTo(1)}>{t(language, 'back')}</button><button className="primary-button" type="button" onClick={() => goTo(3)}>{t(language, 'seeFix')} <span aria-hidden="true">→</span></button></div>
       </section>}
 
