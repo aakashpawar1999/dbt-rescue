@@ -1,6 +1,7 @@
 # Codex contribution log
 
-This log records concrete work completed with Codex during the `0.2.0` release.
+This log records concrete work completed with Codex during the `0.2.0` and
+`0.3.0` releases.
 
 | Area | Contribution |
 |---|---|
@@ -17,3 +18,14 @@ This log records concrete work completed with Codex during the `0.2.0` release.
 
 The runtime does not use an AI chatbot or model-generated banking remedy. The
 diagnosis remains deterministic and testable.
+
+## 0.3.0 contributions
+
+| Area | Contribution |
+|---|---|
+| Bilingual copy | Added local English/Hindi dictionaries for all primary journey, case, diagnosis, event, recovery, safety, and print strings with parity tests. |
+| Assisted journey | Added a state-preserving helper mode that names the fictional beneficiary and keeps direct citizen wording distinct. |
+| Accessibility | Added language controls, semantic landmarks, programmatic labels, visible focus, live status announcements, absolute timestamps, and text-backed status meaning. |
+| Low-data UI | Kept the build local-only with system fonts and no remote media, analytics, or runtime translation service. |
+| Print | Added bilingual packet context with source/timestamp evidence and print CSS that removes navigation and interactive controls. |
+| Verification | Ran 360-pixel browser checks for English/Hindi, all three synthetic journeys, browser-back state, masked packet output, and simulated recovery announcements. |

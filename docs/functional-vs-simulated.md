@@ -3,6 +3,11 @@
 This is an independent hackathon prototype. The distinction below is part of
 the product contract and should remain visible in the demo and submission.
 
+The 0.3.0 interface shows this disclosure in both English and Hindi. Switching
+language, assisted mode, printing, and moving the local tracker are functional
+browser interactions; none submits a record to a government, bank, or other
+external service.
+
 | Capability | Prototype behavior |
 |---|---|
 | Safe lookup | Functional for the three fictional references `DBT-SUNITA-001`, `DBT-ARJUN-002`, and `DBT-MEENA-003` only. |

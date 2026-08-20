@@ -35,11 +35,31 @@ print dialog; no document is uploaded anywhere.
 
 ## Scope
 
-The 0.2.0 release demonstrates three English payment journeys across
-Aadhaar-based and account-based routes, including a mapped-account success,
-an invalid-IFSC correction, and an unavailable Aadhaar mapping. It is not an
-official government service and does not determine eligibility, correct real
-records, or release money.
+The 0.3.0 release adds reviewed English and Hindi copy, a language switch that
+preserves the journey, assisted mode for a family member or service-centre
+helper, accessible focus and live status announcements, absolute timestamps,
+low-data system-font presentation, and bilingual browser-printable packets.
+The three fictional journeys remain available across Aadhaar-based and
+account-based routes: a mapped-account success, an invalid-IFSC correction,
+and an unavailable Aadhaar mapping.
+
+The app is not an official government service and does not determine
+eligibility, correct real records, or release money. All government, PFMS,
+NPCI, Aadhaar, bank, acknowledgement, reissue, and credit behavior is
+simulated locally.
+
+## Accessibility and language review
+
+Use the language buttons before lookup or at any later step. Use assisted mode
+when a helper is explaining a fictional beneficiary's case; the mode keeps the
+beneficiary and helper roles explicit. The release uses semantic landmarks,
+labelled controls, visible focus, live status announcements, text plus icons,
+system fonts, 44-pixel controls, and browser-native printing.
+
+The manual test record is in
+[docs/accessibility-checklist.md](docs/accessibility-checklist.md). Final Hindi
+terminology and screen-reader review remain human approval gates before any
+real deployment or official-service claim.
 
 See [functional-versus-simulated disclosure](docs/functional-vs-simulated.md)
 and the [dependency and asset inventory](docs/dependencies-and-assets.md).
