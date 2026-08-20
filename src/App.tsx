@@ -69,7 +69,7 @@ export function DiagnosisAudit({ payment, diagnosis, language }: { payment: Paym
 }
 
 export default function App() {
-  const [reference, setReference] = useState('DBT-MEENA-003')
+  const [reference, setReference] = useState('DBT-SUNITA-001')
   const [payment, setPayment] = useState<PaymentCase | null>(null)
   const [error, setError] = useState('')
   const [step, setStep] = useState(0)
@@ -155,7 +155,7 @@ export default function App() {
     setPayment(null)
     setError('')
     setStep(0)
-    setReference('DBT-MEENA-003')
+    setReference('DBT-SUNITA-001')
     setRecoveryState('needs-correction')
     setAnnouncement(t(language, 'findYourPayment'))
     window.history.replaceState({ dbtStep: 0 }, '', window.location.href)
@@ -175,7 +175,7 @@ export default function App() {
 
     <main className="content" id="main-content">
       <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</div>
-      <details className="disclosure"><summary>{t(language, 'disclosureTitle')}</summary><p>{t(language, 'disclosureBody')}</p></details>
+      <details className="disclosure"><summary>{t(language, 'disclosureTitle')}</summary><p>{t(language, 'disclosureBody')}</p><p><a href="https://github.com/aakashpawar1999/dbt-rescue/blob/main/docs/functional-vs-simulated.md" target="_blank" rel="noreferrer">{t(language, 'functionalDisclosure')}</a> · <a href="https://github.com/aakashpawar1999/dbt-rescue/blob/main/docs/known-limitations.md" target="_blank" rel="noreferrer">{t(language, 'knownLimitations')}</a></p></details>
 
       <nav className="progress" aria-label={t(language, 'recoveryTracker')}>
         {STEP_KEYS.map((key, index) => <span className={index === step ? 'progress-step active' : index < step ? 'progress-step complete' : 'progress-step'} aria-current={index === step ? 'step' : undefined} key={key}>
