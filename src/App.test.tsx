@@ -15,5 +15,18 @@ describe('DBT Rescue safe entry point', () => {
     expect(html).toContain('Account-based')
     expect(html).toContain('Do not enter real Aadhaar')
     expect(html).not.toContain('Enter your Aadhaar')
+    expect(html).toContain('English')
+    expect(html).toContain('हिन्दी')
+    expect(html).toContain('Use assisted mode')
+    expect(html).toContain('aria-live="polite"')
+  })
+
+  it('exposes names and instructions for critical controls', () => {
+    const html = renderToStaticMarkup(<App />)
+
+    expect(html).toContain('role="group" aria-label="Language"')
+    expect(html).toContain('aria-describedby="reference-help"')
+    expect(html).toContain('What works and what is simulated')
+    expect(html).toContain('role="status" aria-live="polite"')
   })
 })
