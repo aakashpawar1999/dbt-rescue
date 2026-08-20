@@ -8,7 +8,9 @@
 - Added the three-minute demo script, transcript, submission write-up, and release manifest.
 - Kept all external integrations, acknowledgements, retries, reissues, and credits fictional or simulated.
 
-Public deployment, tag, GitHub Release, video URL, and organiser submission URL remain pending final verification.
+Public deployment, tag, GitHub Release, and transcript are verified. Video
+publication was removed from 0.5.0 by the approved scope change; the organiser
+submission URL remains unknown.
 
 ## [0.4.0] — 2026-08-20
 
