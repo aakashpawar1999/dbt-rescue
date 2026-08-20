@@ -1,0 +1,3 @@
+@media print {
+  .text-button, .button-row, .technical-details, .progress { display: none !important; }
+}
