@@ -84,6 +84,21 @@ input { width: 100%; border: 1px solid var(--border); border-radius: 10px; backg
 code { border-radius: 5px; background: oklch(0.94 0.01 150); padding: 2px 5px; }
 .owner-card { margin: 22px 0; border: 1px solid oklch(0.78 0.06 150); border-radius: 10px; background: var(--soft); padding: 18px; }
 .check-list { display: grid; gap: 10px; margin: 10px 0 0; padding-left: 22px; color: var(--accent); line-height: 1.45; }
+.printable-packet { border: 1px solid var(--border); border-radius: 10px; background: var(--bg); padding: 18px; }
+.request-details { display: grid; gap: 12px; margin: 22px 0; }
+.request-details div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; border-bottom: 1px solid var(--border); padding-bottom: 9px; }
+.request-details dt { color: var(--muted); }
+.request-details dd { margin: 0; font-weight: 800; text-align: right; }
+.request-action { margin: 20px 0; border-radius: 10px; background: var(--soft); padding: 14px; color: var(--accent); line-height: 1.5; }
+.request-action p:last-child { margin: 0; }
+.acknowledgement-card { display: grid; gap: 6px; margin: 24px 0; border: 1px solid oklch(0.78 0.06 150); border-radius: 10px; background: var(--soft); padding: 18px; color: var(--accent); }
+.acknowledgement-card small { color: var(--muted); }
+.recovery-list { display: grid; gap: 13px; list-style: none; margin: 26px 0; padding: 0; }
+.recovery-item { display: flex; align-items: center; gap: 12px; color: var(--muted); font-weight: 700; }
+.recovery-item.reached { color: var(--accent); }
+.recovery-dot { display: grid; width: 26px; height: 26px; place-items: center; border: 1px solid var(--border); border-radius: 50%; background: var(--surface); font-size: .78rem; }
+.recovery-item.reached .recovery-dot { border-color: var(--success); background: var(--success); color: white; }
+.success-message { margin-top: 22px; border: 1px solid oklch(0.78 0.06 150); border-radius: 10px; background: var(--soft); padding: 15px; color: var(--accent); line-height: 1.5; }
 
 @media (min-width: 600px) {
   .topbar, .content, .prototype-notice { width: min(100% - 48px, 820px); }
