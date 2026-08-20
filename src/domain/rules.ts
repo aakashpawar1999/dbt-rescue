@@ -41,6 +41,7 @@ type RuleRecord = Omit<PaymentDiagnosis, 'scheme' | 'route' | 'provenance'> & {
   schemeScope: string
   route: PaymentRoute
   eventId: string
+  rawReason: string
   sourceTitle: string
   sourceUrl: string
   reviewerStatus: ReviewerStatus
