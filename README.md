@@ -1,17 +1,43 @@
-# dbt-rescue
-Paisa Kahan Atka? — DBT Rescue | A citizen expecting a government benefit can understand where the payment   stopped, why it failed, who can fix it, and how to track it through recovery.
+# Paisa Kahan Atka? — DBT Rescue
 
-## Planned stack
+An independent hackathon prototype that helps a citizen understand where a
+fictional government benefit payment stopped, why it failed, who can fix it, and
+how to follow simulated recovery.
 
-- React + TypeScript + Vite
-- Tailwind CSS through `@tailwindcss/vite`, with semantic HTML and a 360 px mobile-first baseline
-- Local JSON fixtures and deterministic TypeScript rules
-- Browser state and browser-native printing; no backend, database, authentication, or live government APIs
-- Vitest for automated checks
-- Node.js 24 LTS and npm for development and CI
+## Safe demo
 
-This is a mobile-first web app, not a separate native mobile app. A PWA layer is intentionally deferred unless the working prototype proves it is needed.
+Use only the fictional reference `DBT-MEENA-003`. Never enter a real Aadhaar
+number, bank-account number, OTP, government login, or personal information.
+This prototype has no live government, banking, identity, analytics, or model
+API requests.
 
-## Automation
+## Local development
 
-GitHub Actions runs install, lint, tests, and build checks after the application scaffold adds `package-lock.json`. Pushing a version tag such as `v0.1.0` runs the same checks and creates a GitHub Release with generated notes.
+Requires Node.js 24 LTS and npm.
+
+```sh
+npm install
+npm run dev
+```
+
+Checks and production build:
+
+```sh
+npm test
+npm run lint
+npm run build
+```
+
+The app uses local fictional fixtures, deterministic rules, browser state, and
+browser-native printing. Printing the correction request uses the browser's
+print dialog; no document is uploaded anywhere.
+
+## Scope
+
+The current release demonstrates one English pension-payment rescue journey
+with simulated acknowledgement, record update, reissue, and final credit. It
+is not an official government service and does not determine eligibility,
+correct real records, or release money.
+
+See [functional-versus-simulated disclosure](docs/functional-vs-simulated.md)
+and the [dependency and asset inventory](docs/dependencies-and-assets.md).
