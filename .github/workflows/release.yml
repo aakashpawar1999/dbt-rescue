@@ -19,11 +19,14 @@ jobs:
       - name: Verify application
         run: |
           test -f package-lock.json
-          npm ci
-          npm run lint --if-present
-          npm test --if-present
+          npm install
+          npm run lint
+          npm test
           npm run build
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" --verify-tag --generate-notes
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          release_name="$(node -p "require('./package.json').name + ' ' + process.argv[1]" "$version")"
+          gh release create "$GITHUB_REF_NAME" --verify-tag --title "$release_name" --generate-notes

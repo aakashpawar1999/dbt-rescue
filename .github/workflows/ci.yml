@@ -17,11 +17,8 @@ jobs:
           node-version: 24
       - name: Check application
         run: |
-          if [ ! -f package-lock.json ]; then
-            echo "::notice::CI is ready and will activate when the application scaffold adds package-lock.json."
-            exit 0
-          fi
-          npm ci
-          npm run lint --if-present
-          npm test --if-present
+          test -f package-lock.json
+          npm install
+          npm run lint
+          npm test
           npm run build
