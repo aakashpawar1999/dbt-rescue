@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0] — 2026-08-20
+
+- Added reviewed English and Hindi journey copy with state-preserving language switching.
+- Added assisted mode with explicit fictional beneficiary and helper context.
+- Added live status announcements, accessible labels, visible focus, absolute timestamps, and 360px mobile layout safeguards.
+- Added low-data system-font presentation and bilingual browser-printable trace/correction packets.
+- Added translation parity, critical-control, case-coverage, and deterministic-rule checks.
+- Documented accessibility, print, functional-versus-simulated, licence, and Codex contribution evidence.
+
+All government, PFMS, NPCI, Aadhaar, bank, acknowledgement, reissue, and credit behavior remains fictional or simulated.
+
 ## [0.2.0] — dbt-rescue 0.2.0 — 2026-08-20
 
 ### Added
