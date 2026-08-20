@@ -1,3 +1,5 @@
+// @ts-expect-error Vitest runs this host-only test under Node; the app build has no Node types.
+import { readFileSync } from 'node:fs'
 import packageJson from '../package.json'
 import { describe, expect, it } from 'vitest'
 import { PAYMENT_CASES } from './domain/cases'
@@ -29,5 +31,12 @@ describe('0.5.0 release boundary', () => {
 
   it('ships the planned package version', () => {
     expect(packageJson.version).toBe('0.5.0')
+  })
+
+  it('pins every Pages action to a full commit SHA', () => {
+    const workflow = readFileSync(new URL('../.github/workflows/pages.yml', import.meta.url), 'utf8')
+    const refs = [...workflow.matchAll(/uses:\s*[^@\s]+@([^\s]+)/g)].map((match) => match[1])
+    expect(refs.length).toBeGreaterThan(0)
+    expect(refs.every((ref) => /^[0-9a-f]{40}$/.test(ref))).toBe(true)
   })
 })
