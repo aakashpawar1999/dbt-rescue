@@ -32,6 +32,15 @@ artifact; it is not an author or attribution line.
 The runtime does not use an AI chatbot or model-generated banking remedy. The
 diagnosis remains deterministic and testable.
 
+## 0.5.0 contributions
+
+| Area | Work performed and resulting artifact |
+|---|---|
+| Demo readiness | Changed the default path to fictional Sunita, added static-host-compatible asset handling, and linked the public disclosure to the functional boundary and known limitations. |
+| Release automation | Added the GitHub Pages workflow and documented the intended signed-out public URL and rollback checks. |
+| Submission package | Wrote the timed demo script, transcript, submission write-up, release notes, and manifest with confirmed-versus-unknown link status. |
+| Verification | Added the release-version safety assertion and ran the red-green entry-point and disclosure-link checks, full tests, lint, build, and diff checks. |
+
 ## 0.3.0 contributions
 
 | Area | Contribution |

@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.0] — 2026-08-20
+
+- Prepared a judge-focused public path beginning with fictional `DBT-SUNITA-001`.
+- Added static-host-compatible relative asset paths and a GitHub Pages workflow.
+- Linked the in-app simulation disclosure to the functional boundary and known limitations.
+- Added the three-minute demo script, transcript, submission write-up, and release manifest.
+- Kept all external integrations, acknowledgements, retries, reissues, and credits fictional or simulated.
+
+Public deployment, tag, GitHub Release, video URL, and organiser submission URL remain pending final verification.
+
 ## [0.4.0] — 2026-08-20
 
 - Added versioned provenance for each supported diagnosis: matched fictional event, raw reason, stable rule ID/version, source URL, scheme scope, route, review date, and reviewer status.
