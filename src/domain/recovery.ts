@@ -1,5 +1,5 @@
 import type { PaymentCase } from './cases'
-import type { PaymentDiagnosis } from './rules'
+import type { PaymentDiagnosis, RecoveryType } from './rules'
 
 export type RecoveryState =
   | 'needs-correction'
@@ -7,14 +7,16 @@ export type RecoveryState =
   | 'record-updated'
   | 'payment-reissued'
   | 'account-credited'
+  | 'needs-trace'
+  | 'trace-requested'
+  | 'trace-confirmed'
 
-export const RECOVERY_STATES: RecoveryState[] = [
-  'needs-correction',
-  'correction-submitted',
-  'record-updated',
-  'payment-reissued',
-  'account-credited',
-]
+const RECOVERY_SEQUENCES: Record<RecoveryType, RecoveryState[]> = {
+  correction: ['needs-correction', 'correction-submitted', 'record-updated', 'payment-reissued', 'account-credited'],
+  trace: ['needs-trace', 'trace-requested', 'trace-confirmed'],
+}
+
+export const RECOVERY_STATES = RECOVERY_SEQUENCES.correction
 
 export const RECOVERY_LABELS: Record<RecoveryState, string> = {
   'needs-correction': 'Correction needed',
@@ -22,14 +24,13 @@ export const RECOVERY_LABELS: Record<RecoveryState, string> = {
   'record-updated': 'Pension record updated',
   'payment-reissued': 'Payment reissued',
   'account-credited': 'Account credited',
+  'needs-trace': 'Check mapped bank or request a trace',
+  'trace-requested': 'Bank trace requested',
+  'trace-confirmed': 'Bank trace completed',
 }
 
-const NEXT_STATE: Record<RecoveryState, RecoveryState> = {
-  'needs-correction': 'correction-submitted',
-  'correction-submitted': 'record-updated',
-  'record-updated': 'payment-reissued',
-  'payment-reissued': 'account-credited',
-  'account-credited': 'account-credited',
+export function getRecoveryStates(type: RecoveryType): RecoveryState[] {
+  return RECOVERY_SEQUENCES[type]
 }
 
 export type CorrectionRequest = {
@@ -40,10 +41,14 @@ export type CorrectionRequest = {
   owner: string
   action: string
   documents: string[]
+  requestType: RecoveryType
+  nextState: string
 }
 
-export function advanceRecovery(state: RecoveryState): RecoveryState {
-  return NEXT_STATE[state]
+export function advanceRecovery(state: RecoveryState, type: RecoveryType = 'correction'): RecoveryState {
+  const states = getRecoveryStates(type)
+  const index = states.indexOf(state)
+  return states[Math.min(index + 1, states.length - 1)]
 }
 
 export function buildCorrectionRequest(payment: PaymentCase, diagnosis: PaymentDiagnosis): CorrectionRequest {
@@ -55,5 +60,7 @@ export function buildCorrectionRequest(payment: PaymentCase, diagnosis: PaymentD
     owner: diagnosis.owner,
     action: diagnosis.action,
     documents: diagnosis.documents,
+    requestType: diagnosis.recoveryType,
+    nextState: diagnosis.nextState,
   }
 }

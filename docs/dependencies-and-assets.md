@@ -4,6 +4,7 @@
 
 | Item | Purpose | Licence |
 |---|---|---|
+| Bun | Dependency installation and project scripts | MIT |
 | React | UI runtime | MIT |
 | React DOM | Browser rendering | MIT |
 | TypeScript | Type checking | Apache-2.0 |
@@ -13,7 +14,7 @@
 | `@tailwindcss/vite` | Tailwind integration for Vite | MIT |
 | Vitest | Deterministic automated checks | MIT |
 
-Exact resolved versions are recorded in `package-lock.json`.
+Exact resolved versions are recorded in `bun.lock`.
 
 ## Assets and data
 

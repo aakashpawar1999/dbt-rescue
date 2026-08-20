@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
-import { findPaymentCase, type PaymentCase } from './domain/cases'
-import { advanceRecovery, buildCorrectionRequest, RECOVERY_LABELS, RECOVERY_STATES, type RecoveryState } from './domain/recovery'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { findPaymentCase, latestConfirmedEvent, PAYMENT_CASES, type PaymentCase } from './domain/cases'
+import { advanceRecovery, buildCorrectionRequest, getRecoveryStates, RECOVERY_LABELS, type RecoveryState } from './domain/recovery'
 import { diagnosePayment } from './domain/rules'
 
 const STEPS = [
@@ -22,8 +22,18 @@ function formatDate(value: string) {
 }
 
 function StatusPill({ status }: { status: string }) {
-  const label = status === 'confirmed' ? 'Confirmed' : status === 'failed' ? 'Stopped here' : 'Not received'
+  const label = status === 'confirmed'
+    ? 'Confirmed'
+    : status === 'failed'
+      ? 'Stopped here'
+      : status === 'conflict'
+        ? 'Conflicting report'
+        : 'No response'
   return <span className={`status-pill status-${status}`}>{label}</span>
+}
+
+function routeLabel(route: PaymentCase['route']) {
+  return route === 'aadhaar' ? 'Aadhaar-based' : 'Account-based'
 }
 
 function PrototypeNotice() {
@@ -54,6 +64,15 @@ export default function App() {
   const [recoveryState, setRecoveryState] = useState<RecoveryState>('needs-correction')
   const diagnosis = useMemo(() => payment ? diagnosePayment(payment) : null, [payment])
   const correctionRequest = useMemo(() => payment && diagnosis ? buildCorrectionRequest(payment, diagnosis) : null, [payment, diagnosis])
+  const recoveryStates = diagnosis ? getRecoveryStates(diagnosis.recoveryType) : getRecoveryStates('correction')
+  const latestEvent = payment ? latestConfirmedEvent(payment) : null
+  const resultHeadingRef = useRef<HTMLHeadingElement>(null)
+  const errorRef = useRef<HTMLParagraphElement>(null)
+
+  useEffect(() => {
+    if (error) errorRef.current?.focus()
+    else if (payment && step === 1) resultHeadingRef.current?.focus()
+  }, [error, payment, step])
 
   function lookup(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -61,11 +80,13 @@ export default function App() {
     if (!result) {
       setPayment(null)
       setError('We could not find that demo reference. Try DBT-MEENA-003.')
+      setStep(0)
+      setRecoveryState('needs-correction')
       return
     }
     setPayment(result)
     setError('')
-    setRecoveryState('needs-correction')
+    setRecoveryState(getRecoveryStates(diagnosePayment(result).recoveryType)[0])
     setStep(1)
   }
 
@@ -105,7 +126,11 @@ export default function App() {
             <h2 id="lookup-title">Find your payment</h2>
             <p className="lead">See where a government benefit payment stopped, why it stopped, and what to do next.</p>
             <form onSubmit={lookup}>
-              <label htmlFor="reference">Demo payment reference</label>
+              <label htmlFor="demo-case">Choose a fictional payment</label>
+              <select id="demo-case" value={reference} onChange={(event) => setReference(event.target.value)}>
+                {PAYMENT_CASES.map((demo) => <option value={demo.reference} key={demo.reference}>{demo.reference} · {demo.benefit} · {routeLabel(demo.route)}</option>)}
+              </select>
+              <label htmlFor="reference">Or enter a demo payment reference</label>
               <input
                 id="reference"
                 name="reference"
@@ -116,7 +141,7 @@ export default function App() {
                 aria-describedby="reference-help"
               />
               <p className="field-help" id="reference-help">Try the fictional reference shown above. No personal information is needed.</p>
-              {error && <p className="error-message" role="alert">{error}</p>}
+              {error && <p className="error-message" role="alert" tabIndex={-1} ref={errorRef}>{error}</p>}
               <button className="primary-button" type="submit">Show payment journey <span aria-hidden="true">→</span></button>
             </form>
           </section>
@@ -125,8 +150,9 @@ export default function App() {
         {step === 1 && payment && (
           <section className="card" aria-labelledby="journey-title" aria-live="polite">
             <StepHeader step={1} payment={payment} />
-            <h2 id="journey-title">Where did it stop?</h2>
+            <h2 id="journey-title" tabIndex={-1} ref={resultHeadingRef}>{latestEvent?.status === 'confirmed' ? 'Where is the payment now?' : 'Where did it stop?'}</h2>
             <p className="lead">This is the path taken by the fictional payment. The latest confirmed event is marked below.</p>
+            <p className="event-meta"><strong>Route:</strong> {routeLabel(payment.route)} <span aria-hidden="true">·</span> <strong>Latest confirmed:</strong> {latestEvent?.stage ?? 'No confirmed event'}</p>
             <ol className="timeline">
               {payment.events.map((event) => (
                 <li className="timeline-item" key={event.id}>
@@ -156,7 +182,7 @@ export default function App() {
             <div className="signal-card">
               <span className="signal-icon" aria-hidden="true">!</span>
               <div>
-                <p className="eyebrow">Payment stopped</p>
+                <p className="eyebrow">{diagnosis.recoveryType === 'trace' ? 'Payment reached another mapped account' : 'Payment stopped'}</p>
                 <h2 id="diagnosis-title">{diagnosis.reason}</h2>
               </div>
             </div>
@@ -176,7 +202,7 @@ export default function App() {
         {step === 3 && payment && diagnosis && (
           <section className="card" aria-labelledby="action-title">
             <StepHeader step={3} payment={payment} />
-            <p className="eyebrow">Who can fix this?</p>
+            <p className="eyebrow">{diagnosis.recoveryType === 'trace' ? 'What to check next?' : 'Who can fix this?'}</p>
             <h2 id="action-title">Start with {diagnosis.owner.toLowerCase()}</h2>
             <p className="lead">{diagnosis.action}</p>
             <div className="owner-card">
@@ -185,10 +211,10 @@ export default function App() {
                 {diagnosis.documents.map((document) => <li key={document}>{document}</li>)}
               </ul>
             </div>
-            <p className="muted">After the bank confirms the mapping, the pension office still needs to update and reprocess the payment. A bank correction does not release money automatically.</p>
+            <p className="muted">Next simulated state: {diagnosis.nextState}. This demo does not change a real bank or scheme record.</p>
             <div className="button-row">
               <button className="secondary-button" type="button" onClick={() => setStep(2)}>Back</button>
-              <button className="primary-button" type="button" onClick={() => setStep(4)}>Prepare correction packet <span aria-hidden="true">→</span></button>
+              <button className="primary-button" type="button" onClick={() => setStep(4)}>Prepare {diagnosis.recoveryType === 'trace' ? 'trace' : 'correction'} request <span aria-hidden="true">→</span></button>
             </div>
           </section>
         )}
@@ -197,7 +223,7 @@ export default function App() {
           <section className="card" aria-labelledby="packet-title">
             <StepHeader step={4} payment={payment} />
             <div className="printable-packet">
-              <p className="eyebrow">Fictional correction request</p>
+              <p className="eyebrow">Fictional {correctionRequest.requestType === 'trace' ? 'trace' : 'correction'} request</p>
               <h2 id="packet-title">Take this to {correctionRequest.owner.toLowerCase()}</h2>
               <p className="muted">Print this page or show it at the branch. It contains only synthetic demo information.</p>
               <dl className="request-details">
@@ -207,7 +233,7 @@ export default function App() {
                 <div><dt>Account shown in demo</dt><dd>{correctionRequest.account}</dd></div>
               </dl>
               <div className="request-action">
-                <p className="eyebrow">Ask for this correction</p>
+                <p className="eyebrow">Ask for this action</p>
                 <p>{correctionRequest.action}</p>
               </div>
               <p className="eyebrow">Carry</p>
@@ -218,21 +244,21 @@ export default function App() {
             <div className="button-row">
               <button className="secondary-button" type="button" onClick={() => setStep(3)}>Back</button>
               <button className="secondary-button" type="button" onClick={() => window.print()}>Print request</button>
-              <button className="primary-button" type="button" onClick={() => { setRecoveryState('correction-submitted'); setStep(5) }}>Record fictional acknowledgement <span aria-hidden="true">→</span></button>
+              <button className="primary-button" type="button" onClick={() => { setRecoveryState(recoveryStates[1] ?? recoveryStates[0]); setStep(5) }}>Record fictional acknowledgement <span aria-hidden="true">→</span></button>
             </div>
           </section>
         )}
 
-        {step === 5 && payment && (
+        {step === 5 && payment && diagnosis && (
           <section className="card" aria-labelledby="acknowledgement-title" aria-live="polite">
             <StepHeader step={5} payment={payment} />
             <p className="eyebrow">Fictional acknowledgement</p>
-            <h2 id="acknowledgement-title">Your correction request is recorded</h2>
-            <p className="lead">This acknowledgement is simulated for the demo. In a real service, the bank and pension office would provide their own confirmation.</p>
+            <h2 id="acknowledgement-title">Your {diagnosis.recoveryType === 'trace' ? 'trace request' : 'correction request'} is recorded</h2>
+            <p className="lead">This acknowledgement is simulated for the demo. In a real service, the responsible organisation would provide its own confirmation.</p>
             <div className="acknowledgement-card">
-              <strong>DBT-MEENA-003</strong>
-              <span>Bank mapping correction submitted</span>
-              <small>Reference: ACK-DEMO-003 · 18 August 2026, 10:05 AM IST</small>
+              <strong>{payment.reference}</strong>
+              <span>{diagnosis.recoveryType === 'trace' ? 'Bank trace request submitted' : `${diagnosis.owner} correction submitted`}</span>
+              <small>Reference: ACK-DEMO-{payment.reference.slice(-3)} · 18 August 2026, 10:05 AM IST</small>
             </div>
             <div className="button-row">
               <button className="secondary-button" type="button" onClick={() => setStep(4)}>Back</button>
@@ -241,29 +267,29 @@ export default function App() {
           </section>
         )}
 
-        {step === 6 && payment && (
+        {step === 6 && payment && diagnosis && (
           <section className="card" aria-labelledby="recovery-title" aria-live="polite">
             <StepHeader step={6} payment={payment} />
             <p className="eyebrow">Simulated tracker</p>
             <h2 id="recovery-title">Follow what happens next</h2>
-            <p className="lead">A bank correction and a payment reissue are separate steps. This demo keeps them visible.</p>
+            <p className="lead">This demo keeps the next steps visible without claiming that a local action changed a real account.</p>
             <ol className="recovery-list">
-              {RECOVERY_STATES.map((state) => {
-                const currentIndex = RECOVERY_STATES.indexOf(recoveryState)
-                const stateIndex = RECOVERY_STATES.indexOf(state)
+              {recoveryStates.map((state) => {
+                const currentIndex = recoveryStates.indexOf(recoveryState)
+                const stateIndex = recoveryStates.indexOf(state)
                 return <li className={stateIndex <= currentIndex ? 'recovery-item reached' : 'recovery-item'} key={state}>
                   <span className="recovery-dot" aria-hidden="true">{stateIndex <= currentIndex ? '✓' : stateIndex + 1}</span>
                   <span>{RECOVERY_LABELS[state]}</span>
                 </li>
               })}
             </ol>
-            {recoveryState !== 'account-credited' ? (
-              <button className="primary-button" type="button" onClick={() => setRecoveryState(advanceRecovery(recoveryState))}>Show next simulated update <span aria-hidden="true">→</span></button>
+            {recoveryState !== recoveryStates[recoveryStates.length - 1] ? (
+              <button className="primary-button" type="button" onClick={() => setRecoveryState(advanceRecovery(recoveryState, diagnosis.recoveryType))}>Show next simulated update <span aria-hidden="true">→</span></button>
             ) : (
-              <div className="success-message" role="status"><strong>Account credited in this demo.</strong> This is a simulated final state, not a real bank confirmation.</div>
+              <div className="success-message" role="status"><strong>{RECOVERY_LABELS[recoveryState]} in this demo.</strong> This is a simulated final state, not a real bank confirmation.</div>
             )}
             <div className="button-row">
-              <button className="secondary-button" type="button" onClick={() => setStep(4)}>View correction packet</button>
+              <button className="secondary-button" type="button" onClick={() => setStep(4)}>View request</button>
               <button className="text-button" type="button" onClick={reset}>Start another demo</button>
             </div>
           </section>
