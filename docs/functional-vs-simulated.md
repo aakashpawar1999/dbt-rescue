@@ -2,6 +2,8 @@
 
 This is an independent hackathon prototype. The distinction below is part of
 the product contract and should remain visible in the demo and submission.
+The audit view is a functional local disclosure of the evidence attached to a
+synthetic diagnosis; it is not a live source lookup.
 
 The 0.3.0 interface shows this disclosure in both English and Hindi. Switching
 language, assisted mode, printing, and moving the local tracker are functional
@@ -13,6 +15,9 @@ external service.
 | Safe lookup | Functional for the three fictional references `DBT-SUNITA-001`, `DBT-ARJUN-002`, and `DBT-MEENA-003` only. |
 | Payment timeline | Functional local rendering of fictional Aadhaar-based and account-based events with source, timestamp, route, and missing/conflicting status. |
 | Failure diagnosis | Functional deterministic rules reviewed against the product brief for mapped-account success, invalid IFSC, and unavailable Aadhaar mapping. |
+| Diagnosis provenance | Functional local rendering of the matched fictional event, stable rule identifier/version, raw reason, source label/URL, scheme scope, route, review date, and reviewer status. |
+| Unknown-rule fallback | Functional safe local behavior that withholds a specific remedy when a raw reason has no reviewed rule. |
+| Conflict preservation | Functional local rendering of every fictional event and the latest confirmed event without deleting conflicting or missing reports. |
 | Owner and remedy | Functional local guidance for the responsible bank, scheme department, or trace desk. |
 | Correction packet | Functional browser-rendered and browser-printable page using masked synthetic values. |
 | Trace request | Functional browser-rendered and browser-printable request for the mapped-account scenario. |
@@ -22,6 +27,14 @@ external service.
 | Account credit | Simulated final state; not a bank confirmation and not a money movement. |
 | PFMS, NPCI, bank, Aadhaar, and scheme systems | Simulated labels and local fixture data only. |
 | Eligibility and approval | Not provided. DBT Rescue does not decide whether anyone qualifies. |
+
+## Proposed, not functional
+
+The production architecture, privacy/security model, operating model,
+status-and-resolution contract, failure handling, authorised adapters, consent,
+case trail, reprocessing, notifications, and governance documents are proposed
+boundaries. They require participating-organisation approval and are not
+implemented by this release.
 
 Never enter real Aadhaar numbers, bank-account numbers, OTPs, government login
 details, or personal information. The app makes no live government, banking,

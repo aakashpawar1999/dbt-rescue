@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { findPaymentCase, latestConfirmedEvent } from './cases'
-import { diagnosePayment } from './rules'
+import { findPaymentCase, latestConfirmedEvent, PAYMENT_CASES } from './cases'
+import { diagnoseEvent, diagnosePayment } from './rules'
 
 describe('fictional DBT fixtures', () => {
   it.each([
@@ -50,5 +50,46 @@ describe('fictional DBT fixtures', () => {
     if (!payment) throw new Error('fixture missing')
 
     expect(latestConfirmedEvent(payment)?.id).toBe('mapper-failed')
+  })
+
+  it.each([
+    ['DBT-SUNITA-001', 'mapper-routed', 'MAPPED_TO_BANK_B', 'DBT-SUNITA-001-RULE-1'],
+    ['DBT-ARJUN-002', 'destination-failed', 'INVALID_IFSC', 'DBT-ARJUN-002-RULE-1'],
+    ['DBT-MEENA-003', 'mapper-failed', 'UID_NOT_MAPPED', 'DBT-MEENA-003-RULE-1'],
+  ])('records exact provenance for %s', (reference, eventId, rawReason, ruleId) => {
+    const payment = findPaymentCase(reference)
+    if (!payment) throw new Error('fixture missing')
+
+    const diagnosis = diagnosePayment(payment)
+
+    expect(diagnosis.provenance.matchedEventId).toBe(eventId)
+    expect(diagnosis.provenance.rawReason).toBe(rawReason)
+    expect(diagnosis.provenance.ruleId).toBe(ruleId)
+    expect(diagnosis.provenance.reviewerStatus).toBe('human-reviewed')
+    expect(diagnosis.provenance.sourceUrl).toMatch(/^https:\/\//)
+  })
+
+  it('uses a safe fallback when a raw reason has no reviewed rule', () => {
+    const payment = findPaymentCase('DBT-MEENA-003')
+    if (!payment) throw new Error('fixture missing')
+    const event = { ...payment.events[3], rawReason: 'UNREVIEWED_REASON' }
+
+    const diagnosis = diagnoseEvent(payment, event)
+
+    expect(diagnosis.provenance.reviewerStatus).toBe('unreviewed')
+    expect(diagnosis.provenance.ruleId).toBe('UNKNOWN-RAW-REASON')
+    expect(diagnosis.action).toContain('Do not use a specific remedy')
+  })
+
+  it('resolves every shipped event to a reviewed rule or the safe fallback', () => {
+    for (const payment of PAYMENT_CASES) {
+      for (const event of payment.events) {
+        const diagnosis = diagnoseEvent(payment, event)
+        expect(['human-reviewed', 'unreviewed']).toContain(diagnosis.provenance.reviewerStatus)
+        if (diagnosis.provenance.reviewerStatus === 'unreviewed') {
+          expect(diagnosis.action).toContain('Do not use a specific remedy')
+        }
+      }
+    }
   })
 })

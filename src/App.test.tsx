@@ -1,6 +1,8 @@
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
-import App from './App'
+import App, { DiagnosisAudit } from './App'
+import { findPaymentCase } from './domain/cases'
+import { diagnosePayment } from './domain/rules'
 
 describe('DBT Rescue safe entry point', () => {
   it('starts with the fictional reference and a clear prototype warning', () => {
@@ -28,5 +30,19 @@ describe('DBT Rescue safe entry point', () => {
     expect(html).toContain('aria-describedby="reference-help"')
     expect(html).toContain('What works and what is simulated')
     expect(html).toContain('role="status" aria-live="polite"')
+  })
+
+  it('shows exact rule provenance behind a diagnosis as progressive disclosure', () => {
+    const payment = findPaymentCase('DBT-ARJUN-002')
+    if (!payment) throw new Error('fixture missing')
+
+    const html = renderToStaticMarkup(<DiagnosisAudit payment={payment} diagnosis={diagnosePayment(payment)} language="en" />)
+
+    expect(html).toContain('How this diagnosis was decided')
+    expect(html).toContain('destination-failed')
+    expect(html).toContain('DBT-ARJUN-002-RULE-1')
+    expect(html).toContain('PFMS validation and payment rejection remedies')
+    expect(html).toContain('human-reviewed')
+    expect(html).toContain('INVALID_IFSC')
   })
 })
