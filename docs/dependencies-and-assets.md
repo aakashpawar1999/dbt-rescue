@@ -42,3 +42,11 @@ Exact resolved versions are recorded in `bun.lock`.
 | Audit view | Repository-authored React and CSS | Project code; no external asset |
 | Production documents | Repository-authored Markdown | Project documentation; proposed controls, not third-party content |
 | Dataset | Three repository-authored fictional cases | Synthetic; no personal or financial data |
+
+## 0.5.0 additions
+
+| Introduced item | Source | Licence/status |
+|---|---|---|
+| GitHub Pages workflow | [GitHub Pages Actions](https://github.com/actions/deploy-pages), [upload-pages-artifact](https://github.com/actions/upload-pages-artifact), and [configure-pages](https://github.com/actions/configure-pages) | MIT-licensed GitHub actions; used only for the static release artifact |
+| Bun CI workflow step | [oven-sh/setup-bun](https://github.com/oven-sh/setup-bun) | MIT; workflow tooling only |
+| Demo and submission documents | Repository-authored Markdown | Project documentation; no external media asset included |

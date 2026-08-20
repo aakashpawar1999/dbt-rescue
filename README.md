@@ -29,6 +29,13 @@ bun run lint
 bun run build
 ```
 
+## Public static demo
+
+The `main` branch can publish the verified static artifact through the GitHub
+Pages workflow after Pages is enabled for the repository. The intended signed-out
+URL is <https://aakashpawar1999.github.io/dbt-rescue/>; verify it in a private
+window before including it in a submission.
+
 The app uses local fictional fixtures, deterministic rules, browser state, and
 browser-native printing. Printing the correction request uses the browser's
 print dialog; no document is uploaded anywhere.

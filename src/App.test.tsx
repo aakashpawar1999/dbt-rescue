@@ -9,7 +9,8 @@ describe('DBT Rescue safe entry point', () => {
     const html = renderToStaticMarkup(<App />)
 
     expect(html).toContain('Independent hackathon prototype')
-    expect(html).toContain('DBT-MEENA-003')
+    expect(html).toContain('value="DBT-SUNITA-001" selected')
+    expect(html).not.toContain('value="DBT-MEENA-003" selected')
     expect(html).toContain('Choose a fictional payment')
     expect(html).toContain('DBT-SUNITA-001')
     expect(html).toContain('DBT-ARJUN-002')
@@ -29,6 +30,8 @@ describe('DBT Rescue safe entry point', () => {
     expect(html).toContain('role="group" aria-label="Language"')
     expect(html).toContain('aria-describedby="reference-help"')
     expect(html).toContain('What works and what is simulated')
+    expect(html).toContain('href="https://github.com/aakashpawar1999/dbt-rescue/blob/main/docs/functional-vs-simulated.md"')
+    expect(html).toContain('href="https://github.com/aakashpawar1999/dbt-rescue/blob/main/docs/known-limitations.md"')
     expect(html).toContain('role="status" aria-live="polite"')
   })
 

@@ -5,7 +5,7 @@ import { diagnoseEvent } from './domain/rules'
 
 const ALLOWED_SOURCE_HOSTS = ['dbtbharat.gov.in', 'pfms.nic.in', 'www.npci.org.in']
 
-describe('0.4.0 release boundary', () => {
+describe('0.5.0 release boundary', () => {
   it('covers every fixture event without inventing a reviewed remedy', () => {
     for (const payment of PAYMENT_CASES) {
       for (const event of payment.events) {
@@ -28,6 +28,6 @@ describe('0.4.0 release boundary', () => {
   })
 
   it('ships the planned package version', () => {
-    expect(packageJson.version).toBe('0.4.0')
+    expect(packageJson.version).toBe('0.5.0')
   })
 })
