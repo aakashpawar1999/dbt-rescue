@@ -65,6 +65,9 @@ describe('public identity metadata', () => {
     expect(socialPreview).not.toContain('#ff5a00')
     expect(socialPreview).not.toContain('#006b3c')
     expect(socialPreview).not.toContain('stroke="#ff5a00" stroke-width="92"')
+    expect(socialPreview).toContain('x="492" y="128"')
+    expect(socialPreview).toContain('x="492" y="218"')
+    expect(socialPreview).not.toContain('x="470"')
 
     expect(manifest).toContain('"name": "Paisa Kahan Atka? — DBT Rescue"')
     expect(manifest).toContain('"start_url": "/"')

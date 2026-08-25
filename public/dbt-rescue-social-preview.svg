@@ -2,15 +2,24 @@
   <title id="title">DBT Rescue social preview</title>
   <desc id="description">DBT Rescue helps people understand a fictional benefit payment route and its next recovery step.</desc>
   <rect width="1200" height="630" fill="#ffffff" />
-  <path d="M0 0h1200v28H0z" fill="#B54E0B" />
-  <path d="M0 602h1200v28H0z" fill="#004A35" />
-  <rect x="0" y="28" width="420" height="574" fill="#000000" />
-  <image href="/dbt-rescue-banner-logo.png" x="0" y="28" width="420" height="574" preserveAspectRatio="xMidYMid meet" />
+  <path d="M0 0h1200v20H0z" fill="#B54E0B" />
+  <path d="M0 610h1200v20H0z" fill="#004A35" />
+  <defs>
+    <clipPath id="banner-logo-clip"><rect x="40" y="195" width="360" height="240" rx="24" /></clipPath>
+  </defs>
+  <rect x="40" y="52" width="360" height="526" rx="24" fill="#f7fbf8" stroke="#d7e6df" stroke-width="2" />
+  <rect x="40" y="195" width="360" height="240" rx="24" fill="#000000" />
+  <image href="/dbt-rescue-banner-logo.png" x="40" y="195" width="360" height="240" preserveAspectRatio="xMidYMid meet" clip-path="url(#banner-logo-clip)" />
+  <rect x="436" y="52" width="724" height="526" rx="24" fill="#f7fbf8" />
   <g fill="#004A35" font-family="Arial, Helvetica, sans-serif">
-    <text x="470" y="220" font-size="34" font-weight="700" letter-spacing="5">PAISA KAHAN ATKA?</text>
-    <text x="470" y="315" font-size="88" font-weight="800">DBT Rescue</text>
-    <text x="470" y="375" font-size="30" fill="#004A35">Understand the stop. Find the owner. Track recovery.</text>
-    <text x="470" y="466" font-size="24" font-weight="700" fill="#004A35">Independent hackathon prototype · fictional data only</text>
-    <text x="470" y="505" font-size="22" fill="#004A35">No live government or bank connection</text>
+    <text x="492" y="128" font-size="30" font-weight="700" letter-spacing="4">PAISA KAHAN ATKA?</text>
+    <text x="492" y="218" font-size="76" font-weight="800">DBT Rescue</text>
+    <text x="492" y="278" font-size="28">Understand the stop.</text>
+    <text x="492" y="316" font-size="28">Find the owner. Track recovery.</text>
+    <path d="M492 366h612" stroke="#B54E0B" stroke-width="4" />
+    <text x="492" y="418" font-size="23" font-weight="700">Independent hackathon prototype</text>
+    <text x="492" y="454" font-size="21">Fictional data only</text>
+    <text x="492" y="486" font-size="21">No live government or bank connection</text>
+    <text x="492" y="530" font-size="18" fill="#B54E0B">Build What Moves India hackathon project</text>
   </g>
 </svg>
