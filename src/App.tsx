@@ -247,5 +247,10 @@ export default function App() {
         <div className="button-row"><button className="secondary-button" type="button" onClick={() => goTo(4)}>{t(language, 'viewRequest')}</button><button className="text-button" type="button" onClick={reset}>{t(language, 'startAnother')}</button></div>
       </section>}
     </main>
+    <footer className="site-footer" aria-label={t(language, 'footerLabel')}>
+      <p><strong>{t(language, 'hackathonProject')}</strong></p>
+      <p>{t(language, 'footerDisclosure')}</p>
+      <p>{t(language, 'footerSafety')}</p>
+    </footer>
   </div>
 }

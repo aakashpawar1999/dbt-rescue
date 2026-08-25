@@ -15,6 +15,9 @@
   web app manifest metadata for the public DBT Rescue site.
 - Added the local DBT Rescue brand mark and a 1200×630 social preview without
   official-government or real-data implications.
+- Added a persistent footer identifying the Build What Moves India hackathon
+  project, independent-prototype status, non-government boundary, and
+  fictional-data safety warning in English and Hindi.
 - Refined the seven-step recovery interface around a shared 4px spacing scale,
   responsive progress states, touch targets, hierarchy, and print-safe output.
 - Preserved and regression-tested the English, Hindi, assisted, diagnostic,

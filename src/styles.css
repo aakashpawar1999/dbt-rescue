@@ -54,6 +54,10 @@ h3 { margin-bottom: var(--space-1); font-size: 1rem; }
 .prototype-notice { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); border: 1px solid oklch(0.78 0.06 150); border-radius: 12px; background: var(--soft); padding: var(--space-3) var(--space-4); color: var(--accent); font-size: .82rem; }
 .prototype-notice strong { flex-basis: 100%; }
 .content { padding: var(--space-5) 0 56px; }
+.site-footer { width: min(100% - var(--space-8), 760px); margin-inline: auto; border-top: 1px solid var(--border); padding: var(--space-6) 0 var(--space-8); color: var(--muted); font-size: .8rem; line-height: 1.5; }
+.site-footer p { margin: 0; }
+.site-footer p + p { margin-top: var(--space-1); }
+.site-footer strong { color: var(--accent); }
 .disclosure { margin-bottom: var(--space-4); border: 1px solid var(--border); border-radius: 10px; background: var(--surface); padding: var(--space-3) var(--space-4); color: var(--muted); }
 .disclosure summary { cursor: pointer; min-height: 44px; padding: var(--space-2) 0; color: var(--accent); font-weight: 800; }
 .disclosure p { margin: var(--space-3) 0 0; line-height: 1.5; }
@@ -128,13 +132,13 @@ code { border-radius: 5px; background: oklch(0.94 0.01 150); padding: 2px 5px; }
 .assisted-banner { border: 1px solid oklch(0.78 0.06 150); border-radius: 7px; background: var(--soft); padding: var(--space-3) var(--space-4); color: var(--accent); font-weight: 700; line-height: 1.45; }
 
 @media (min-width: 600px) {
-  .topbar, .content, .prototype-notice { width: min(100% - var(--space-8), 820px); }
+  .topbar, .content, .prototype-notice, .site-footer { width: min(100% - var(--space-8), 820px); }
   .content { padding-top: var(--space-6); }
   .card { padding: var(--space-8); }
 }
 
 @media print {
-  .topbar, .prototype-notice, .progress, .disclosure { display: none; }
+  .topbar, .prototype-notice, .progress, .disclosure, .site-footer { display: none; }
   body { background: var(--bg); }
   .content { width: 100%; padding: 0; }
   .card { border: 0; box-shadow: none; }

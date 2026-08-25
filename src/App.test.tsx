@@ -23,6 +23,9 @@ describe('DBT Rescue safe entry point', () => {
     expect(html).toContain('Use assisted mode')
     expect(html).toContain('src="/logo.png"')
     expect(html).toContain('alt="DBT Rescue logo"')
+    expect(html).toContain('<footer class="site-footer"')
+    expect(html).toContain('Build What Moves India hackathon project')
+    expect(html).toContain('Not a government service')
     expect(html).toContain('aria-live="polite"')
   })
 
