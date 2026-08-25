@@ -35,7 +35,7 @@ Exact resolved versions are recorded in `bun.lock`.
 
 ## Assets and data
 
-- No external image, font, icon, audio, or video asset is used by the application.
+- The application uses only local visual assets: the builder-provided DBT Rescue logo and favicon set in `public/`, plus the repository-authored social preview SVG. No remote image, font, icon, audio, or video request is made at runtime.
 - All beneficiary, payment, bank, status, and acknowledgement values are fictional fixtures created for this prototype.
 - No live API, remote model, analytics, or third-party data source is used at runtime.
 
@@ -63,3 +63,11 @@ Exact resolved versions are recorded in `bun.lock`.
 |---|---|---|
 | Bun CI workflow step | [oven-sh/setup-bun](https://github.com/oven-sh/setup-bun) | MIT; workflow tooling only |
 | Demo and submission documents | Repository-authored Markdown | Project documentation; no external media asset included |
+
+## 0.6.0 release additions
+
+| Introduced item | Source | Licence/status |
+|---|---|---|
+| DBT Rescue logo and favicon set | Builder-provided local assets copied from `assets/favicon_io/` and the supplied logo into `public/` | User-provided project asset; no runtime request; permission status remains the builder's responsibility |
+| Social preview | Repository-authored `public/dbt-rescue-social-preview.svg` using the existing orange and green brand marks and fictional safety wording | Project code and design; no citizen data or official emblem |
+| Native metadata and manifest | Repository-authored `index.html` and `public/site.webmanifest` | Project code; no metadata dependency |
