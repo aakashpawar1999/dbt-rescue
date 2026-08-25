@@ -49,6 +49,19 @@ evidence continuity, including cases where a grievance is not the first action.
   viewport layout, and browser printing are implemented locally.
 - The default public walkthrough starts with `DBT-SUNITA-001`.
 
+## Current delivery status
+
+The current build is publicly hosted on ChatGPT Sites at
+<https://dbt-rescue.aakashpawar1999.chatgpt.site/> and opens without a ChatGPT
+login. The public root and emitted client assets were verified on 25 August
+2026. GitHub Pages publishing was removed; GitHub Actions remains responsible
+for repeatable checks and tagged GitHub Releases, while Site version publishing
+uses the existing Sites project.
+
+The current hosted source includes post-release hosting fixes and is not a
+rewrite of the immutable `v0.5.0` tag. The shorter
+`dbt-rescue.chatgpt.site` hostname is not assigned by Sites.
+
 ## What is simulated or proposed
 
 All government, PFMS, NPCI, Aadhaar, bank, identity, grievance, acknowledgement,
@@ -74,6 +87,7 @@ licence inventory, known limitations, and Codex work:
 - [Privacy and security](privacy-security.md)
 - [Codex contribution log](codex-contribution-log.md)
 - [Dependencies and licences](dependencies-and-assets.md)
+- [ChatGPT Sites publishing path](sites-publishing.md)
 
 ## Codex contribution
 

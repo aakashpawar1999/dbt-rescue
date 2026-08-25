@@ -3,6 +3,19 @@
 The roles below are proposed ownership boundaries. The prototype does not call
 any of these systems and does not claim their approval.
 
+## Current prototype operation
+
+There is no cross-organisation operator or live handoff in the shipped build.
+The repository owns the three fictional fixtures and reviewed rules; the
+browser renders the event trail and simulates the next state. ChatGPT Sites
+only delivers the static bundle and worker entrypoint. It does not receive a
+benefit case, bank document, acknowledgement, or payment instruction.
+
+For hosting changes, the repository and `.openai/hosting.json` identify the
+existing Site. The release operator validates the source, saves a new Site
+version, deploys it, and verifies the public root and assets. See
+[sites-publishing.md](sites-publishing.md).
+
 | Actor | Authoritative responsibility | Evidence this layer may consume or request |
 |---|---|---|
 | Scheme department | Eligibility, beneficiary record, correction, and payment reissue request | Scheme status, correction acknowledgement, reprocessing event |

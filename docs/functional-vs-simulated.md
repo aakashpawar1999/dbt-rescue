@@ -10,6 +10,11 @@ language, assisted mode, printing, and moving the local tracker are functional
 browser interactions; none submits a record to a government, bank, or other
 external service.
 
+The current build is publicly hosted on ChatGPT Sites at
+<https://dbt-rescue.aakashpawar1999.chatgpt.site/> and can be opened without a
+ChatGPT login. Hosting makes the browser bundle reachable; it does not add a
+backend or turn any simulated behavior into a live integration.
+
 | Capability | Prototype behavior |
 |---|---|
 | Safe lookup | Functional for the three fictional references `DBT-SUNITA-001`, `DBT-ARJUN-002`, and `DBT-MEENA-003` only. |
@@ -21,6 +26,7 @@ external service.
 | Owner and remedy | Functional local guidance for the responsible bank, scheme department, or trace desk. |
 | Correction packet | Functional browser-rendered and browser-printable page using masked synthetic values. |
 | Trace request | Functional browser-rendered and browser-printable request for the mapped-account scenario. |
+| Public hosting | Functional public delivery of the built browser bundle through ChatGPT Sites; no user account is required to view it. |
 | Acknowledgement | Simulated local acknowledgement; no bank or pension office receives it. |
 | Record update | Simulated local state transition. |
 | Payment reissue | Simulated local state transition. |
