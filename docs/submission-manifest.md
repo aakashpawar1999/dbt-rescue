@@ -1,12 +1,13 @@
 # DBT Rescue 0.5.0 submission manifest
 
-Status: transcript-only release package; public deployment and release identity
-are verified; organiser submission destination remains unknown.
+Status: transcript-only release package; ChatGPT Sites deployment, public
+sharing, and release identity are verified; organiser submission destination
+remains unknown.
 
 | Item | Value | Verification |
 | --- | --- | --- |
 | Repository | <https://github.com/aakashpawar1999/dbt-rescue> | Verified public and readable signed-out |
-| Intended demo | <https://aakashpawar1999.github.io/dbt-rescue/> | Verified HTTPS Pages deployment and signed-out browser flow |
+| Intended demo | <https://dbt-rescue.aakashpawar1999.chatgpt.site/> | Verified production ChatGPT Sites deployment and public access |
 | Intended release | <https://github.com/aakashpawar1999/dbt-rescue/releases/tag/v0.5.0> | Verified published GitHub Release |
 | Transcript | <https://github.com/aakashpawar1999/dbt-rescue/blob/main/docs/demo-transcript.md> | Public transcript artifact; verify after documentation publication |
 | Submission destination | Organiser-provided URL or form | Unknown in the local research snapshot |
@@ -21,7 +22,7 @@ are verified; organiser submission destination remains unknown.
 
 - [ ] `bun run test`, `bun run lint`, and `bun run build` pass on the release commit.
 - [ ] GitHub Actions CI is green for the release commit.
-- [ ] GitHub Pages opens over HTTPS in a signed-out private window.
+- [x] ChatGPT Sites opens for the intended public audience.
 - [ ] The tagged GitHub Release points at the deployed commit.
 - [x] The timed demo script and transcript describe the actual release build.
 - [x] Repository, demo, transcript, release, and source links open without editor access.

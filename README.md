@@ -29,12 +29,10 @@ bun run lint
 bun run build
 ```
 
-## Public static demo
+## Hosted demo
 
-The `main` branch can publish the verified static artifact through the GitHub
-Pages workflow after Pages is enabled for the repository. The intended signed-out
-URL is <https://aakashpawar1999.github.io/dbt-rescue/>; verify it in a private
-window before including it in a submission.
+The validated build is live and publicly accessible on ChatGPT Sites at
+<https://dbt-rescue.aakashpawar1999.chatgpt.site/>.
 
 The app uses local fictional fixtures, deterministic rules, browser state, and
 browser-native printing. Printing the correction request uses the browser's

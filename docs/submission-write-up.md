@@ -90,7 +90,7 @@ These are the public links for the transcript-only release package. The
 manifest records the verification status; the organiser submission destination
 remains unknown in the local research snapshot.
 
-- Demo: <https://aakashpawar1999.github.io/dbt-rescue/>
+- Demo: <https://dbt-rescue.aakashpawar1999.chatgpt.site/>
 - Repository: <https://github.com/aakashpawar1999/dbt-rescue>
 - Release: <https://github.com/aakashpawar1999/dbt-rescue/releases/tag/v0.5.0>
 - Transcript: <https://github.com/aakashpawar1999/dbt-rescue/blob/main/docs/demo-transcript.md>
