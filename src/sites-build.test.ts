@@ -14,4 +14,10 @@ describe('Sites deployment artifact', () => {
     expect(worker).toContain('pathname === "/"')
     expect(worker).toContain('/index.html')
   })
+
+  it('uses the Sites asset-aware Vite build', () => {
+    const viteConfig = readFileSync(resolve('vite.config.ts'), 'utf8')
+    expect(viteConfig).toContain('@openai/sites-vite-plugin')
+    expect(viteConfig).toContain('@cloudflare/vite-plugin')
+  })
 })
