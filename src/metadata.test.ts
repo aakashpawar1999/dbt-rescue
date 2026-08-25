@@ -46,7 +46,6 @@ describe('public identity metadata', () => {
       'public/android-chrome-192x192.png',
       'public/android-chrome-512x512.png',
       'public/logo.png',
-      'public/dbt-rescue-banner-logo.png',
       'public/dbt-rescue-social-preview.svg',
     ]) expect(existsSync(resolve(asset))).toBe(true)
 
@@ -58,19 +57,14 @@ describe('public identity metadata', () => {
     expect(sha256('public/android-chrome-192x192.png')).toBe('95d7f3e82ac6d34273d078f43744ffc76d409ab23a84b6c0416df4e4f95d097e')
     expect(sha256('public/android-chrome-512x512.png')).toBe('97cfc35fd23efcb3b4686a12f4e6bd2be3e5aa6c19a4c665a2e37e8982a9925f')
     expect(socialPreview).toContain('viewBox="0 0 1200 630"')
-    expect(sha256('public/dbt-rescue-banner-logo.png')).toBe('5d047fe257d31907f379011325e0cb2f627b10db58fac2ca8792b0433683aacc')
-    expect(socialPreview).toContain('href="/dbt-rescue-banner-logo.png"')
-    expect(socialPreview).toContain('id="logo-remove-black"')
-    expect(socialPreview).toContain('feColorMatrix')
-    expect(socialPreview).not.toContain('fill="#000000"')
+    expect(socialPreview).toContain('width="1200" height="630"')
+    expect(socialPreview).toContain('xlink:href="data:image/png;base64,')
+    expect(socialPreview).not.toContain('href="/dbt-rescue-banner-logo.png"')
     expect(socialPreview).toContain('#B54E0B')
     expect(socialPreview).toContain('#004A35')
     expect(socialPreview).not.toContain('#ff5a00')
     expect(socialPreview).not.toContain('#006b3c')
     expect(socialPreview).not.toContain('stroke="#ff5a00" stroke-width="92"')
-    expect(socialPreview).toContain('x="492" y="128"')
-    expect(socialPreview).toContain('x="492" y="218"')
-    expect(socialPreview).not.toContain('x="470"')
 
     expect(manifest).toContain('"name": "Paisa Kahan Atka? — DBT Rescue"')
     expect(manifest).toContain('"start_url": "/"')

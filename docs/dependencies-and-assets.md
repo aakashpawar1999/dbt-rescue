@@ -69,5 +69,5 @@ Exact resolved versions are recorded in `bun.lock`.
 | Introduced item | Source | Licence/status |
 |---|---|---|
 | DBT Rescue logo and favicon set | Builder-provided local assets copied from `assets/logo.png` and `assets/favicon_io/` into `public/` | User-provided project asset; no runtime request; permission status remains the builder's responsibility |
-| Social preview | Repository-authored `public/dbt-rescue-social-preview.svg` using the supplied `public/dbt-rescue-banner-logo.png`, `#B54E0B`, `#004A35`, and fictional safety wording | User-provided banner logo plus project layout; no citizen data or official emblem |
+| Social preview | Repository-authored, self-contained `public/dbt-rescue-social-preview.svg` embedding the supplied glow logo, `#B54E0B`, `#004A35`, and fictional safety wording | User-provided banner logo embedded in the SVG plus project layout; no citizen data or official emblem |
 | Native metadata and manifest | Repository-authored `index.html` and `public/site.webmanifest` | Project code; no metadata dependency |
