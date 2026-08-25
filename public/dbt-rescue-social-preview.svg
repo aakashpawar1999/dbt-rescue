@@ -4,21 +4,10 @@
   <rect width="1200" height="630" fill="#ffffff" />
   <path d="M0 0h1200v28H0z" fill="#ff5a00" />
   <path d="M0 602h1200v28H0z" fill="#006b3c" />
-  <g transform="translate(70 130) scale(.34)">
-    <path d="M170 790V610c0-134 109-243 243-243 48 0 91 12 126 35" fill="none" stroke="#ff5a00" stroke-width="92" stroke-linecap="round" />
-    <path d="M520 404c71 31 116 99 116 176 0 36 29 65 65 65 102 0 185-83 185-185V286" fill="none" stroke="#006b3c" stroke-width="92" stroke-linecap="round" />
-    <circle cx="170" cy="790" r="102" fill="#ff5a00" />
-    <circle cx="170" cy="790" r="50" fill="white" />
-    <circle cx="700" cy="645" r="73" fill="#006b3c" />
-    <circle cx="700" cy="645" r="34" fill="white" />
-    <circle cx="886" cy="286" r="116" fill="#006b3c" />
-    <path d="m830 286 38 38 75-83" fill="none" stroke="white" stroke-width="34" stroke-linecap="round" stroke-linejoin="round" />
-    <g fill="#ff5a00">
-      <rect x="494" y="236" width="36" height="92" rx="18" />
-      <rect x="430" y="259" width="36" height="80" rx="18" transform="rotate(-42 448 299)" />
-      <rect x="558" y="259" width="36" height="80" rx="18" transform="rotate(42 576 299)" />
-    </g>
-  </g>
+  <defs>
+    <clipPath id="logo-clip"><rect x="70" y="150" width="240" height="240" rx="30" /></clipPath>
+  </defs>
+  <image href="/logo.png" x="70" y="150" width="240" height="240" preserveAspectRatio="xMidYMid slice" clip-path="url(#logo-clip)" />
   <g fill="#17352b" font-family="Arial, Helvetica, sans-serif">
     <text x="360" y="220" font-size="34" font-weight="700" letter-spacing="5">PAISA KAHAN ATKA?</text>
     <text x="360" y="315" font-size="88" font-weight="800">DBT Rescue</text>

@@ -9,6 +9,7 @@ import { describe, expect, it } from 'vitest'
 const root = readFileSync(resolve('index.html'), 'utf8')
 const manifestPath = resolve('public/site.webmanifest')
 const manifest = existsSync(manifestPath) ? readFileSync(manifestPath, 'utf8') : ''
+const socialPreview = readFileSync(resolve('public/dbt-rescue-social-preview.svg'), 'utf8')
 
 function countOccurrences(value: string, pattern: string) {
   return value.match(new RegExp(pattern, 'g'))?.length ?? 0
@@ -55,6 +56,9 @@ describe('public identity metadata', () => {
     expect(sha256('public/apple-touch-icon.png')).toBe('1efe3bb64fea1a9a7961526b22fbaa8d941e6fb6e02d358907e9d88e17172e97')
     expect(sha256('public/android-chrome-192x192.png')).toBe('95d7f3e82ac6d34273d078f43744ffc76d409ab23a84b6c0416df4e4f95d097e')
     expect(sha256('public/android-chrome-512x512.png')).toBe('97cfc35fd23efcb3b4686a12f4e6bd2be3e5aa6c19a4c665a2e37e8982a9925f')
+    expect(socialPreview).toContain('viewBox="0 0 1200 630"')
+    expect(socialPreview).toContain('href="/logo.png"')
+    expect(socialPreview).not.toContain('stroke="#ff5a00" stroke-width="92"')
 
     expect(manifest).toContain('"name": "Paisa Kahan Atka? — DBT Rescue"')
     expect(manifest).toContain('"start_url": "/"')
