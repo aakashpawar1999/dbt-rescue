@@ -18,6 +18,8 @@
 - Added a persistent footer identifying the Build What Moves India hackathon
   project, independent-prototype status, non-government boundary, and
   fictional-data safety warning in English and Hindi.
+- Refreshed the social-preview banner with the supplied glow logo and the
+  requested `#B54E0B` / `#004A35` palette.
 - Refined the seven-step recovery interface around a shared 4px spacing scale,
   responsive progress states, touch targets, hierarchy, and print-safe output.
 - Preserved and regression-tested the English, Hindi, assisted, diagnostic,

@@ -2,17 +2,15 @@
   <title id="title">DBT Rescue social preview</title>
   <desc id="description">DBT Rescue helps people understand a fictional benefit payment route and its next recovery step.</desc>
   <rect width="1200" height="630" fill="#ffffff" />
-  <path d="M0 0h1200v28H0z" fill="#ff5a00" />
-  <path d="M0 602h1200v28H0z" fill="#006b3c" />
-  <defs>
-    <clipPath id="logo-clip"><rect x="70" y="150" width="240" height="240" rx="30" /></clipPath>
-  </defs>
-  <image href="/logo.png" x="70" y="150" width="240" height="240" preserveAspectRatio="xMidYMid slice" clip-path="url(#logo-clip)" />
-  <g fill="#17352b" font-family="Arial, Helvetica, sans-serif">
-    <text x="360" y="220" font-size="34" font-weight="700" letter-spacing="5">PAISA KAHAN ATKA?</text>
-    <text x="360" y="315" font-size="88" font-weight="800">DBT Rescue</text>
-    <text x="360" y="375" font-size="30" fill="#426458">Understand the stop. Find the owner. Track recovery.</text>
-    <text x="360" y="466" font-size="24" font-weight="700" fill="#006b3c">Independent hackathon prototype · fictional data only</text>
-    <text x="360" y="505" font-size="22" fill="#426458">No live government or bank connection</text>
+  <path d="M0 0h1200v28H0z" fill="#B54E0B" />
+  <path d="M0 602h1200v28H0z" fill="#004A35" />
+  <rect x="0" y="28" width="420" height="574" fill="#000000" />
+  <image href="/dbt-rescue-banner-logo.png" x="0" y="28" width="420" height="574" preserveAspectRatio="xMidYMid meet" />
+  <g fill="#004A35" font-family="Arial, Helvetica, sans-serif">
+    <text x="470" y="220" font-size="34" font-weight="700" letter-spacing="5">PAISA KAHAN ATKA?</text>
+    <text x="470" y="315" font-size="88" font-weight="800">DBT Rescue</text>
+    <text x="470" y="375" font-size="30" fill="#004A35">Understand the stop. Find the owner. Track recovery.</text>
+    <text x="470" y="466" font-size="24" font-weight="700" fill="#004A35">Independent hackathon prototype · fictional data only</text>
+    <text x="470" y="505" font-size="22" fill="#004A35">No live government or bank connection</text>
   </g>
 </svg>
