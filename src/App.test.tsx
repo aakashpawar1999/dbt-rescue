@@ -21,6 +21,8 @@ describe('DBT Rescue safe entry point', () => {
     expect(html).toContain('English')
     expect(html).toContain('हिन्दी')
     expect(html).toContain('Use assisted mode')
+    expect(html).toContain('src="/dbt-rescue-icon-with-background.svg"')
+    expect(html).toContain('alt="DBT Rescue logo"')
     expect(html).toContain('aria-live="polite"')
   })
 
