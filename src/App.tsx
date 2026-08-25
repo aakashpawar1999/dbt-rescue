@@ -163,7 +163,7 @@ export default function App() {
 
   return <div className="app-shell">
     <header className="topbar">
-      <div><p className="brand-kicker">{t(language, 'brandKicker')}</p><h1>{t(language, 'title')}</h1></div>
+      <div className="brand-lockup"><img className="brand-mark" src="/logo.png" alt="DBT Rescue logo" width="48" height="48" /><div><p className="brand-kicker">{t(language, 'brandKicker')}</p><h1>{t(language, 'title')}</h1></div></div>
       <div className="topbar-actions">
         <LanguageToggle language={language} onChange={changeLanguage} />
         <ModeToggle language={language} assisted={assisted} onChange={toggleAssisted} />
@@ -177,7 +177,7 @@ export default function App() {
       <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</div>
       <details className="disclosure"><summary>{t(language, 'disclosureTitle')}</summary><p>{t(language, 'disclosureBody')}</p><p><a href="https://github.com/aakashpawar1999/dbt-rescue/blob/main/docs/functional-vs-simulated.md" target="_blank" rel="noreferrer">{t(language, 'functionalDisclosure')}</a> · <a href="https://github.com/aakashpawar1999/dbt-rescue/blob/main/docs/known-limitations.md" target="_blank" rel="noreferrer">{t(language, 'knownLimitations')}</a></p></details>
 
-      <nav className="progress" aria-label={t(language, 'recoveryTracker')}>
+      <nav className="progress" aria-label={`${t(language, 'recoveryTracker')}: ${t(language, STEP_KEYS[step])}`}>
         {STEP_KEYS.map((key, index) => <span className={index === step ? 'progress-step active' : index < step ? 'progress-step complete' : 'progress-step'} aria-current={index === step ? 'step' : undefined} key={key}>
           <span className="progress-number">{index + 1}</span><span className="progress-label">{t(language, key)}</span>
         </span>)}
@@ -247,5 +247,10 @@ export default function App() {
         <div className="button-row"><button className="secondary-button" type="button" onClick={() => goTo(4)}>{t(language, 'viewRequest')}</button><button className="text-button" type="button" onClick={reset}>{t(language, 'startAnother')}</button></div>
       </section>}
     </main>
+    <footer className="site-footer" aria-label={t(language, 'footerLabel')}>
+      <p><strong>{t(language, 'hackathonProject')}</strong></p>
+      <p>{t(language, 'footerDisclosure')}</p>
+      <p>{t(language, 'footerSafety')}</p>
+    </footer>
   </div>
 }
