@@ -163,7 +163,7 @@ export default function App() {
 
   return <div className="app-shell">
     <header className="topbar">
-      <div className="brand-lockup"><img className="brand-mark" src="/dbt-rescue-icon-with-background.svg" alt="DBT Rescue logo" width="48" height="48" /><div><p className="brand-kicker">{t(language, 'brandKicker')}</p><h1>{t(language, 'title')}</h1></div></div>
+      <div className="brand-lockup"><img className="brand-mark" src="/logo.png" alt="DBT Rescue logo" width="48" height="48" /><div><p className="brand-kicker">{t(language, 'brandKicker')}</p><h1>{t(language, 'title')}</h1></div></div>
       <div className="topbar-actions">
         <LanguageToggle language={language} onChange={changeLanguage} />
         <ModeToggle language={language} assisted={assisted} onChange={toggleAssisted} />
