@@ -18,6 +18,21 @@
 - The production architecture, privacy controls, operating model, and event
   contract are proposals, not an implementation or an approval by any actor.
 
+## Hosting and release limitations
+
+- The public Site uses the account-scoped URL
+  <https://dbt-rescue.aakashpawar1999.chatgpt.site/>. The shorter
+  `dbt-rescue.chatgpt.site` hostname is not assigned by Sites.
+- The Site is public and requires no ChatGPT login, so the repository must
+  continue to contain synthetic, masked, non-sensitive data only.
+- GitHub Actions verifies the build and tagged GitHub Releases but does not
+  publish to ChatGPT Sites. Site version saving and deployment currently use
+  the Sites/Codex workflow with a short-lived credential; no long-lived Site
+  credential is stored in GitHub.
+- The hosted Site can move ahead of the immutable `v0.5.0` tag for hosting or
+  documentation fixes. The tag is not rewritten to make those changes appear
+  part of the historical release.
+
 ## Known risks
 
 | Risk | Boundary or mitigation |

@@ -4,6 +4,21 @@ This document describes controls a real authorised service would need. None of
 these controls turns the local prototype into a live identity, bank, or
 government service.
 
+## Controls implemented in the prototype
+
+- All fixtures are fictional and repository-authored; displayed account values
+  are masked.
+- The app has no login, password, OTP, Aadhaar, unrestricted account, upload,
+  analytics, model, or external service flow.
+- State stays in the browser during the journey. The print action opens the
+  browser's print dialog and does not upload a document.
+- The public Site contains no secret or real personal data. Site publishing
+  uses a short-lived source credential outside the repository and does not put
+  that credential in the browser bundle.
+
+These controls make the public demo safer; they are not a production security
+assessment or a substitute for the controls below.
+
 ## Data minimisation
 
 - Accept a scheme-provided case reference or short-lived lookup token, not a

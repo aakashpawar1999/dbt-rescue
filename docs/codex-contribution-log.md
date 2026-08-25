@@ -1,8 +1,9 @@
 # Codex contribution log
 
 This log records concrete work completed with Codex during the `0.2.0`,
-`0.3.0`, and `0.4.0` releases. Each entry names the work and resulting
-artifact; it is not an author or attribution line.
+`0.3.0`, and `0.4.0` releases, the original `0.5.0` package, and the later
+hosting maintenance. Each entry names the work and resulting artifact; it is
+not an author or attribution line.
 
 | Area | Contribution |
 |---|---|
@@ -32,14 +33,23 @@ artifact; it is not an author or attribution line.
 The runtime does not use an AI chatbot or model-generated banking remedy. The
 diagnosis remains deterministic and testable.
 
-## 0.5.0 contributions
+## 0.5.0 contributions (original release package)
 
 | Area | Work performed and resulting artifact |
 |---|---|
 | Demo readiness | Changed the default path to fictional Sunita, added static-host-compatible asset handling, and linked the public disclosure to the functional boundary and known limitations. |
-| Release automation | Added the GitHub Pages workflow and documented the intended signed-out public URL and rollback checks. |
+| Historical release automation | Added the GitHub Pages workflow and documented the intended signed-out public URL and rollback checks; this path was later removed. |
 | Submission package | Wrote the timed demo script, transcript, submission write-up, release notes, and manifest with confirmed-versus-unknown link status. |
 | Verification | Added the release-version safety assertion and ran the red-green entry-point and disclosure-link checks, full tests, lint, build, and diff checks. |
+
+## Post-release hosting maintenance — 2026-08-25
+
+| Area | Work performed and resulting artifact |
+|---|---|
+| Hosting migration | Removed the GitHub Pages publishing path and moved the public build to the existing ChatGPT Sites project. |
+| Deployment debugging | Fixed the Site root and static-asset 404 by using the Cloudflare Vite asset binding and a Sites-compatible worker artifact. |
+| Public verification | Confirmed public no-login access, HTTP 200 for the root, and HTTP 200 for the emitted JavaScript and CSS assets. |
+| Documentation | Updated the README, architecture, functional boundary, limitations, dependency inventory, submission manifest, release record, and Sites publishing guide. |
 
 ## 0.3.0 contributions
 

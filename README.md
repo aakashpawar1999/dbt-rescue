@@ -4,6 +4,21 @@ An independent hackathon prototype that helps a citizen understand where a
 fictional government benefit payment stopped, why it failed, who can fix it, and
 how to follow simulated recovery.
 
+## Current status
+
+- The public build is hosted on ChatGPT Sites at
+  <https://dbt-rescue.aakashpawar1999.chatgpt.site/>.
+- The Site is public and opens without a ChatGPT login. The root document and
+  its referenced JavaScript and CSS assets were verified from the public URL on
+  25 August 2026.
+- The shorter hostname `https://dbt-rescue.chatgpt.site/` is not assigned by
+  Sites. The current account-scoped hostname above is the working public URL.
+- GitHub Pages publishing has been removed. GitHub Actions now verifies the
+  application and creates GitHub Releases; ChatGPT Sites is the production host.
+- The repository package version remains `0.5.0`. The current Site includes
+  post-release hosting fixes and is intentionally not represented by a rewritten
+  `v0.5.0` tag.
+
 ## Safe demo
 
 Use only these fictional references: `DBT-SUNITA-001` (Aadhaar-based farmer
@@ -29,31 +44,47 @@ bun run lint
 bun run build
 ```
 
-## Public static demo
+`bun run test` builds first and then runs the deterministic Vitest suite. The
+production build emits the browser client and the Cloudflare Workers-compatible
+Site entrypoint required by ChatGPT Sites.
 
-The `main` branch can publish the verified static artifact through the GitHub
-Pages workflow after Pages is enabled for the repository. The intended signed-out
-URL is <https://aakashpawar1999.github.io/dbt-rescue/>; verify it in a private
-window before including it in a submission.
+## Hosted demo
 
 The app uses local fictional fixtures, deterministic rules, browser state, and
 browser-native printing. Printing the correction request uses the browser's
 print dialog; no document is uploaded anywhere.
 
-## Scope
+## What is currently built
 
-The 0.3.0 release adds reviewed English and Hindi copy, a language switch that
-preserves the journey, assisted mode for a family member or service-centre
-helper, accessible focus and live status announcements, absolute timestamps,
-low-data system-font presentation, and bilingual browser-printable packets.
-The three fictional journeys remain available across Aadhaar-based and
-account-based routes: a mapped-account success, an invalid-IFSC correction,
-and an unavailable Aadhaar mapping.
+- Three safe fictional references: `DBT-SUNITA-001`, `DBT-ARJUN-002`, and
+  `DBT-MEENA-003`.
+- Aadhaar-based and account-based payment journeys with source-labelled,
+  timestamped, missing, failed, confirmed, and conflicting events.
+- Deterministic reviewed diagnoses for mapped-bank success, invalid IFSC, and
+  unavailable Aadhaar mapping, plus a safe unknown-reason fallback.
+- A provenance view showing the matched event, raw reason, rule ID and version,
+  source, route, review date, and reviewer status.
+- Responsible-owner guidance, next action, document checklist, and a masked
+  browser-printable trace or correction request.
+- Simulated acknowledgement and recovery tracking. The trace journey has three
+  local states; correction journeys have five local states.
+- English/Hindi switching, assisted mode, reset and browser Back behavior,
+  keyboard-visible focus, live announcements, narrow-phone layout, and print
+  styles.
+
+## Product boundary
+
+The current journey includes reviewed English and Hindi copy, state-preserving
+language switching, assisted mode for a family member or service-centre helper,
+accessible focus and live status announcements, absolute timestamps, low-data
+system-font presentation, and bilingual browser-printable packets. The three
+fictional journeys cover Aadhaar-based and account-based routes: a mapped-bank
+success, an invalid-IFSC correction, and an unavailable Aadhaar mapping.
 
 The app is not an official government service and does not determine
 eligibility, correct real records, or release money. All government, PFMS,
 NPCI, Aadhaar, bank, acknowledgement, reissue, and credit behavior is
-simulated locally.
+simulated in the browser using local fixtures.
 
 ## Accessibility and language review
 
@@ -66,7 +97,7 @@ system fonts, 44-pixel controls, and browser-native printing.
 The manual test record is in
 [docs/accessibility-checklist.md](docs/accessibility-checklist.md). Final Hindi
 terminology and screen-reader review remain human approval gates before any
-real deployment or official-service claim.
+live-service or official-service claim.
 
 ## 0.4.0 audit and production boundary
 
@@ -74,6 +105,18 @@ The audit view connects each supported diagnosis to its fictional source event,
 versioned rule, source URL, review date, and reviewer status. The production
 documents are proposals only; they do not add live integrations or make the
 prototype an official service.
+
+## Publishing
+
+The Site project ID is stored in `.openai/hosting.json`. For the repeatable
+publish checklist, public-access verification, and the boundary between GitHub
+CI and Sites publishing, see [docs/sites-publishing.md](docs/sites-publishing.md).
+
+The short version is: validate the exact source, push it to the existing Site
+source repository, package the successful build, save one Site version, deploy
+that saved version, and verify the public URL. Do not create a second Site or
+restore GitHub Pages. Sites publishing currently requires the Sites/Codex
+workflow; GitHub Actions does not contain a long-lived Site credential.
 
 Reviewer evidence:
 
@@ -85,3 +128,6 @@ Reviewer evidence:
 - [operating model](docs/operating-model.md)
 - [Codex contribution log](docs/codex-contribution-log.md)
 - [licence inventory](docs/dependencies-and-assets.md)
+
+Historical release notes remain under [docs/releases](docs/releases), and the
+repository-wide change record is [CHANGELOG.md](CHANGELOG.md).

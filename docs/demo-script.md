@@ -1,6 +1,8 @@
 # DBT Rescue three-minute demo script
 
-Use a clean, signed-out browser. Enter only the fictional reference
+Open the public URL
+<https://dbt-rescue.aakashpawar1999.chatgpt.site/> in a clean browser; no
+ChatGPT login is needed. Enter only the fictional reference
 `DBT-SUNITA-001`. The script demonstrates the public build; it must not show a
 real account, credential, editor, or live government response.
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased] — 2026-08-25
+
+- Replaced GitHub Pages publishing with the public ChatGPT Sites deployment.
+- Added the Cloudflare Workers-compatible worker and asset-aware Vite build
+  needed for the Site root and client assets to serve correctly.
+- Documented the current public URL, no-login access, Sites version workflow,
+  automation boundary, and the distinction between the immutable `v0.5.0`
+  release and post-release hosting fixes.
+
 ## [0.5.0] — 2026-08-20
 
 - Prepared a judge-focused public path beginning with fictional `DBT-SUNITA-001`.

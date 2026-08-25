@@ -1,8 +1,36 @@
-# Proposed production architecture
+# Current prototype architecture and proposed production architecture
 
 This is a proposal for an authorised cross-organisation service, not an
 implemented integration. The prototype currently uses local fictional fixtures
 and deterministic rules only.
+
+## Implemented now
+
+The shipped application is a browser-only React/TypeScript/Vite app. It has no
+application server, database, authentication provider, or external API call.
+
+```text
+fictional reference
+  -> local payment fixture
+  -> deterministic diagnosis and reviewed rule
+  -> timeline, provenance, owner/action, and masked packet
+  -> simulated acknowledgement and recovery tracker
+```
+
+| Layer | Current implementation |
+|---|---|
+| Interface | React components in `src/App.tsx`, bilingual copy in `src/i18n.ts`, and local CSS with print rules |
+| Data | Three repository-authored synthetic cases in `src/domain/cases.ts` |
+| Diagnosis | Deterministic rules and safe unknown fallback in `src/domain/rules.ts` |
+| Recovery | Browser-held state transitions in `src/domain/recovery.ts` |
+| Evidence | Source labels, timestamps, event status, rule provenance, and review metadata rendered locally |
+| Hosting build | Vite client build plus the Cloudflare Workers-compatible `worker/index.ts` entrypoint |
+| Production host | Public ChatGPT Sites deployment; current URL and publishing contract are in [sites-publishing.md](sites-publishing.md) |
+
+The build uses `@openai/sites-vite-plugin` for Site metadata and
+`@cloudflare/vite-plugin` for the asset-aware worker build. The root request is
+served through the `ASSETS` binding, and `scripts/prepare-sites-artifact.mjs`
+places the worker at the Sites-required `dist/server/index.js` path.
 
 ## Evidence boundary
 
