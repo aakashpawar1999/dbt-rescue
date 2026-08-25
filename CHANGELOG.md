@@ -9,6 +9,19 @@
   automation boundary, and the distinction between the immutable `v0.5.0`
   release and post-release hosting fixes.
 
+## [0.6.0] — 2026-08-25
+
+- Added complete document, Open Graph, X card, favicon, Apple touch icon, and
+  web app manifest metadata for the public DBT Rescue site.
+- Added the local DBT Rescue brand mark and a 1200×630 social preview without
+  official-government or real-data implications.
+- Refined the seven-step recovery interface around a shared 4px spacing scale,
+  responsive progress states, touch targets, hierarchy, and print-safe output.
+- Preserved and regression-tested the English, Hindi, assisted, diagnostic,
+  correction, acknowledgement, recovery, and representative-case journeys.
+- Bumped the package and release evidence to `0.6.0` and deployed the verified
+  bundle as ChatGPT Sites version 5.
+
 ## [0.5.0] — 2026-08-20
 
 - Prepared a judge-focused public path beginning with fictional `DBT-SUNITA-001`.
