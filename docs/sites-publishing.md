@@ -8,9 +8,9 @@ steps for the next release.
 
 - Public URL: <https://dbt-rescue.aakashpawar1999.chatgpt.site/>
 - Access: public; no ChatGPT login is required to view the Site.
-- Current Site version: `4`.
-- Current hosted source: commit `6dd0e847da6d8717f9826a3894d9abf4194915a7`.
-- Last verified: 25 August 2026. The root returned HTTP 200, and the emitted
+- Current Site version: `6`.
+- Current hosted source: commit `b000c70034a557993ce32f36873f617a3e4f6437`.
+- Last verified: 26 August 2026. The root returned HTTP 200, and the emitted
   JavaScript and CSS assets also returned HTTP 200.
 - The requested `dbt-rescue.chatgpt.site` hostname is not assigned. Sites
   currently exposes the account-scoped hostname above for this project.
