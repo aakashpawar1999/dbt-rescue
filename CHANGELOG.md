@@ -1,13 +1,10 @@
 # Changelog
 
-## [Unreleased] — 2026-08-25
+## [Unreleased] — 2026-08-26
 
-- Replaced GitHub Pages publishing with the public ChatGPT Sites deployment.
-- Added the Cloudflare Workers-compatible worker and asset-aware Vite build
-  needed for the Site root and client assets to serve correctly.
-- Documented the current public URL, no-login access, Sites version workflow,
-  automation boundary, and the distinction between the immutable `v0.5.0`
-  release and post-release hosting fixes.
+- Synchronized the README and current-state documentation with the `0.6.0`
+  package, public Sites version `6`, hosted source commit, and fresh public
+  asset verification.
 
 ## [0.6.0] — 2026-08-25
 
@@ -24,8 +21,10 @@
   responsive progress states, touch targets, hierarchy, and print-safe output.
 - Preserved and regression-tested the English, Hindi, assisted, diagnostic,
   correction, acknowledgement, recovery, and representative-case journeys.
+- Replaced GitHub Pages publishing with the public ChatGPT Sites deployment and
+  added the Cloudflare Workers-compatible worker and asset-aware Vite build.
 - Bumped the package and release evidence to `0.6.0` and deployed the verified
-  bundle as ChatGPT Sites version 5.
+  bundle as ChatGPT Sites version 6.
 
 ## [0.5.0] — 2026-08-20
 

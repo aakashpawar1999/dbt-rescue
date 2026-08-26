@@ -53,13 +53,14 @@ evidence continuity, including cases where a grievance is not the first action.
 
 The current build is publicly hosted on ChatGPT Sites at
 <https://dbt-rescue.aakashpawar1999.chatgpt.site/> and opens without a ChatGPT
-login. The public root and emitted client assets were verified on 25 August
+login. The public root and emitted client assets were verified on 26 August
 2026. GitHub Pages publishing was removed; GitHub Actions remains responsible
 for repeatable checks and tagged GitHub Releases, while Site version publishing
 uses the existing Sites project.
 
-The current hosted source includes post-release hosting fixes and is not a
-rewrite of the immutable `v0.5.0` tag. The shorter
+The current Site is version `6` and serves hosted source commit
+`b000c70034a557993ce32f36873f617a3e4f6437`, the current `0.6.0` application
+source. Release tags remain immutable. The shorter
 `dbt-rescue.chatgpt.site` hostname is not assigned by Sites.
 
 ## What is simulated or proposed
@@ -106,6 +107,7 @@ remains unknown in the local research snapshot.
 
 - Demo: <https://dbt-rescue.aakashpawar1999.chatgpt.site/>
 - Repository: <https://github.com/aakashpawar1999/dbt-rescue>
+- Current application release: <https://github.com/aakashpawar1999/dbt-rescue/releases/tag/v0.6.0>
 - Release: <https://github.com/aakashpawar1999/dbt-rescue/releases/tag/v0.5.0>
 - Transcript: <https://github.com/aakashpawar1999/dbt-rescue/blob/main/docs/demo-transcript.md>
 - Submission destination: not published in the local research snapshot.
