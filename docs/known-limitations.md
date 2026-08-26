@@ -29,9 +29,10 @@
   publish to ChatGPT Sites. Site version saving and deployment currently use
   the Sites/Codex workflow with a short-lived credential; no long-lived Site
   credential is stored in GitHub.
-- The hosted Site can move ahead of the immutable `v0.5.0` tag for hosting or
-  documentation fixes. The tag is not rewritten to make those changes appear
-  part of the historical release.
+- The hosted Site version and repository release tags are separate records.
+  Hosting or documentation fixes can move the Site ahead of an immutable tag;
+  tags are not rewritten to make those changes appear part of a historical
+  release.
 
 ## Known risks
 
