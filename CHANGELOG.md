@@ -12,6 +12,8 @@
   while showing one word-safe active caption at tablet and phone widths.
 - Renamed the short English fourth-step caption to `Fix the issue` so the
   desktop sequence reads evenly without a special-case font size.
+- Restyled `Start over` as a visible secondary button while preserving its
+  touch target and keyboard focus treatment.
 - Kept correction-packet values in a stable right-hand column so the account
   shown in the demo no longer drops into a centred block beneath its label.
 - Removed the artificial gap between the two prototype-warning safety
