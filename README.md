@@ -10,14 +10,14 @@ how to follow simulated recovery.
   <https://dbt-rescue.aakashpawar1999.chatgpt.site/>.
 - The Site is public and opens without a ChatGPT login. The root document and
   its referenced JavaScript and CSS assets were verified from the public URL on
-  26 August 2026.
+  28 August 2026.
 - The Site version and hosted source commit are managed separately from the
   package version and recorded with each production deployment.
 - The shorter hostname `https://dbt-rescue.chatgpt.site/` is not assigned by
   Sites. The current account-scoped hostname above is the working public URL.
 - GitHub Pages publishing has been removed. GitHub Actions now verifies the
   application and creates GitHub Releases; ChatGPT Sites is the production host.
-- The repository package and current GitHub release are `0.6.2`. The public Site
+- The repository package and current GitHub release are `0.6.3`. The public Site
   version and hosted source are recorded separately because Site versioning is
   managed by the Sites project.
 
@@ -70,9 +70,9 @@ print dialog; no document is uploaded anywhere.
   browser-printable trace or correction request.
 - Simulated acknowledgement and recovery tracking. The trace journey has three
   local states; correction journeys have five local states.
-- English/Hindi switching, assisted mode, reset and browser Back behavior,
-  keyboard-visible focus, live announcements, narrow-phone layout, and print
-  styles.
+- English/Hindi switching with responsive top-right header placement, assisted
+  mode, reset and browser Back behavior, keyboard-visible focus, live
+  announcements, narrow-phone layout, and print styles.
 
 ## Product boundary
 
