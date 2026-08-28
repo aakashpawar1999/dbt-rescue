@@ -24,8 +24,7 @@ function routeLabel(route: PaymentCase['route'], language: Language) {
 function PrototypeNotice({ language }: { language: Language }) {
   return <aside className="prototype-notice" aria-label={t(language, 'safetyLabel')}>
     <strong>{t(language, 'prototype')}</strong>
-    <span>{t(language, 'fictionalRecords')}</span>
-    <span>{t(language, 'noRealInfo')}</span>
+    <span>{t(language, 'fictionalRecords')} {t(language, 'noRealInfo')}</span>
   </aside>
 }
 
