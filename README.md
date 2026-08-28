@@ -11,13 +11,13 @@ how to follow simulated recovery.
 - The Site is public and opens without a ChatGPT login. The root document and
   its referenced JavaScript and CSS assets were verified from the public URL on
   26 August 2026.
-- The current Site is version `6`, using hosted source commit
-  `b000c70034a557993ce32f36873f617a3e4f6437`.
+- The Site version and hosted source commit are managed separately from the
+  package version and recorded with each production deployment.
 - The shorter hostname `https://dbt-rescue.chatgpt.site/` is not assigned by
   Sites. The current account-scoped hostname above is the working public URL.
 - GitHub Pages publishing has been removed. GitHub Actions now verifies the
   application and creates GitHub Releases; ChatGPT Sites is the production host.
-- The repository package and current GitHub release are `0.6.0`. The public Site
+- The repository package and current GitHub release are `0.6.2`. The public Site
   version and hosted source are recorded separately because Site versioning is
   managed by the Sites project.
 

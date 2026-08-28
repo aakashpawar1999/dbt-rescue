@@ -6,6 +6,26 @@
   package, public Sites version `6`, hosted source commit, and fresh public
   asset verification.
 
+## [0.6.2] — 2026-08-28
+
+- Kept all seven compact step captions visible and contained above 1000px,
+  while showing one word-safe active caption at tablet and phone widths.
+- Renamed the short English fourth-step caption to `Fix the issue` so the
+  desktop sequence reads evenly without a special-case font size.
+- Restyled `Start over` as a visible secondary button while preserving its
+  touch target and keyboard focus treatment.
+- Moved the language toggle to the right edge of the large-screen header row,
+  aligned with the logo-title lockup.
+- Kept correction-packet values in a stable right-hand column so the account
+  shown in the demo no longer drops into a centred block beneath its label.
+- Removed the artificial gap between the two prototype-warning safety
+  sentences by rendering them as one continuous text item.
+- Added focused regression coverage for the three layout contracts and
+  preserved the existing synthetic-data, deterministic-rule, accessibility,
+  print, and no-new-dependency boundaries.
+- Declared the existing Worker's `ASSETS` binding in Vite so the local preview
+  no longer fails at `env.ASSETS.fetch`.
+
 ## [0.6.1] — 2026-08-28
 
 - Fixed shared step navigation so the progress tracker and active step heading

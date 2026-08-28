@@ -10,6 +10,6 @@ export default defineConfig({
     react(),
     tailwindcss(),
     sites(),
-    ...cloudflare({ inspectorPort: false, config: { main: './worker/index.ts' } }),
+    ...cloudflare({ inspectorPort: false, config: { main: './worker/index.ts', assets: { binding: 'ASSETS' } } }),
   ],
 })

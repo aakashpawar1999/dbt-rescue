@@ -19,5 +19,6 @@ describe('Sites deployment artifact', () => {
     const viteConfig = readFileSync(resolve('vite.config.ts'), 'utf8')
     expect(viteConfig).toContain('@openai/sites-vite-plugin')
     expect(viteConfig).toContain('@cloudflare/vite-plugin')
+    expect(viteConfig).toMatch(/assets:\s*{\s*binding:\s*['"]ASSETS['"]/)
   })
 })
