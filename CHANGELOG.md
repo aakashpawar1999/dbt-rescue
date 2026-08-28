@@ -14,6 +14,8 @@
   desktop sequence reads evenly without a special-case font size.
 - Restyled `Start over` as a visible secondary button while preserving its
   touch target and keyboard focus treatment.
+- Moved the language toggle to the right edge of the large-screen header row,
+  aligned with the logo-title lockup.
 - Kept correction-packet values in a stable right-hand column so the account
   shown in the demo no longer drops into a centred block beneath its label.
 - Removed the artificial gap between the two prototype-warning safety
