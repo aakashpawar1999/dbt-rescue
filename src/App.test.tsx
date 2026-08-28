@@ -94,6 +94,12 @@ describe('DBT Rescue safe entry point', () => {
     expect(styles).toMatch(/\.request-details dd\s*{[^}]*justify-self:\s*end;/s)
   })
 
+  it('renders Start over with button affordance', () => {
+    expect(styles).toMatch(/\.text-button\s*{[^}]*border:\s*1px solid var\(--border\);/s)
+    expect(styles).toMatch(/\.text-button\s*{[^}]*border-radius:/s)
+    expect(styles).toMatch(/\.text-button\s*{[^}]*background:\s*var\(--surface\);/s)
+  })
+
   it('renders the prototype warning copy without a flex-item gap', () => {
     const html = renderToStaticMarkup(<App />)
 
