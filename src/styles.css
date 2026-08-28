@@ -171,7 +171,7 @@ code { border-radius: 5px; background: oklch(0.94 0.01 150); padding: 2px 5px; }
 }
 
 @media (max-width: 439px) {
-  .language-switch { flex-direction: column; gap: 0; padding-block: 0; }
+  .language-switch { flex-direction: column; gap: 0; padding-block: var(--space-1); }
   .language-button { width: 100%; padding: var(--space-1) var(--space-2); }
   h1 { font-size: 1.5rem; }
 }
