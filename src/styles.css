@@ -149,7 +149,7 @@ code { border-radius: 5px; background: oklch(0.94 0.01 150); padding: 2px 5px; }
   .topbar-actions { justify-content: flex-start; }
   .card { padding: var(--space-4); }
   .progress-label { font-size: 0; }
-  .progress-step.active .progress-label { font-size: .68rem; overflow-wrap: normal; }
+  .progress-step.active .progress-label { max-width: 100%; font-size: .68rem; overflow-wrap: anywhere; }
   .button-row { flex-direction: column; }
   .button-row > * { width: 100%; }
   .button-row .primary-button { margin-left: 0; }
