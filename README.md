@@ -17,9 +17,9 @@ how to follow simulated recovery.
   Sites. The current account-scoped hostname above is the working public URL.
 - GitHub Pages publishing has been removed. GitHub Actions now verifies the
   application and creates GitHub Releases; ChatGPT Sites is the production host.
-- The repository package and current GitHub release are `0.6.3`. The public Site
-  version and hosted source are recorded separately because Site versioning is
-  managed by the Sites project.
+- The `feat/0.6.4` branch carries the next package version, while the current
+  GitHub release remains `0.6.3`. The public Site version and hosted source are
+  recorded separately because Site versioning is managed by the Sites project.
 
 ## Safe demo
 

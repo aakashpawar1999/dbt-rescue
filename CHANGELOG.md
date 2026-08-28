@@ -6,6 +6,15 @@
   package, public Sites version `6`, hosted source commit, and fresh public
   asset verification.
 
+## [0.6.4] — 2026-08-28
+
+- Stacked English above Hindi inside the existing language box at narrow phone
+  widths so it remains beside the DBT Rescue title at 320px and 360px.
+- Reduced the narrow-view title size to preserve readable brand context without
+  header overlap or horizontal overflow.
+- Preserved the existing 44px language targets, translations, recovery journey,
+  and 440px-plus mobile and desktop header placement.
+
 ## [0.6.3] — 2026-08-28
 
 - Placed the language toggle at the mobile header's top-right beside the logo

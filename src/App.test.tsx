@@ -53,7 +53,7 @@ describe('DBT Rescue safe entry point', () => {
     expect(styles).toMatch(/\.mobile-language\s*{[^}]*display:\s*none;/s)
   })
 
-  it('places language beside the mobile brand and wraps it on narrow phones', () => {
+  it('keeps the language box beside a compact mobile brand on narrow phones', () => {
     const mobileStart = styles.indexOf('@media (max-width: 767px)')
     const narrowStart = styles.indexOf('@media (max-width: 439px)')
     const mobileStyles = styles.slice(mobileStart, narrowStart)
@@ -64,9 +64,9 @@ describe('DBT Rescue safe entry point', () => {
     expect(mobileStyles).toMatch(/\.mobile-language\s*{[^}]*display:\s*block;[^}]*grid-column:\s*2;[^}]*grid-row:\s*1;[^}]*justify-self:\s*end;/s)
     expect(mobileStyles).toMatch(/\.desktop-language\s*{[^}]*display:\s*none;/s)
     expect(mobileStyles).toMatch(/\.topbar-actions\s*{[^}]*grid-column:\s*1 \/ -1;[^}]*grid-row:\s*2;/s)
-    expect(narrowStyles).toMatch(/\.topbar\s*{[^}]*grid-template-columns:\s*minmax\(0, 1fr\);/s)
-    expect(narrowStyles).toMatch(/\.mobile-language\s*{[^}]*grid-column:\s*1;[^}]*grid-row:\s*2;/s)
-    expect(narrowStyles).toMatch(/\.topbar-actions\s*{[^}]*grid-row:\s*3;/s)
+    expect(narrowStyles).toMatch(/\.language-switch\s*{[^}]*flex-direction:\s*column;[^}]*padding-block:\s*var\(--space-1\);/s)
+    expect(narrowStyles).toMatch(/\.language-button\s*{[^}]*width:\s*100%;[^}]*padding:\s*var\(--space-1\)\s+var\(--space-2\);/s)
+    expect(narrowStyles).toMatch(/h1\s*{[^}]*font-size:\s*1\.5rem;/s)
   })
 
   it('shows exact rule provenance behind a diagnosis as progressive disclosure', () => {
