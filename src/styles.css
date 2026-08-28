@@ -61,11 +61,12 @@ h3 { margin-bottom: var(--space-1); font-size: 1rem; }
 .disclosure { margin-bottom: var(--space-4); border: 1px solid var(--border); border-radius: 10px; background: var(--surface); padding: var(--space-3) var(--space-4); color: var(--muted); }
 .disclosure summary { cursor: pointer; min-height: 44px; padding: var(--space-2) 0; color: var(--accent); font-weight: 800; }
 .disclosure p { margin: var(--space-3) 0 0; line-height: 1.5; }
-.progress { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--space-2); padding: var(--space-1) var(--space-1) var(--space-4); }
-.progress-step { display: grid; min-width: 0; justify-items: center; gap: var(--space-1); color: var(--muted); font-size: .72rem; font-weight: 700; text-align: center; }
+.progress { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--space-2); padding: var(--space-1) var(--space-1) calc(var(--space-4) + 1.7rem); }
+.progress-step { position: relative; display: grid; min-width: 0; justify-items: center; gap: var(--space-1); color: var(--muted); font-size: .72rem; font-weight: 700; text-align: center; }
 .progress-number { display: grid; width: 23px; height: 23px; place-items: center; border: 1px solid var(--border); border-radius: 50%; background: var(--surface); }
-.progress-label { overflow-wrap: normal; line-height: 1.2; word-break: normal; }
+.progress-label { overflow-wrap: normal; font-size: 0; line-height: 1.2; word-break: normal; }
 .progress-step.active { color: var(--primary-strong); }
+.progress-step.active .progress-label { position: absolute; top: calc(100% + var(--space-1)); left: 50%; width: max-content; max-width: 9rem; transform: translateX(-50%); font-size: .72rem; overflow-wrap: normal; }
 .progress-step.active .progress-number { border-color: var(--primary); background: var(--primary); color: white; }
 .progress-step.complete { color: var(--accent); }
 .progress-step.complete .progress-number { border-color: var(--success); background: var(--success); color: white; }
@@ -137,6 +138,12 @@ code { border-radius: 5px; background: oklch(0.94 0.01 150); padding: 2px 5px; }
   .card { padding: var(--space-8); }
 }
 
+@media (min-width: 1001px) {
+  .progress { padding-bottom: var(--space-4); }
+  .progress-label { font-size: .68rem; }
+  .progress-step.active .progress-label { position: static; width: auto; max-width: none; transform: none; font-size: inherit; }
+}
+
 @media print {
   .topbar, .prototype-notice, .progress, .disclosure, .site-footer { display: none; }
   body { background: var(--bg); }
@@ -148,10 +155,7 @@ code { border-radius: 5px; background: oklch(0.94 0.01 150); padding: 2px 5px; }
   .topbar { flex-direction: column; align-items: stretch; }
   .topbar-actions { justify-content: flex-start; }
   .card { padding: var(--space-4); }
-  .progress { padding-bottom: calc(var(--space-4) + 1.7rem); }
-  .progress-step { position: relative; }
-  .progress-label { font-size: 0; }
-  .progress-step.active .progress-label { position: absolute; top: calc(100% + var(--space-1)); left: 50%; width: max-content; max-width: 7rem; transform: translateX(-50%); font-size: .68rem; overflow-wrap: normal; }
+  .progress-step.active .progress-label { max-width: 7rem; font-size: .68rem; }
   .progress-step:first-child.active .progress-label { left: 0; transform: none; }
   .progress-step:last-child.active .progress-label { right: 0; left: auto; transform: none; }
   .button-row { flex-direction: column; }
