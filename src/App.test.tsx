@@ -65,7 +65,7 @@ describe('DBT Rescue safe entry point', () => {
     expect(mobileStyles).toMatch(/\.desktop-language\s*{[^}]*display:\s*none;/s)
     expect(mobileStyles).toMatch(/\.topbar-actions\s*{[^}]*grid-column:\s*1 \/ -1;[^}]*grid-row:\s*2;/s)
     expect(narrowStyles).toMatch(/\.language-switch\s*{[^}]*flex-direction:\s*column;/s)
-    expect(narrowStyles).toMatch(/\.language-button\s*{[^}]*width:\s*100%;[^}]*padding:\s*var\(--space-2\);/s)
+    expect(narrowStyles).toMatch(/\.language-button\s*{[^}]*width:\s*100%;[^}]*padding:\s*var\(--space-1\)\s+var\(--space-2\);/s)
     expect(narrowStyles).toMatch(/h1\s*{[^}]*font-size:\s*1\.5rem;/s)
   })
 
