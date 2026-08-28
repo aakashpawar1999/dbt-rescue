@@ -114,7 +114,11 @@ export default function App() {
 
   useEffect(() => {
     if (error) errorRef.current?.focus()
-    else if (payment && step === 1) resultHeadingRef.current?.focus()
+    else {
+      if (step === 0) window.scrollTo({ top: 0, behavior: 'auto' })
+      else document.querySelector<HTMLElement>('[data-progress-target="steps"]')?.scrollIntoView({ block: 'start', behavior: 'auto' })
+      if (payment && step === 1) resultHeadingRef.current?.focus()
+    }
   }, [error, payment, step])
 
   function goTo(nextStep: number) {
@@ -177,9 +181,9 @@ export default function App() {
       <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</div>
       <details className="disclosure"><summary>{t(language, 'disclosureTitle')}</summary><p>{t(language, 'disclosureBody')}</p><p><a href="https://github.com/aakashpawar1999/dbt-rescue/blob/main/docs/functional-vs-simulated.md" target="_blank" rel="noreferrer">{t(language, 'functionalDisclosure')}</a> · <a href="https://github.com/aakashpawar1999/dbt-rescue/blob/main/docs/known-limitations.md" target="_blank" rel="noreferrer">{t(language, 'knownLimitations')}</a></p></details>
 
-      <nav className="progress" aria-label={`${t(language, 'recoveryTracker')}: ${t(language, STEP_KEYS[step])}`}>
+      <nav className="progress" data-progress-target="steps" aria-label={`${t(language, 'recoveryTracker')}: ${t(language, STEP_KEYS[step])}`}>
         {STEP_KEYS.map((key, index) => <span className={index === step ? 'progress-step active' : index < step ? 'progress-step complete' : 'progress-step'} aria-current={index === step ? 'step' : undefined} key={key}>
-          <span className="progress-number">{index + 1}</span><span className="progress-label">{t(language, key)}</span>
+          <span className="progress-number">{index + 1}</span><span className={index === step ? 'progress-label active-progress-label' : 'progress-label'}>{t(language, key)}</span>
         </span>)}
       </nav>
 
