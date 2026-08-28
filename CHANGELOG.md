@@ -6,6 +6,19 @@
   package, public Sites version `6`, hosted source commit, and fresh public
   asset verification.
 
+## [0.6.2] — 2026-08-28
+
+- Kept every narrow-screen active step label within the viewport without
+  breaking a word, including the first, `Acknowledgement`, and final tracker
+  states at 320px.
+- Kept correction-packet values in a stable right-hand column so the account
+  shown in the demo no longer drops into a centred block beneath its label.
+- Removed the artificial gap between the two prototype-warning safety
+  sentences by rendering them as one continuous text item.
+- Added focused regression coverage for the three layout contracts and
+  preserved the existing synthetic-data, deterministic-rule, accessibility,
+  print, and no-new-dependency boundaries.
+
 ## [0.6.1] — 2026-08-28
 
 - Fixed shared step navigation so the progress tracker and active step heading
