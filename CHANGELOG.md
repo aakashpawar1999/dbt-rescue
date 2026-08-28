@@ -6,6 +6,19 @@
   package, public Sites version `6`, hosted source commit, and fresh public
   asset verification.
 
+## [0.6.1] — 2026-08-28
+
+- Fixed shared step navigation so the progress tracker and active step heading
+  remain visible together after forward and back transitions on phone, tablet,
+  and desktop widths.
+- Fixed the narrow active progress label so `Acknowledgement` wraps within the
+  tracker at 320px instead of extending the page horizontally.
+- Reset now returns the journey to the branded start screen at the top of the
+  document.
+- Preserved the existing fictional-data boundary, deterministic journeys,
+  English/Hindi copy, assisted mode, print output, and no-runtime-dependency
+  bundle.
+
 ## [0.6.0] — 2026-08-25
 
 - Added complete document, Open Graph, X card, favicon, Apple touch icon, and
