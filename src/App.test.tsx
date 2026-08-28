@@ -46,10 +46,27 @@ describe('DBT Rescue safe entry point', () => {
     expect(html).toContain('role="status" aria-live="polite"')
   })
 
-  it('keeps the language toggle at the right edge of the header actions', () => {
+  it('keeps the language toggle as the rightmost desktop header control', () => {
     const html = renderToStaticMarkup(<App />)
 
-    expect(html.indexOf('<div class="language-switch"')).toBeGreaterThan(html.indexOf('Start over</button>'))
+    expect(html).toMatch(/<div class="mobile-language">.*<div class="topbar-actions">.*Start over<\/button><\/div><div class="desktop-language">/)
+    expect(styles).toMatch(/\.mobile-language\s*{[^}]*display:\s*none;/s)
+  })
+
+  it('places language beside the mobile brand and wraps it on narrow phones', () => {
+    const mobileStart = styles.indexOf('@media (max-width: 767px)')
+    const narrowStart = styles.indexOf('@media (max-width: 439px)')
+    const mobileStyles = styles.slice(mobileStart, narrowStart)
+    const narrowStyles = styles.slice(narrowStart)
+
+    expect(mobileStart).toBeGreaterThan(-1)
+    expect(mobileStyles).toMatch(/\.topbar\s*{[^}]*display:\s*grid;[^}]*grid-template-columns:\s*minmax\(0, 1fr\) auto;/s)
+    expect(mobileStyles).toMatch(/\.mobile-language\s*{[^}]*display:\s*block;[^}]*grid-column:\s*2;[^}]*grid-row:\s*1;[^}]*justify-self:\s*end;/s)
+    expect(mobileStyles).toMatch(/\.desktop-language\s*{[^}]*display:\s*none;/s)
+    expect(mobileStyles).toMatch(/\.topbar-actions\s*{[^}]*grid-column:\s*1 \/ -1;[^}]*grid-row:\s*2;/s)
+    expect(narrowStyles).toMatch(/\.topbar\s*{[^}]*grid-template-columns:\s*minmax\(0, 1fr\);/s)
+    expect(narrowStyles).toMatch(/\.mobile-language\s*{[^}]*grid-column:\s*1;[^}]*grid-row:\s*2;/s)
+    expect(narrowStyles).toMatch(/\.topbar-actions\s*{[^}]*grid-row:\s*3;/s)
   })
 
   it('shows exact rule provenance behind a diagnosis as progressive disclosure', () => {
