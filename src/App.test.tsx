@@ -53,4 +53,16 @@ describe('DBT Rescue safe entry point', () => {
     expect(html).toContain('human-reviewed')
     expect(html).toContain('INVALID_IFSC')
   })
+
+  it('marks the progress tracker as a shared scroll target', () => {
+    const html = renderToStaticMarkup(<App />)
+
+    expect(html).toContain('data-progress-target="steps"')
+  })
+
+  it('marks the active progress label for narrow-layout wrapping', () => {
+    const html = renderToStaticMarkup(<App />)
+
+    expect(html).toContain('progress-label active-progress-label')
+  })
 })
