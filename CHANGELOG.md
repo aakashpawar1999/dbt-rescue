@@ -8,9 +8,10 @@
 
 ## [0.6.2] — 2026-08-28
 
-- Kept every narrow-screen active step label within the viewport without
-  breaking a word, including the first, `Acknowledgement`, and final tracker
-  states at 320px.
+- Kept all seven compact step captions visible and contained above 1000px,
+  while showing one word-safe active caption at tablet and phone widths.
+- Renamed the short English fourth-step caption to `Fix the issue` so the
+  desktop sequence reads evenly without a special-case font size.
 - Kept correction-packet values in a stable right-hand column so the account
   shown in the demo no longer drops into a centred block beneath its label.
 - Removed the artificial gap between the two prototype-warning safety
@@ -18,6 +19,8 @@
 - Added focused regression coverage for the three layout contracts and
   preserved the existing synthetic-data, deterministic-rule, accessibility,
   print, and no-new-dependency boundaries.
+- Declared the existing Worker's `ASSETS` binding in Vite so the local preview
+  no longer fails at `env.ASSETS.fetch`.
 
 ## [0.6.1] — 2026-08-28
 
