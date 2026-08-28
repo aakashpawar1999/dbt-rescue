@@ -46,6 +46,12 @@ describe('DBT Rescue safe entry point', () => {
     expect(html).toContain('role="status" aria-live="polite"')
   })
 
+  it('keeps the language toggle at the right edge of the header actions', () => {
+    const html = renderToStaticMarkup(<App />)
+
+    expect(html.indexOf('<div class="language-switch"')).toBeGreaterThan(html.indexOf('Start over</button>'))
+  })
+
   it('shows exact rule provenance behind a diagnosis as progressive disclosure', () => {
     const payment = findPaymentCase('DBT-ARJUN-002')
     if (!payment) throw new Error('fixture missing')
@@ -75,7 +81,8 @@ describe('DBT Rescue safe entry point', () => {
 
   it('keeps tablet labels focused and shows every desktop label without word breaks', () => {
     const baseStyles = styles.slice(0, styles.indexOf('@media'))
-    const desktopStyles = styles.slice(styles.indexOf('@media (min-width: 1001px)'))
+    const desktopStart = styles.indexOf('@media (min-width: 1001px)')
+    const desktopStyles = styles.slice(desktopStart, styles.indexOf('@media print', desktopStart))
 
     expect(styles).toMatch(/\.progress-label\s*{[^}]*overflow-wrap:\s*normal;/s)
     expect(styles).not.toMatch(/\.progress-step\.active \.progress-label\s*{[^}]*overflow-wrap:\s*anywhere;/s)
@@ -86,6 +93,7 @@ describe('DBT Rescue safe entry point', () => {
     expect(styles.slice(styles.indexOf('@media (max-width: 599px)'))).toMatch(/\.progress-step:first-child\.active \.progress-label/)
     expect(desktopStyles).toMatch(/\.progress-label\s*{[^}]*font-size:\s*\.68rem;/s)
     expect(desktopStyles).toMatch(/\.progress-step\.active \.progress-label\s*{[^}]*position:\s*static;/s)
+    expect(desktopStyles).toMatch(/\.progress-step\.active \.progress-label\s*{[^}]*font-size:\s*\.68rem;/s)
     expect(desktopStyles).not.toMatch(/100vw/)
   })
 

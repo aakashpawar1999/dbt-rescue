@@ -142,7 +142,7 @@ code { border-radius: 5px; background: oklch(0.94 0.01 150); padding: 2px 5px; }
 @media (min-width: 1001px) {
   .progress { padding-bottom: var(--space-4); }
   .progress-label { font-size: .68rem; }
-  .progress-step.active .progress-label { position: static; width: auto; max-width: none; transform: none; font-size: inherit; }
+  .progress-step.active .progress-label { position: static; width: auto; max-width: none; transform: none; font-size: .68rem; }
 }
 
 @media print {
