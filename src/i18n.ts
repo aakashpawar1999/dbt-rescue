@@ -31,7 +31,7 @@ export const TEXT = {
     findPayment: 'Find payment',
     paymentJourney: 'Payment journey',
     whyStopped: 'Why it stopped',
-    fixIt: 'Fix it',
+    fixIt: 'Fix the issue',
     correctionPacket: 'Correction packet',
     acknowledgement: 'Acknowledgement',
     recoveryTracker: 'Recovery tracker',
