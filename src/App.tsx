@@ -167,11 +167,12 @@ export default function App() {
   return <div className="app-shell">
     <header className="topbar">
       <div className="brand-lockup"><img className="brand-mark" src="/logo.png" alt="DBT Rescue logo" width="48" height="48" /><div><p className="brand-kicker">{t(language, 'brandKicker')}</p><h1>{t(language, 'title')}</h1></div></div>
+      <div className="mobile-language"><LanguageToggle language={language} onChange={changeLanguage} /></div>
       <div className="topbar-actions">
         <ModeToggle language={language} assisted={assisted} onChange={toggleAssisted} />
         <button className="text-button" type="button" onClick={reset}>{t(language, 'startOver')}</button>
-        <LanguageToggle language={language} onChange={changeLanguage} />
       </div>
+      <div className="desktop-language"><LanguageToggle language={language} onChange={changeLanguage} /></div>
     </header>
 
     <PrototypeNotice language={language} />

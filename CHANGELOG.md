@@ -6,6 +6,16 @@
   package, public Sites version `6`, hosted source commit, and fresh public
   asset verification.
 
+## [0.6.3] — 2026-08-28
+
+- Placed the language toggle at the mobile header's top-right beside the logo
+  and title whenever the available width can contain both.
+- Moved the language toggle to its own right-aligned row below 440px, keeping
+  assisted mode and `Start over` on the following row without overlap or
+  horizontal overflow.
+- Preserved the single-row desktop header, rightmost language placement,
+  existing controls, translations, recovery journey, and dependency boundary.
+
 ## [0.6.2] — 2026-08-28
 
 - Kept all seven compact step captions visible and contained above 1000px,
