@@ -9,12 +9,15 @@ describe('dedicated recovery workspace', () => {
     expect(renderToStaticMarkup(<App />)).toContain('href="/frame"')
     expect(renderToStaticMarkup(<App embedded />)).not.toContain('href="/frame"')
   })
-  it('uses native English/Hindi language dropdowns in the responsive header', () => {
+  it('keeps seven language choices and secondary actions in disclosures', () => {
     const html = renderToStaticMarkup(<App />)
-    expect(html).toContain('<select class="language-select" aria-label="Language"')
-    expect(html).toContain('<option value="en" selected="">English</option>')
-    expect(html).toContain('<option value="hi">हिन्दी</option>')
-    expect(html).not.toContain('class="language-button"')
+    const header = html.slice(html.indexOf('<header'), html.indexOf('</header>'))
+    expect(header).toContain('aria-label="Change language"')
+    expect(header).toContain('aria-label="More options"')
+    for (const language of ['English', 'Hinglish', 'हिन्दी', 'मराठी', 'தமிழ்', 'తెలుగు', 'বাংলা']) expect(header).toContain(language)
+    expect(header.match(/class="header-menu /g)).toHaveLength(2)
+    expect(header).not.toContain('Start over')
+    expect(header).not.toContain('Use assisted mode')
   })
   it('offers four safe starts with a return to the product page', () => {
     const html = renderToStaticMarkup(<App />)

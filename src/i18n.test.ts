@@ -1,3 +1,5 @@
+import { LANGUAGES } from './languages'
+import { translateText } from './locales'
 import { describe, expect, it } from 'vitest'
 import { findPaymentCase } from './domain/cases'
 import { diagnosePayment } from './domain/rules'
@@ -55,5 +57,22 @@ describe('reviewed bilingual copy', () => {
   it('keeps raw technical codes unchanged while translating surrounding copy', () => {
     expect(t('hi', 'technicalReason', { code: 'UID_NOT_MAPPED' })).toContain('UID_NOT_MAPPED')
     expect(getDiagnosisCopy('DBT-MEENA-003-RULE-1', 'hi')?.reason).toBe('DBT के लिए कोई सक्रिय बैंक मैप नहीं है')
+  })
+})
+
+
+describe('all supported demo languages', () => {
+  it.each(LANGUAGES.map(({code}) => code))('preserves case and rule identity in %s', (language) => {
+    for (const reference of CASE_REFERENCES) {
+      const payment = findPaymentCase(reference)!
+      const copy = getCaseCopy(reference, language)!
+      const diagnosis = diagnosePayment(payment)
+      expect(copy.events.map(({id}) => id)).toEqual(payment.events.map(({id}) => id))
+      expect(copy.maskedAccount).toContain(getCaseCopy(reference, 'en')!.maskedAccount.slice(-4))
+      expect(getDiagnosisCopy(diagnosis.provenance.ruleId, language)?.reason).toBe(language === 'hi' ? DIAGNOSIS_COPY[reference].hi.reason : translateText(diagnosis.reason, language))
+    }
+    expect(getDiagnosisCopy('UNKNOWN-RAW-REASON', language)?.reason).not.toBe(getDiagnosisCopy('DBT-SUNITA-001-RULE-1', language)?.reason)
+    expect(getDiagnosisCopy('invalid-rule', language)).toBeUndefined()
+    expect(t(language, 'technicalReason', {code: 'UID_NOT_MAPPED'})).toContain('UID_NOT_MAPPED')
   })
 })
