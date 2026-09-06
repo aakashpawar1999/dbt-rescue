@@ -79,6 +79,7 @@ export default function App({ initialReference = '' }: { initialReference?: stri
   const [assisted, setAssisted] = useState(false)
   const [recoveryState, setRecoveryState] = useState<RecoveryState>(initialPayment ? getRecoveryStates(diagnosePayment(initialPayment).recoveryType)[0] : 'needs-correction')
   const [announcement, setAnnouncement] = useState('')
+  const [creditEvent, setCreditEvent] = useState<PaymentEvent | null>(null)
   const diagnosis = useMemo(() => payment ? diagnosePayment(payment) : null, [payment])
   const caseCopy = payment ? getCaseCopy(payment.reference, language) : null
   const diagnosisCopy = diagnosis ? getDiagnosisCopy(diagnosis.provenance.ruleId, language) : null
@@ -118,6 +119,7 @@ export default function App({ initialReference = '' }: { initialReference?: stri
       setPayment(restored?.payment ?? null)
       setStep(restored ? (restored.step > 0 && restored.step < 4 ? 1 : restored.step) : 0)
       setRecoveryState(restored?.recoveryState ?? 'needs-correction')
+      setCreditEvent(restored?.creditEvent ?? null)
       setError('')
       if (restored) setReference(restored.payment.reference)
     }
@@ -141,7 +143,21 @@ export default function App({ initialReference = '' }: { initialReference?: stri
   function goTo(nextStep: number, nextPayment = payment, nextRecovery = recoveryState) {
     nextStep = nextStep > 0 && nextStep < 4 ? 1 : nextStep
     setStep(nextStep)
-    window.history.pushState({ version: 1, generation: historyGeneration.current, reference: nextPayment?.reference, step: nextStep, recoveryState: nextRecovery, expiresAt: Date.now() + 86400000 }, '', window.location.href)
+    window.history.pushState({ version: 1, generation: historyGeneration.current, reference: nextPayment?.reference, step: nextStep, recoveryState: nextRecovery, creditEvent, expiresAt: Date.now() + 86400000 }, '', window.location.href)
+  }
+
+  function updateRecovery() {
+    if (!payment || !diagnosis) return
+    const observation: PaymentEvent | null = recoveryState === 'payment-reissued' ? {
+      id: 'recovery-credit', stage: 'Destination bank', status: 'confirmed', source: 'Synthetic recovery simulator',
+      timestamp: new Date().toISOString(), route: payment.route, rawReason: 'CREDITED', simulated: true,
+      maskedReference: payment.reference, detail: 'A separate simulated bank credit confirmation was added. No real bank was contacted.',
+    } : creditEvent
+    const next = advanceRecovery(recoveryState, diagnosis.recoveryType, { payment, event: observation })
+    setCreditEvent(observation)
+    setRecoveryState(next)
+    window.history.replaceState({ version: 1, generation: historyGeneration.current, reference: payment.reference, step, recoveryState: next, creditEvent: observation, expiresAt: Date.now() + 86400000 }, '', window.location.href)
+    setAnnouncement(recoveryLabel(language, next))
   }
 
   function changeLanguage(nextLanguage: Language) {
@@ -157,6 +173,7 @@ export default function App({ initialReference = '' }: { initialReference?: stri
 
   function lookup(event?: FormEvent<HTMLFormElement>, selectedReference = reference) {
     event?.preventDefault()
+    setCreditEvent(null)
     const result = findPaymentCase(selectedReference)
     if (!result) {
       setPayment(null)
@@ -180,6 +197,7 @@ export default function App({ initialReference = '' }: { initialReference?: stri
     historyGeneration.current = crypto.randomUUID()
     setPayment(null)
     setStartPath(null)
+    setCreditEvent(null)
     setError('')
     setStep(0)
     setReference('DBT-SUNITA-001')
@@ -252,7 +270,7 @@ export default function App({ initialReference = '' }: { initialReference?: stri
         <StepHeader step={4} payment={localizedPayment} language={language} /><div className="printable-packet"><p className="eyebrow">{t(language, correctionRequest.requestType === 'trace' ? 'fictionalTraceRequest' : 'fictionalCorrectionRequest')}</p><h2 id="packet-title">{t(language, 'packetTitle', { owner: correctionRequest.owner })}</h2><p className="muted">{t(language, 'packetLead')}</p>
           <dl className="request-details"><div><dt>{t(language, 'demoReference')}</dt><dd>{correctionRequest.reference}</dd></div><div><dt>{t(language, 'beneficiary')}</dt><dd>{correctionRequest.beneficiary}</dd></div><div><dt>{t(language, 'benefit')}</dt><dd>{correctionRequest.scheme}</dd></div><div><dt>{t(language, 'accountShown')}</dt><dd>{correctionRequest.account}</dd></div>{localizedLatestEvent && <div><dt>{t(language, 'source')}</dt><dd>{localizedLatestEvent.source} · <time dateTime={localizedLatestEvent.timestamp}>{formatDate(localizedLatestEvent.timestamp, language)}</time></dd></div>}</dl>
           <div className="request-action"><p className="eyebrow">{t(language, 'askAction')}</p><p>{correctionRequest.action}</p></div><p className="eyebrow">{t(language, 'carry')}</p><ul className="check-list">{correctionRequest.documents.map((document) => <li key={document}>{document}</li>)}</ul>
-        </div><div className="button-row"><button className="secondary-button" type="button" onClick={() => goTo(3)}>{t(language, 'back')}</button><button className="secondary-button" type="button" onClick={() => window.print()}>{t(language, 'printRequest')}</button><button className="primary-button" type="button" onClick={() => { setRecoveryState(recoveryStates[1] ?? recoveryStates[0]); goTo(5, payment, recoveryStates[1] ?? recoveryStates[0]); setAnnouncement(t(language, 'fictionalAcknowledgement')) }}>{t(language, 'recordAcknowledgement')} <span aria-hidden="true">→</span></button></div>
+        </div><div className="button-row"><button className="secondary-button" type="button" onClick={() => goTo(3)}>{t(language, 'back')}</button><button className="secondary-button" type="button" onClick={() => window.print()}>{t(language, 'printRequest')}</button><button className="primary-button" type="button" onClick={() => { const acknowledged = recoveryState === recoveryStates[0] ? recoveryStates[1] : recoveryState; setRecoveryState(acknowledged); goTo(5, payment, acknowledged); setAnnouncement(t(language, 'fictionalAcknowledgement')) }}>{t(language, 'recordAcknowledgement')} <span aria-hidden="true">→</span></button></div>
       </section>}
 
       {step === 5 && localizedPayment && localizedDiagnosis && <section className="card" aria-labelledby="acknowledgement-title">
@@ -264,7 +282,8 @@ export default function App({ initialReference = '' }: { initialReference?: stri
       {step === 6 && localizedPayment && localizedDiagnosis && <section className="card" aria-labelledby="recovery-title">
         <StepHeader step={6} payment={localizedPayment} language={language} /><p className="eyebrow">{t(language, 'simulatedTracker')}</p><h2 id="recovery-title">{t(language, 'trackerTitle')}</h2><p className="lead">{t(language, 'trackerLead')}</p>
         <ol className="recovery-list">{recoveryStates.map((state) => { const currentIndex = recoveryStates.indexOf(recoveryState); const stateIndex = recoveryStates.indexOf(state); return <li className={stateIndex <= currentIndex ? 'recovery-item reached' : 'recovery-item'} key={state}><span className="recovery-dot" aria-hidden="true">{stateIndex <= currentIndex ? '✓' : stateIndex + 1}</span><span>{recoveryLabel(language, state)}</span></li> })}</ol>
-        {recoveryState !== recoveryStates[recoveryStates.length - 1] ? <button className="primary-button" type="button" onClick={() => { const nextState = advanceRecovery(recoveryState, localizedDiagnosis.recoveryType); setRecoveryState(nextState); setAnnouncement(recoveryLabel(language, nextState)) }}>{t(language, 'showNext')} <span aria-hidden="true">→</span></button> : <div className="success-message" role="status"><strong>{t(language, 'finalState', { state: recoveryLabel(language, recoveryState) })}</strong></div>}
+        {recoveryState !== recoveryStates[recoveryStates.length - 1] ? <button className="primary-button" type="button" onClick={updateRecovery}>{recoveryState === 'payment-reissued' ? say('Add simulated bank credit confirmation', 'सिम्युलेटेड बैंक जमा पुष्टि जोड़ें') : t(language, 'showNext')} <span aria-hidden="true">→</span></button> : <div className="success-message" role="status"><strong>{t(language, 'finalState', { state: recoveryLabel(language, recoveryState) })}</strong></div>}
+        {creditEvent && <aside className="technical-details"><strong>{say('Separate simulated credit evidence', 'अलग सिम्युलेटेड जमा प्रमाण')}</strong><p>{say('Synthetic recovery simulator · Destination bank · Confirmed. No real bank was contacted.', 'सिंथेटिक रिकवरी सिम्युलेटर · गंतव्य बैंक · पुष्टि की गई। किसी वास्तविक बैंक से संपर्क नहीं किया गया।')}</p><p>{creditEvent.maskedReference} · <time dateTime={creditEvent.timestamp}>{formatDate(creditEvent.timestamp, language)}</time></p><code>{creditEvent.id} · {creditEvent.rawReason}</code></aside>}
         <div className="button-row"><button className="secondary-button" type="button" onClick={() => goTo(4)}>{t(language, 'viewRequest')}</button><button className="text-button" type="button" onClick={reset}>{t(language, 'startAnother')}</button></div>
       </section>}
     </main>

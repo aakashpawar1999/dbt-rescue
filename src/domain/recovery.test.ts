@@ -12,11 +12,11 @@ describe('fictional recovery sequence', () => {
       }
     }
   })
-  it('advances only through correction, reissue, and credit', () => {
+  it('advances correction only as far as reissue without credit evidence', () => {
     const states: RecoveryState[] = ['needs-correction']
     let state = states[0]
 
-    while (state !== 'account-credited') {
+    while (state !== 'payment-reissued') {
       state = advanceRecovery(state)
       states.push(state)
     }
@@ -26,8 +26,23 @@ describe('fictional recovery sequence', () => {
       'correction-submitted',
       'record-updated',
       'payment-reissued',
-      'account-credited',
     ])
+    expect(() => advanceRecovery(state)).toThrow('Confirmed credit evidence required')
+  })
+
+  it('requires a separate confirmed credit observation matching the case and route', () => {
+    const payment = findPaymentCase('DBT-ARJUN-002')!
+    const event = { ...payment.events[0], id: 'recovery-credit', status: 'confirmed' as const, rawReason: 'CREDITED' }
+    expect(advanceRecovery('payment-reissued', 'correction', { payment, event })).toBe('account-credited')
+    for (const invalid of [
+      { ...event, status: 'failed' as const },
+      { ...event, status: 'missing' as const },
+      { ...event, status: 'conflict' as const },
+      { ...event, rawReason: 'PAYMENT_REISSUED' },
+      { ...event, route: 'aadhaar' as const },
+      { ...event, maskedReference: 'DBT-MEENA-003' },
+      { ...event, id: 'scheme-created' },
+    ]) expect(() => advanceRecovery('payment-reissued', 'correction', { payment, event: invalid })).toThrow('Confirmed credit evidence required')
   })
 
   it('builds a printable request with synthetic and masked values only', () => {

@@ -1,8 +1,8 @@
-import { findPaymentCase, type PaymentCase } from './cases'
-import { getRecoveryStates, type RecoveryState } from './recovery'
+import { findPaymentCase, type PaymentCase, type PaymentEvent } from './cases'
+import { getRecoveryStates, isRecoveryCredit, type RecoveryState } from './recovery'
 import { diagnosePayment } from './rules'
 
-export function readNavigation(value: unknown, generation: string, now: number): { payment: PaymentCase; step: number; recoveryState: RecoveryState } | null {
+export function readNavigation(value: unknown, generation: string, now: number): { payment: PaymentCase; step: number; recoveryState: RecoveryState; creditEvent: PaymentEvent | null } | null {
   if (!value || typeof value !== 'object') return null
   const data = value as Record<string, unknown>
   if (data.version !== 1 || data.generation !== generation ||
@@ -12,5 +12,7 @@ export function readNavigation(value: unknown, generation: string, now: number):
     typeof data.recoveryState !== 'string') return null
   const payment = findPaymentCase(data.reference)
   if (!payment || !getRecoveryStates(diagnosePayment(payment).recoveryType).includes(data.recoveryState as RecoveryState)) return null
-  return { payment, step: data.step, recoveryState: data.recoveryState as RecoveryState }
+  const creditEvent = isRecoveryCredit(payment, data.creditEvent) ? data.creditEvent : null
+  if (data.recoveryState === 'account-credited' && !creditEvent) return null
+  return { payment, step: data.step, recoveryState: data.recoveryState as RecoveryState, creditEvent }
 }

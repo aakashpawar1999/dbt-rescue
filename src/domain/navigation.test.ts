@@ -12,6 +12,7 @@ describe('case navigation boundary', () => {
     { ...snapshot, reference: 'DBT-UNKNOWN' }, { ...snapshot, step: 1.5 },
     { ...snapshot, step: 7 }, { ...snapshot, expiresAt: 1000 },
     { ...snapshot, recoveryState: 'needs-correction' },
+    { ...snapshot, reference: 'DBT-ARJUN-002', recoveryState: 'account-credited' },
   ])('fails closed for incompatible, expired or cleared state: %j', (value) => {
     expect(readNavigation(value, 'current', 1000)).toBeNull()
   })
