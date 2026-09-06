@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
 import { findPaymentCase, latestConfirmedEvent, PAYMENT_CASES, type PaymentCase, type PaymentEvent } from './domain/cases'
 import { advanceRecovery, buildCorrectionRequest, getRecoveryStates, type RecoveryState } from './domain/recovery'
 import { diagnosePayment, type PaymentDiagnosis } from './domain/rules'
+import { readNavigation } from './domain/navigation'
 import { getCaseCopy, getDiagnosisCopy, recoveryLabel, t, type Language, type TextKey } from './i18n'
 
 const STEP_KEYS: TextKey[] = ['findPayment', 'paymentJourney', 'whyStopped', 'fixIt', 'correctionPacket', 'acknowledgement', 'recoveryTracker']
@@ -101,11 +102,20 @@ export default function App() {
   const localizedLatestEvent = localizedPayment?.events.find((event) => event.id === latestEvent?.id) ?? null
   const resultHeadingRef = useRef<HTMLHeadingElement>(null)
   const errorRef = useRef<HTMLParagraphElement>(null)
+  const historyGeneration = useRef('')
+
+  useEffect(() => { document.documentElement.lang = language }, [language])
 
   useEffect(() => {
+    historyGeneration.current = crypto.randomUUID()
+    window.history.replaceState(null, '', window.location.href)
     const onPopState = (event: PopStateEvent) => {
-      const historyStep = event.state?.dbtStep
-      setStep(typeof historyStep === 'number' ? Math.max(0, Math.min(6, historyStep)) : 0)
+      const restored = readNavigation(event.state, historyGeneration.current, Date.now())
+      setPayment(restored?.payment ?? null)
+      setStep(restored?.step ?? 0)
+      setRecoveryState(restored?.recoveryState ?? 'needs-correction')
+      setError('')
+      if (restored) setReference(restored.payment.reference)
     }
     window.addEventListener('popstate', onPopState)
     return () => window.removeEventListener('popstate', onPopState)
@@ -117,12 +127,16 @@ export default function App() {
       if (step === 0) window.scrollTo({ top: 0, behavior: 'auto' })
       else document.querySelector<HTMLElement>('[data-progress-target="steps"]')?.scrollIntoView({ block: 'start', behavior: 'auto' })
       if (payment && step === 1) resultHeadingRef.current?.focus()
+      else {
+        const heading = document.querySelector<HTMLElement>('main section h2')
+        if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }) }
+      }
     }
   }, [error, payment, step])
 
-  function goTo(nextStep: number) {
+  function goTo(nextStep: number, nextPayment = payment, nextRecovery = recoveryState) {
     setStep(nextStep)
-    window.history.pushState({ dbtStep: nextStep }, '', window.location.href)
+    window.history.pushState({ version: 1, generation: historyGeneration.current, reference: nextPayment?.reference, step: nextStep, recoveryState: nextRecovery, expiresAt: Date.now() + 86400000 }, '', window.location.href)
   }
 
   function changeLanguage(nextLanguage: Language) {
@@ -149,12 +163,15 @@ export default function App() {
     }
     setPayment(result)
     setError('')
-    setRecoveryState(getRecoveryStates(diagnosePayment(result).recoveryType)[0])
-    goTo(1)
+    historyGeneration.current = crypto.randomUUID()
+    const initialRecovery = getRecoveryStates(diagnosePayment(result).recoveryType)[0]
+    setRecoveryState(initialRecovery)
+    goTo(1, result, initialRecovery)
     setAnnouncement(t(language, result.events.some((item) => item.status === 'failed') ? 'whereStopped' : 'whereNow'))
   }
 
   function reset() {
+    historyGeneration.current = crypto.randomUUID()
     setPayment(null)
     setError('')
     setStep(0)
