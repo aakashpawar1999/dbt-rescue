@@ -19,6 +19,17 @@ describe('dedicated recovery workspace', () => {
     expect(header).not.toContain('Start over')
     expect(header).not.toContain('Use assisted mode')
   })
+  it('uses the requested demo menu labels and a non-glyph language chevron', () => {
+    const html = renderToStaticMarkup(<App />)
+    const header = html.slice(html.indexOf('<header'), html.indexOf('</header>'))
+    for (const text of ['Reset Demo', 'Assisted Mode', 'Mobile frame']) expect(header).toContain(text)
+    expect(header).not.toContain('iPhone frame')
+    expect(header).not.toContain('New example')
+    expect(header).not.toContain('Larger text')
+    expect(header).not.toContain('Standard text')
+    expect(header).not.toContain('⌄')
+    expect(renderToStaticMarkup(<App embedded />)).not.toContain('Mobile frame')
+  })
   it('offers four safe starts with a return to the product page', () => {
     const html = renderToStaticMarkup(<App />)
     for (const text of ['Try a safe example', 'Use a fictional reference', 'Understand a status', 'I cannot access my status', 'href="/"', 'Do not enter real Aadhaar', 'English', 'हिन्दी']) expect(html).toContain(text)

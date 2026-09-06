@@ -187,7 +187,7 @@
   "Skip to content": "Content par jaayein",
   "DBT Rescue home": "DBT Rescue home",
   "Interactive demo": "Interactive demo",
-  "iPhone frame": "iPhone frame",
+  "Mobile frame": "Mobile frame",
   "Product": "Product",
   "Demo workspace": "Demo workspace",
   "Device storage is unavailable. Refresh will clear this demo.": "Device storage available nahi hai. Refresh se yeh demo clear ho jayega.",
@@ -230,7 +230,7 @@
   "Synthetic recovery simulator · Destination bank · Confirmed. No real bank was contacted.": "Synthetic recovery simulator · Destination bank · Confirmed. Kisi asli bank se contact nahi hua.",
   "Change language": "Bhasha badlein",
   "More options": "Aur options",
-  "New example": "Naya example",
-  "Standard text": "Normal text",
-  "Larger text": "Bada text"
+  "Reset Demo": "Demo reset karein",
+  "Assisted Mode": "Assisted mode",
+  "Citizen Mode": "Citizen mode"
 }
