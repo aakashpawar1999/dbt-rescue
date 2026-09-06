@@ -12,7 +12,7 @@ describe('public landing and separate demo', () => {
     expect(html).toContain('How it works')
     expect(html).not.toContain('<form')
   })
-  it.each(['/', '/demo', '/demo/'])('serves the app document for direct entry %s', async (path) => {
+  it.each(['/', '/demo', '/demo/', '/frame', '/frame/'])('serves the app document for direct entry %s', async (path) => {
     let requested = ''
     await worker.fetch(new Request('https://example.test' + path), { ASSETS: { fetch: async (request: Request) => { requested = new URL(request.url).pathname; return new Response('ok') } } })
     expect(requested).toBe('/')

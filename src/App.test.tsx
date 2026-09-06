@@ -5,6 +5,10 @@ import { findPaymentCase } from './domain/cases'
 import { diagnosePayment } from './domain/rules'
 
 describe('dedicated recovery workspace', () => {
+  it('links to phone studio without allowing recursive embedded studios', () => {
+    expect(renderToStaticMarkup(<App />)).toContain('href="/frame"')
+    expect(renderToStaticMarkup(<App embedded />)).not.toContain('href="/frame"')
+  })
   it('uses native English/Hindi language dropdowns in the responsive header', () => {
     const html = renderToStaticMarkup(<App />)
     expect(html).toContain('<select class="language-select" aria-label="Language"')

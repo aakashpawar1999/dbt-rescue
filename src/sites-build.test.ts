@@ -9,9 +9,10 @@ describe('Sites deployment artifact', () => {
     expect(existsSync(resolve('dist/server/index.js'))).toBe(true)
   })
 
-  it('maps direct demo entry to the canonical root asset', () => {
+  it('includes demo and frame routes in the built asset worker', () => {
     const worker = readFileSync(resolve('dist/server/index.js'), 'utf8')
-    expect(worker).toContain('pathname === "/demo"')
+    expect(worker).toContain('"/demo"')
+    expect(worker).toContain('"/frame"')
     expect(worker).toContain('pathname = "/"')
   })
 

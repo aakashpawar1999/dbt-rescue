@@ -53,6 +53,8 @@ print dialog; no document is uploaded anywhere.
 ## What is currently built
 
 - A professional product landing page and separate `/demo` workspace.
+- An interactive `/frame` phone studio for screen recordings, with device
+  finishes, backgrounds, zoom and hidden controls. It does not record video itself.
 - Four safe starts: safe example, fictional reference, a supported status, or
   guidance when status cannot be accessed.
 - A combined case answer with owner, next action, evidence and follow-up guidance.

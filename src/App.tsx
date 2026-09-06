@@ -69,7 +69,7 @@ export function DiagnosisAudit({ payment, diagnosis, language }: { payment: Paym
   </details>
 }
 
-export default function App({ initialReference = '' }: { initialReference?: string }) {
+export default function App({ initialReference = '', embedded = false }: { initialReference?: string; embedded?: boolean }) {
   const [saved] = useState(() => {
     if (typeof window === 'undefined') return null
     try {
@@ -243,9 +243,10 @@ export default function App({ initialReference = '' }: { initialReference?: stri
   return <div className={`app-shell demo-shell${assisted ? ' assisted' : ''}`}>
     <a className="skip-link" href="#main-content">{say('Skip to content', 'मुख्य सामग्री पर जाएँ')}</a>
     <header className="topbar">
-      <a className="brand-lockup" href="/" aria-label={say('DBT Rescue home', 'DBT रेस्क्यू मुख्य पृष्ठ')}><img className="brand-mark" src="/logo.png" alt="" width="40" height="40" /><div><strong>{t(language, 'title')}</strong><span className="demo-caption">{say('Interactive demo', 'इंटरैक्टिव डेमो')}</span></div></a>
+      <a className="brand-lockup" href="/" target={embedded ? "_top" : undefined} aria-label={say('DBT Rescue home', 'DBT रेस्क्यू मुख्य पृष्ठ')}><img className="brand-mark" src="/logo.png" alt="" width="40" height="40" /><div><strong>{t(language, 'title')}</strong><span className="demo-caption">{say('Interactive demo', 'इंटरैक्टिव डेमो')}</span></div></a>
       <div className="mobile-language"><LanguageToggle language={language} onChange={changeLanguage} /></div>
       <div className="topbar-actions">
+        {!embedded && <a className="text-button frame-link" href="/frame">{say('iPhone frame', 'iPhone फ्रेम')}</a>}
         <ModeToggle language={language} assisted={assisted} onChange={toggleAssisted} />
         <button className="text-button" type="button" onClick={reset}>{t(language, 'startOver')}</button>
       </div>
@@ -254,7 +255,7 @@ export default function App({ initialReference = '' }: { initialReference?: stri
 
     <main className="content" id="main-content">
       <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</div>
-      <div className="demo-location"><a href="/">{say('Product', 'प्रोडक्ट')}</a><span aria-hidden="true">/</span><span>{say('Demo workspace', 'डेमो कार्यक्षेत्र')}</span>{payment && <><span aria-hidden="true">/</span><strong>{payment.reference}</strong></>}</div>
+      <div className="demo-location"><a href="/" target={embedded ? "_top" : undefined}>{say('Product', 'प्रोडक्ट')}</a><span aria-hidden="true">/</span><span>{say('Demo workspace', 'डेमो कार्यक्षेत्र')}</span>{payment && <><span aria-hidden="true">/</span><strong>{payment.reference}</strong></>}</div>
       <PrototypeNotice language={language} />
       {payment && <p className="field-help">{storageUnavailable ? say('Device storage is unavailable. Refresh will clear this demo.', 'डिवाइस स्टोरेज उपलब्ध नहीं है। रीफ्रेश करने पर यह डेमो मिट जाएगा।') : say('Demo progress stays on this device for 24 hours. Start over clears it.', 'डेमो की प्रगति इस डिवाइस पर 24 घंटे रहती है। फिर से शुरू करने पर यह मिट जाती है।')}</p>}
       {step > 0 && <nav className="case-navigation" data-progress-target="steps" aria-label={t(language, 'recoveryTracker')}><button onClick={() => goTo(1)} aria-current={step < 4 ? 'step' : undefined}>{say('Case answer', 'मामले का उत्तर')}</button><span aria-hidden="true">→</span><span aria-current={step === 4 ? 'step' : undefined}>{say('Action packet', 'कार्रवाई पैकेट')}</span><span aria-hidden="true">→</span><span aria-current={step > 4 ? 'step' : undefined}>{say('Follow-up', 'आगे की कार्रवाई')}</span></nav>}
