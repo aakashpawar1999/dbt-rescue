@@ -3,6 +3,24 @@ import { findPaymentCase, latestConfirmedEvent, PAYMENT_CASES } from './cases'
 import { diagnoseEvent, diagnosePayment } from './rules'
 
 describe('fictional DBT fixtures', () => {
+  it.each(['missing', 'conflict', 'failed', 'wrong-route', 'wrong-reference', 'absent'])('does not infer credit from %s destination evidence', (condition) => {
+    const original = findPaymentCase('DBT-SUNITA-001')!
+    const payment = structuredClone(original)
+    const credit = payment.events.find((event) => event.id === 'destination-credited')!
+    if (condition === 'absent') payment.events = payment.events.filter((event) => event !== credit)
+    else if (condition === 'wrong-route') credit.route = 'account'
+    else if (condition === 'wrong-reference') credit.maskedReference = 'DBT-ARJUN-002'
+    else credit.status = condition as 'missing' | 'conflict' | 'failed'
+    expect(diagnosePayment(payment).provenance.ruleId).toBe('UNKNOWN-RAW-REASON')
+  })
+
+  it('requires the selected observation to have the reviewed status and route', () => {
+    const payment = findPaymentCase('DBT-MEENA-003')!
+    const event = payment.events.find((item) => item.id === 'mapper-failed')!
+    expect(diagnoseEvent(payment, { ...event, status: 'missing' }).provenance.reviewerStatus).toBe('unreviewed')
+    expect(diagnoseEvent(payment, { ...event, route: 'account' }).provenance.reviewerStatus).toBe('unreviewed')
+  })
+
   it.each([
     ['DBT-SUNITA-001', 'Farmer benefit demo', 'aadhaar'],
     ['DBT-ARJUN-002', 'Scholarship demo', 'account'],

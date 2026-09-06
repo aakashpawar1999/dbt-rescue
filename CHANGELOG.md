@@ -1,10 +1,20 @@
 # Changelog
 
-## [Unreleased] — 2026-08-26
+## [1.0.0] — 2026-09-06
 
-- Synchronized the README and current-state documentation with the `0.6.0`
-  package, public Sites version `6`, hosted source commit, and fresh public
-  asset verification.
+- Added a professional product landing page and a separate redesigned `/demo`.
+- Added four safe starts and a combined case answer with owner, action,
+  evidence, follow-up guidance, and expandable source provenance.
+- Added an interactive iPhone-style `/frame` studio with finishes, backgrounds,
+  zoom, fit, reload and a control-free recording view for your screen recorder.
+- Replaced language buttons with a native English/Hindi dropdown.
+- Preserved the three English/Hindi fictional journeys and printable packets.
+- Required matching credit evidence, preserved unknown-rule translations, and
+  guarded history/reset and invalid recovery transitions.
+- Added separate simulated credit confirmation and fixed 24-hour device-local
+  resume for case, view, language, display mode and recovery proof.
+- Documented the synthetic-only scope. Expanded cases, consented helper sessions,
+  backend roles, models, evidence uploads and operations remain future work.
 
 ## [0.6.4] — 2026-08-28
 

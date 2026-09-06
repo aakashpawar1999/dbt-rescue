@@ -301,7 +301,7 @@ export const EVENT_COPY: Record<string, LocalizedEventText> = {
   ),
 }
 
-type CaseText = { scheme: string; benefit: string; maskedAccount: string; events: EventText[] }
+type CaseText = { scheme: string; benefit: string; maskedAccount: string; events: (EventText & { id: string })[] }
 const CASE_COPY: Record<string, Record<Language, Omit<CaseText, 'events'>>> = {
   'DBT-SUNITA-001': {
     en: { scheme: 'Farmer benefit demo', benefit: 'Farmer benefit instalment', maskedAccount: 'Fictional Bank B account ending ••17' },
@@ -327,7 +327,7 @@ export function getCaseCopy(reference: string, language: Language): CaseText | u
   const base = CASE_COPY[reference]?.[language]
   const ids = EVENT_IDS[reference]
   if (!base || !ids) return undefined
-  return { ...base, events: ids.map((id) => EVENT_COPY[`${reference}:${id}`][language]) }
+  return { ...base, events: ids.map((id) => ({ id, ...EVENT_COPY[`${reference}:${id}`][language] })) }
 }
 
 export type DiagnosisCopy = { reason: string; explanation: string; owner: string; action: string; documents: string[]; nextState: string }
@@ -389,15 +389,36 @@ export const DIAGNOSIS_COPY: Record<string, Record<Language, DiagnosisCopy>> = {
   },
 }
 
-export function getDiagnosisCopy(reference: string, language: Language) {
-  return DIAGNOSIS_COPY[reference]?.[language]
+const UNKNOWN_COPY: Record<Language, DiagnosisCopy> = {
+  en: {
+    reason: 'No reviewed instruction is available for this payment reason',
+    explanation: 'This prototype does not have a reviewed rule for the reported technical reason, so it will not guess the cause or remedy.',
+    owner: 'Official scheme or bank contact',
+    action: 'Do not use a specific remedy from this prototype. Contact the official scheme or bank support listed by the responsible organisation and keep the payment reference.',
+    documents: ['Fictional payment reference'],
+    nextState: 'Seek official guidance before correction',
+  },
+  hi: {
+    reason: 'इस भुगतान कारण के लिए कोई समीक्षा किया गया निर्देश उपलब्ध नहीं है',
+    explanation: 'बताए गए तकनीकी कारण के लिए इस प्रोटोटाइप में समीक्षा किया गया नियम नहीं है। इसलिए यह कारण या उपाय का अनुमान नहीं लगाएगा।',
+    owner: 'योजना या बैंक का आधिकारिक संपर्क',
+    action: 'इस प्रोटोटाइप से कोई विशिष्ट उपाय न अपनाएँ। जिम्मेदार संस्था द्वारा बताए गए आधिकारिक योजना या बैंक सहायता से संपर्क करें और भुगतान संदर्भ रखें।',
+    documents: ['काल्पनिक भुगतान संदर्भ'],
+    nextState: 'सुधार से पहले आधिकारिक मार्गदर्शन लें',
+  },
+}
+
+export function getDiagnosisCopy(ruleId: string, language: Language): DiagnosisCopy | undefined {
+  if (ruleId === 'UNKNOWN-RAW-REASON') return UNKNOWN_COPY[language]
+  const reference = CASE_REFERENCES.find((reference) => `${reference}-RULE-1` === ruleId)
+  return reference ? DIAGNOSIS_COPY[reference]?.[language] : undefined
 }
 
 export const RECOVERY_COPY: Record<Language, Record<RecoveryState, string>> = {
   en: {
     'needs-correction': 'Correction needed',
     'correction-submitted': 'Correction submitted',
-    'record-updated': 'Pension record updated',
+    'record-updated': 'Scheme record updated',
     'payment-reissued': 'Payment reissued',
     'account-credited': 'Account credited',
     'needs-trace': 'Check mapped bank or request a trace',
@@ -407,7 +428,7 @@ export const RECOVERY_COPY: Record<Language, Record<RecoveryState, string>> = {
   hi: {
     'needs-correction': 'सुधार ज़रूरी है',
     'correction-submitted': 'सुधार अनुरोध भेजा गया',
-    'record-updated': 'पेंशन रिकॉर्ड अपडेट हुआ',
+    'record-updated': 'योजना रिकॉर्ड अपडेट हुआ',
     'payment-reissued': 'भुगतान फिर भेजा गया',
     'account-credited': 'खाते में जमा हुआ',
     'needs-trace': 'मैप किए गए बैंक को जाँचें या ट्रेस माँगें',
