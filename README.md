@@ -91,7 +91,7 @@ simulated in the browser using local fixtures.
 
 ## Accessibility and language review
 
-Use the language buttons before lookup or at any later step. Use assisted mode
+Use the language dropdown before lookup or at any later step. Use assisted mode
 when a helper is explaining a fictional beneficiary's case; the mode keeps the
 beneficiary and helper roles explicit. The release uses semantic landmarks,
 labelled controls, visible focus, live status announcements, text plus icons,

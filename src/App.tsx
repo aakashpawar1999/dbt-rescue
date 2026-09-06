@@ -31,10 +31,11 @@ function PrototypeNotice({ language }: { language: Language }) {
 }
 
 function LanguageToggle({ language, onChange }: { language: Language; onChange: (language: Language) => void }) {
-  return <div className="language-switch" role="group" aria-label={t(language, 'language')}>
-    <span className="sr-only">{t(language, 'language')}</span>
-    <button className="language-button" type="button" aria-pressed={language === 'en'} onClick={() => onChange('en')}>{t(language, 'english')}</button>
-    <button className="language-button" type="button" aria-pressed={language === 'hi'} onClick={() => onChange('hi')}>{t(language, 'hindi')}</button>
+  return <div className="language-switch">
+    <select className="language-select" aria-label={t(language, 'language')} value={language} onChange={(event) => onChange(event.currentTarget.value === 'hi' ? 'hi' : 'en')}>
+      <option value="en">{t(language, 'english')}</option>
+      <option value="hi">{t(language, 'hindi')}</option>
+    </select>
   </div>
 }
 

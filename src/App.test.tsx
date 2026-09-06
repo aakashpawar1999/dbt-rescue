@@ -5,6 +5,13 @@ import { findPaymentCase } from './domain/cases'
 import { diagnosePayment } from './domain/rules'
 
 describe('dedicated recovery workspace', () => {
+  it('uses native English/Hindi language dropdowns in the responsive header', () => {
+    const html = renderToStaticMarkup(<App />)
+    expect(html).toContain('<select class="language-select" aria-label="Language"')
+    expect(html).toContain('<option value="en" selected="">English</option>')
+    expect(html).toContain('<option value="hi">हिन्दी</option>')
+    expect(html).not.toContain('class="language-button"')
+  })
   it('offers four safe starts with a return to the product page', () => {
     const html = renderToStaticMarkup(<App />)
     for (const text of ['Try a safe example', 'Use a fictional reference', 'Understand a status', 'I cannot access my status', 'href="/"', 'Do not enter real Aadhaar', 'English', 'हिन्दी']) expect(html).toContain(text)

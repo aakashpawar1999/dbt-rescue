@@ -290,9 +290,10 @@ h2 { margin-bottom: var(--space-3); font-size: 1.95rem; line-height: 1.08; lette
 h3 { margin-bottom: var(--space-1); font-size: 1rem; }
 .text-button { min-height: 44px; border: 1px solid var(--border); border-radius: 7px; background: var(--surface); color: var(--accent); font-weight: 700; padding: var(--space-2) var(--space-3); }
 .text-button:hover { border-color: var(--primary-strong); background: var(--soft); }
-.language-switch { display: flex; gap: var(--space-1); border: 1px solid var(--border); border-radius: 10px; background: var(--surface); padding: var(--space-1); }
-.language-button, .mode-button { min-height: 44px; border: 1px solid transparent; border-radius: 7px; background: transparent; color: var(--accent); padding: var(--space-2) var(--space-3); font-size: .82rem; font-weight: 800; }
-.language-button[aria-pressed="true"], .mode-button[aria-pressed="true"] { border-color: var(--primary-strong); background: var(--soft); }
+.language-switch { width: 112px; }
+.language-switch .language-select { width: 100%; min-height: 44px; margin: 0; padding: 8px; border: 1px solid var(--border); border-radius: 7px; background: var(--surface); color: var(--accent); font-size: .9rem; font-weight: 700; cursor: pointer; }
+.mode-button { min-height: 44px; border: 1px solid transparent; border-radius: 7px; background: transparent; color: var(--accent); padding: var(--space-2) var(--space-3); font-size: .82rem; font-weight: 800; }
+.mode-button[aria-pressed="true"] { border-color: var(--primary-strong); background: var(--soft); }
 .mode-button { border-color: var(--border); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
 .prototype-notice { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); border: 1px solid oklch(0.78 0.06 150); border-radius: 12px; background: var(--soft); padding: var(--space-3) var(--space-4); color: var(--accent); font-size: .82rem; }
@@ -413,7 +414,5 @@ code { border-radius: 5px; background: oklch(0.94 0.01 150); padding: 2px 5px; }
 }
 
 @media (max-width: 439px) {
-  .language-switch { flex-direction: column; gap: 0; padding-block: var(--space-1); }
-  .language-button { width: 100%; padding: var(--space-1) var(--space-2); }
   h1 { font-size: 1.5rem; }
 }

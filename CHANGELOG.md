@@ -5,6 +5,7 @@
 - Added a professional product landing page and a separate redesigned `/demo`.
 - Added four safe starts and a combined case answer with owner, action,
   evidence, follow-up guidance, and expandable source provenance.
+- Replaced language buttons with a native English/Hindi dropdown.
 - Preserved the three English/Hindi fictional journeys and printable packets.
 - Required matching credit evidence, preserved unknown-rule translations, and
   guarded history/reset and invalid recovery transitions.
