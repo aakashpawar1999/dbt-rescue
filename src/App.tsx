@@ -1,3 +1,6 @@
+import HeaderTools from './HeaderTools'
+import { LANGUAGES } from './languages'
+import { translateText } from './locales'
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
 import { findPaymentCase, latestConfirmedEvent, PAYMENT_CASES, type PaymentCase, type PaymentEvent } from './domain/cases'
 import { advanceRecovery, buildCorrectionRequest, getRecoveryStates, type RecoveryState } from './domain/recovery'
@@ -9,7 +12,7 @@ import { getCaseCopy, getDiagnosisCopy, recoveryLabel, t, type Language, type Te
 const STEP_KEYS: TextKey[] = ['findPayment', 'paymentJourney', 'whyStopped', 'fixIt', 'correctionPacket', 'acknowledgement', 'recoveryTracker']
 
 function formatDate(value: string, language: Language) {
-  return new Intl.DateTimeFormat(language === 'hi' ? 'hi-IN' : 'en-IN', {
+  return new Intl.DateTimeFormat(`${language}-IN`, {
     dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Kolkata',
   }).format(new Date(value))
 }
@@ -28,19 +31,6 @@ function PrototypeNotice({ language }: { language: Language }) {
     <strong>{t(language, 'prototype')}</strong>
     <span>{t(language, 'fictionalRecords')} {t(language, 'noRealInfo')}</span>
   </aside>
-}
-
-function LanguageToggle({ language, onChange }: { language: Language; onChange: (language: Language) => void }) {
-  return <div className="language-switch">
-    <select className="language-select" aria-label={t(language, 'language')} value={language} onChange={(event) => onChange(event.currentTarget.value === 'hi' ? 'hi' : 'en')}>
-      <option value="en">{t(language, 'english')}</option>
-      <option value="hi">{t(language, 'hindi')}</option>
-    </select>
-  </div>
-}
-
-function ModeToggle({ language, assisted, onChange }: { language: Language; assisted: boolean; onChange: () => void }) {
-  return <button className="mode-button" type="button" aria-pressed={assisted} onClick={onChange}>{t(language, assisted ? 'directMode' : 'assistedMode')}</button>
 }
 
 function StepHeader({ step, payment, language }: { step: number; payment: PaymentCase | null; language: Language }) {
@@ -116,7 +106,7 @@ export default function App({ initialReference = '', embedded = false }: { initi
   const localizedLatestEvent = localizedPayment?.events.find((event) => event.id === latestEvent?.id) ?? null
   const resultHeadingRef = useRef<HTMLHeadingElement>(null)
   const errorRef = useRef<HTMLParagraphElement>(null)
-  const say = (english: string, hindi: string) => language === 'hi' ? hindi : english
+  const say = (english: string, hindi: string) => language === 'hi' ? hindi : translateText(english, language)
   const statusCopy = getDiagnosisCopy(statusRule, language)!
   const historyGeneration = useRef('')
 
@@ -188,7 +178,7 @@ export default function App({ initialReference = '', embedded = false }: { initi
 
   function changeLanguage(nextLanguage: Language) {
     setLanguage(nextLanguage)
-    setAnnouncement(`${t(nextLanguage, 'language')}: ${t(nextLanguage, nextLanguage === 'hi' ? 'hindi' : 'english')}`)
+    setAnnouncement(`${t(nextLanguage, 'language')}: ${LANGUAGES.find(({code}) => code === nextLanguage)?.name}`)
   }
 
   function toggleAssisted() {
@@ -244,13 +234,7 @@ export default function App({ initialReference = '', embedded = false }: { initi
     <a className="skip-link" href="#main-content">{say('Skip to content', 'मुख्य सामग्री पर जाएँ')}</a>
     <header className="topbar">
       <a className="brand-lockup" href="/" target={embedded ? "_top" : undefined} aria-label={say('DBT Rescue home', 'DBT रेस्क्यू मुख्य पृष्ठ')}><img className="brand-mark" src="/logo.png" alt="" width="40" height="40" /><div><strong>{t(language, 'title')}</strong><span className="demo-caption">{say('Interactive demo', 'इंटरैक्टिव डेमो')}</span></div></a>
-      <div className="mobile-language"><LanguageToggle language={language} onChange={changeLanguage} /></div>
-      <div className="topbar-actions">
-        {!embedded && <a className="text-button frame-link" href="/frame">{say('iPhone frame', 'iPhone फ्रेम')}</a>}
-        <ModeToggle language={language} assisted={assisted} onChange={toggleAssisted} />
-        <button className="text-button" type="button" onClick={reset}>{t(language, 'startOver')}</button>
-      </div>
-      <div className="desktop-language"><LanguageToggle language={language} onChange={changeLanguage} /></div>
+      <HeaderTools language={language} onLanguage={changeLanguage} assisted={assisted} onAssisted={toggleAssisted} onReset={reset} embedded={embedded} text={(value) => translateText(value, language)} />
     </header>
 
     <main className="content" id="main-content">
@@ -278,7 +262,7 @@ export default function App({ initialReference = '', embedded = false }: { initi
           <label htmlFor="reference">{t(language, 'enterReference')}</label>
           <input id="reference" name="reference" value={reference} onChange={(event) => setReference(event.target.value)} autoComplete="off" spellCheck={false} aria-invalid={Boolean(error)} aria-describedby={`reference-help${error ? ' reference-error' : ''}`} />
           <p className="field-help" id="reference-help">{t(language, 'referenceHelp')}</p>
-          {error && <p className="error-message" id="reference-error" role="alert" tabIndex={-1} ref={errorRef}>{error}</p>}
+          {error && <p className="error-message" id="reference-error" role="alert" tabIndex={-1} ref={errorRef}>{t(language, 'unknownReference')}</p>}
           <button className="primary-button" type="submit">{t(language, 'showJourney')} <span aria-hidden="true">→</span></button>
         </form>}
         {startPath === 'status' && <div className="intake-panel"><label htmlFor="known-status">{say('What status did you see?', 'कौन सी स्थिति दिखी?')}</label><select id="known-status" value={statusRule} onChange={(event) => { setStatusRule(event.target.value); setAnnouncement(getDiagnosisCopy(event.target.value, language)?.reason ?? '') }}><option value="UNKNOWN-RAW-REASON">{say('Unknown or not listed', 'अज्ञात या सूची में नहीं')}</option><option value="DBT-ARJUN-002-RULE-1">{say('Scholarship demo · account-based · invalid IFSC', 'छात्रवृत्ति डेमो · खाता-आधारित · IFSC गलत')}</option><option value="DBT-MEENA-003-RULE-1">{say('Pension demo · Aadhaar-based · no bank mapped', 'पेंशन डेमो · आधार-आधारित · बैंक मैप नहीं है')}</option></select><p className="field-help">{say('This explains the selected message. It does not verify your payment, beneficiary or credit.', 'यह चुने हुए संदेश का अर्थ बताता है। इससे आपके भुगतान, लाभार्थी या जमा की पुष्टि नहीं होती।')}</p><h2>{statusCopy.reason}</h2><p>{statusCopy.explanation}</p><p><strong>{statusCopy.owner}</strong> — {statusCopy.action}</p><button className="secondary-button" onClick={() => window.print()}>{say('Print guidance', 'मार्गदर्शन प्रिंट करें')}</button></div>}

@@ -73,14 +73,14 @@ print dialog; no document is uploaded anywhere.
   browser-printable trace or correction request.
 - Simulated acknowledgement and recovery tracking. The trace journey has three
   local states; correction journeys have five local states.
-- English/Hindi switching with responsive top-right header placement, assisted
+- English, Hinglish, Hindi, Marathi, Tamil, Telugu and Bengali switching in a compact dropdown, larger-text
   mode, reset and browser Back behavior, keyboard-visible focus, live
   announcements, narrow-phone layout, and print styles.
 
 ## Product boundary
 
-The current journey includes reviewed English and Hindi copy, state-preserving
-language switching, assisted mode for a family member or service-centre helper,
+The current journey includes seven demo languages, state-preserving
+language switching, larger-text mode in the options menu,
 accessible focus and live status announcements, absolute timestamps, low-data
 system-font presentation, and bilingual browser-printable packets. The three
 fictional journeys cover Aadhaar-based and account-based routes: a mapped-bank
@@ -93,7 +93,7 @@ simulated in the browser using local fixtures.
 
 ## Accessibility and language review
 
-Use the language dropdown before lookup or at any later step. Use assisted mode
+Use the language dropdown before lookup or at any later step. Use More options → Larger text
 when a helper is explaining a fictional beneficiary's case; the mode keeps the
 beneficiary and helper roles explicit. The release uses semantic landmarks,
 labelled controls, visible focus, live status announcements, text plus icons,
@@ -136,3 +136,5 @@ Reviewer evidence:
 
 Historical release notes remain under [docs/releases](docs/releases), and the
 repository-wide change record is [CHANGELOG.md](CHANGELOG.md).
+
+The added Hinglish, Marathi, Tamil, Telugu and Bengali catalogues cover demo instructions, case details and printable packets. Automated checks preserve references and technical codes; formal native-speaker review is not claimed. Landing and studio controls remain English.

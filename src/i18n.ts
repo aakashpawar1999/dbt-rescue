@@ -1,6 +1,9 @@
 import type { RecoveryState } from './domain/recovery'
 
-export type Language = 'en' | 'hi'
+import type { Language } from './languages'
+import { translateText, translateCopy } from './locales'
+export type { Language } from './languages'
+type BaseLanguage = 'en' | 'hi'
 
 export const TEXT = {
   en: {
@@ -228,11 +231,11 @@ export const TEXT = {
 export type TextKey = keyof typeof TEXT.en
 
 export function t(language: Language, key: TextKey, values: Record<string, string> = {}) {
-  return TEXT[language][key].replace(/\{\{(\w+)\}\}/g, (_, name: string) => values[name] ?? '')
+  return translateText(TEXT[language === 'hi' ? 'hi' : 'en'][key], language).replace(/\{\{(\w+)\}\}/g, (_, name: string) => values[name] ?? '')
 }
 
 type EventText = { stage: string; source: string; detail: string }
-type LocalizedEventText = Record<Language, EventText>
+type LocalizedEventText = Record<BaseLanguage, EventText>
 
 export const CASE_REFERENCES = ['DBT-SUNITA-001', 'DBT-ARJUN-002', 'DBT-MEENA-003'] as const
 
@@ -302,7 +305,7 @@ export const EVENT_COPY: Record<string, LocalizedEventText> = {
 }
 
 type CaseText = { scheme: string; benefit: string; maskedAccount: string; events: (EventText & { id: string })[] }
-const CASE_COPY: Record<string, Record<Language, Omit<CaseText, 'events'>>> = {
+const CASE_COPY: Record<string, Record<BaseLanguage, Omit<CaseText, 'events'>>> = {
   'DBT-SUNITA-001': {
     en: { scheme: 'Farmer benefit demo', benefit: 'Farmer benefit instalment', maskedAccount: 'Fictional Bank B account ending ••17' },
     hi: { scheme: 'किसान लाभ डेमो', benefit: 'किसान लाभ की किस्त', maskedAccount: 'काल्पनिक Bank B खाता, अंतिम अंक ••17' },
@@ -324,15 +327,16 @@ const EVENT_IDS: Record<string, string[]> = {
 }
 
 export function getCaseCopy(reference: string, language: Language): CaseText | undefined {
-  const base = CASE_COPY[reference]?.[language]
+  const baseLanguage = language === 'hi' ? 'hi' : 'en'
+  const base = CASE_COPY[reference]?.[baseLanguage]
   const ids = EVENT_IDS[reference]
   if (!base || !ids) return undefined
-  return { ...base, events: ids.map((id) => ({ id, ...EVENT_COPY[`${reference}:${id}`][language] })) }
+  return translateCopy({ ...base, events: ids.map((id) => ({ id, ...EVENT_COPY[`${reference}:${id}`][baseLanguage] })) }, language)
 }
 
 export type DiagnosisCopy = { reason: string; explanation: string; owner: string; action: string; documents: string[]; nextState: string }
 
-export const DIAGNOSIS_COPY: Record<string, Record<Language, DiagnosisCopy>> = {
+export const DIAGNOSIS_COPY: Record<string, Record<BaseLanguage, DiagnosisCopy>> = {
   'DBT-SUNITA-001': {
     en: {
       reason: 'Payment reached the newer mapped bank',
@@ -389,7 +393,7 @@ export const DIAGNOSIS_COPY: Record<string, Record<Language, DiagnosisCopy>> = {
   },
 }
 
-const UNKNOWN_COPY: Record<Language, DiagnosisCopy> = {
+const UNKNOWN_COPY: Record<BaseLanguage, DiagnosisCopy> = {
   en: {
     reason: 'No reviewed instruction is available for this payment reason',
     explanation: 'This prototype does not have a reviewed rule for the reported technical reason, so it will not guess the cause or remedy.',
@@ -409,12 +413,13 @@ const UNKNOWN_COPY: Record<Language, DiagnosisCopy> = {
 }
 
 export function getDiagnosisCopy(ruleId: string, language: Language): DiagnosisCopy | undefined {
-  if (ruleId === 'UNKNOWN-RAW-REASON') return UNKNOWN_COPY[language]
+  const baseLanguage = language === 'hi' ? 'hi' : 'en'
+  if (ruleId === 'UNKNOWN-RAW-REASON') return translateCopy(UNKNOWN_COPY[baseLanguage], language)
   const reference = CASE_REFERENCES.find((reference) => `${reference}-RULE-1` === ruleId)
-  return reference ? DIAGNOSIS_COPY[reference]?.[language] : undefined
+  return reference ? translateCopy(DIAGNOSIS_COPY[reference]?.[baseLanguage], language) : undefined
 }
 
-export const RECOVERY_COPY: Record<Language, Record<RecoveryState, string>> = {
+export const RECOVERY_COPY: Record<BaseLanguage, Record<RecoveryState, string>> = {
   en: {
     'needs-correction': 'Correction needed',
     'correction-submitted': 'Correction submitted',
@@ -438,5 +443,5 @@ export const RECOVERY_COPY: Record<Language, Record<RecoveryState, string>> = {
 }
 
 export function recoveryLabel(language: Language, state: RecoveryState) {
-  return RECOVERY_COPY[language][state]
+  return translateText(RECOVERY_COPY[language === 'hi' ? 'hi' : 'en'][state], language)
 }
