@@ -4,6 +4,14 @@ import { diagnosePayment } from './rules'
 import { advanceRecovery, buildCorrectionRequest, getRecoveryStates, type RecoveryState } from './recovery'
 
 describe('fictional recovery sequence', () => {
+  it('rejects every recovery state from the other sequence', () => {
+    for (const type of ['trace', 'correction'] as const) {
+      const other = type === 'trace' ? 'correction' : 'trace'
+      for (const state of getRecoveryStates(other)) {
+        expect(() => advanceRecovery(state, type)).toThrow('Invalid recovery transition')
+      }
+    }
+  })
   it('advances only through correction, reissue, and credit', () => {
     const states: RecoveryState[] = ['needs-correction']
     let state = states[0]

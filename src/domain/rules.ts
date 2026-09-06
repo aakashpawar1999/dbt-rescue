@@ -41,6 +41,7 @@ type RuleRecord = Omit<PaymentDiagnosis, 'scheme' | 'route' | 'provenance'> & {
   schemeScope: string
   route: PaymentRoute
   eventId: string
+  eventStatus: PaymentEvent['status']
   rawReason: string
   sourceTitle: string
   sourceUrl: string
@@ -58,6 +59,7 @@ const RULES: Record<string, RuleRecord> = {
     schemeScope: 'Farmer benefit demo',
     route: 'aadhaar',
     eventId: 'mapper-routed',
+    eventStatus: 'confirmed',
     rawReason: 'MAPPED_TO_BANK_B',
     reason: 'Payment reached the newer mapped bank',
     explanation: 'The payment succeeded through the Aadhaar-based route and reached the newer mapped Bank B, not the older Bank A. Check Bank B\'s statement before filing a grievance.',
@@ -79,6 +81,7 @@ const RULES: Record<string, RuleRecord> = {
     schemeScope: 'Scholarship demo',
     route: 'account',
     eventId: 'destination-failed',
+    eventStatus: 'failed',
     rawReason: 'INVALID_IFSC',
     reason: 'Invalid IFSC in the scheme record',
     explanation: 'The scheme has an incorrect or outdated branch code, so the account-based payment cannot reach the correct bank branch.',
@@ -100,6 +103,7 @@ const RULES: Record<string, RuleRecord> = {
     schemeScope: 'Social pension demo',
     route: 'aadhaar',
     eventId: 'mapper-failed',
+    eventStatus: 'failed',
     rawReason: 'UID_NOT_MAPPED',
     reason: 'No active bank is mapped for DBT',
     explanation: 'The payment could not be routed because no active bank was available in the DBT mapping for this fictional case.',
@@ -117,7 +121,7 @@ const RULES: Record<string, RuleRecord> = {
   },
 }
 
-const UNKNOWN_RULE: Omit<RuleRecord, 'route' | 'eventId' | 'rawReason'> = {
+const UNKNOWN_RULE: Omit<RuleRecord, 'route' | 'eventId' | 'eventStatus' | 'rawReason'> = {
   ruleId: 'UNKNOWN-RAW-REASON',
   version: '0.0.0',
   schemeScope: 'Unknown scheme',
@@ -169,9 +173,19 @@ function buildDiagnosis(payment: PaymentCase, event: PaymentEvent, rule: RuleRec
 export function diagnoseEvent(payment: PaymentCase, event: PaymentEvent): PaymentDiagnosis {
   const rule = Object.values(RULES).find((candidate) =>
     candidate.route === payment.route &&
+    event.route === payment.route &&
+    event.maskedReference === payment.reference &&
+    event.status === candidate.eventStatus &&
     candidate.schemeScope === payment.scheme &&
     candidate.eventId === event.id &&
-    candidate.rawReason === event.rawReason,
+    candidate.rawReason === event.rawReason &&
+    (candidate.technicalReason !== 'APB_CREDITED_MAPPED_ACCOUNT' || (
+      payment.events.some((item) => item.id === 'destination-credited') &&
+      payment.events.filter((item) => item.id === 'destination-credited').every((item) =>
+        item.status === 'confirmed' && item.rawReason === 'CREDITED' &&
+        item.route === payment.route && item.maskedReference === payment.reference,
+      )
+    )),
   ) ?? null
 
   return buildDiagnosis(payment, event, rule)

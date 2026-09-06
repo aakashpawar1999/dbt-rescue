@@ -48,6 +48,7 @@ export type CorrectionRequest = {
 export function advanceRecovery(state: RecoveryState, type: RecoveryType = 'correction'): RecoveryState {
   const states = getRecoveryStates(type)
   const index = states.indexOf(state)
+  if (index < 0) throw new Error('Invalid recovery transition')
   return states[Math.min(index + 1, states.length - 1)]
 }
 
