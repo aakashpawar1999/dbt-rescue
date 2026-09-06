@@ -20,6 +20,8 @@ Never translate by fixture position: retain event identity and selected-rule ide
 
 All changed Hindi guidance and official-access wording require human review before release. The current follow-up wording requests an acknowledged date from the responsible office and claims no official SLA. Later synthetic deadline demonstrations must remain explicitly distinguished from official service promises.
 
+The public demo stores only its synthetic fixture reference, current view, recovery position, separate simulated credit observation, language and display mode in device-local storage. A visible notice explains the fixed 24-hour expiry and Start over clearing. Restoring validates the schema, fixture identity, language and recovery proof; corrupt or expired data returns to the safe start. Device-storage failure leaves the demo usable with an explicit refresh warning. This is local demo continuity; authenticated cross-device persistence and consented helper sessions remain separate work.
+
 ## Verification
 
 Verify both demo languages at 320, 360, 390, 768, 1024 and 1280px. Check first-fold action visibility at 360×800 and 1280×720, keyboard and focus order, zoom, reduced motion, print, direct links and browser Back/forward after reset. Screenshots and interaction evidence complement domain tests; static markup does not establish accessibility compliance.

@@ -3,6 +3,7 @@ import { findPaymentCase, latestConfirmedEvent, PAYMENT_CASES, type PaymentCase,
 import { advanceRecovery, buildCorrectionRequest, getRecoveryStates, type RecoveryState } from './domain/recovery'
 import { diagnosePayment, type PaymentDiagnosis } from './domain/rules'
 import { readNavigation } from './domain/navigation'
+import { readResume, RESUME_KEY, RESUME_LIFETIME } from './domain/resume'
 import { getCaseCopy, getDiagnosisCopy, recoveryLabel, t, type Language, type TextKey } from './i18n'
 
 const STEP_KEYS: TextKey[] = ['findPayment', 'paymentJourney', 'whyStopped', 'fixIt', 'correctionPacket', 'acknowledgement', 'recoveryTracker']
@@ -68,18 +69,27 @@ export function DiagnosisAudit({ payment, diagnosis, language }: { payment: Paym
 }
 
 export default function App({ initialReference = '' }: { initialReference?: string }) {
-  const initialPayment = findPaymentCase(initialReference)
+  const [saved] = useState(() => {
+    if (typeof window === 'undefined') return null
+    try {
+      const restored = readResume(window.localStorage.getItem(RESUME_KEY), Date.now())
+      return initialReference && restored?.payment.reference !== initialReference ? null : restored
+    } catch { return null }
+  })
+  const initialPayment = findPaymentCase(initialReference) ?? saved?.payment ?? null
   const [reference, setReference] = useState(initialPayment?.reference ?? 'DBT-SUNITA-001')
   const [payment, setPayment] = useState<PaymentCase | null>(initialPayment)
   const [error, setError] = useState('')
-  const [step, setStep] = useState(initialPayment ? 1 : 0)
+  const [step, setStep] = useState(saved?.step ?? (initialPayment ? 1 : 0))
   const [startPath, setStartPath] = useState<'example' | 'reference' | 'status' | 'access' | null>(null)
   const [statusRule, setStatusRule] = useState('UNKNOWN-RAW-REASON')
-  const [language, setLanguage] = useState<Language>('en')
-  const [assisted, setAssisted] = useState(false)
-  const [recoveryState, setRecoveryState] = useState<RecoveryState>(initialPayment ? getRecoveryStates(diagnosePayment(initialPayment).recoveryType)[0] : 'needs-correction')
+  const [language, setLanguage] = useState<Language>(saved?.language ?? 'en')
+  const [assisted, setAssisted] = useState(saved?.assisted ?? false)
+  const [recoveryState, setRecoveryState] = useState<RecoveryState>(saved?.recoveryState ?? (initialPayment ? getRecoveryStates(diagnosePayment(initialPayment).recoveryType)[0] : 'needs-correction'))
   const [announcement, setAnnouncement] = useState('')
-  const [creditEvent, setCreditEvent] = useState<PaymentEvent | null>(null)
+  const [creditEvent, setCreditEvent] = useState<PaymentEvent | null>(saved?.creditEvent ?? null)
+  const [storageUnavailable, setStorageUnavailable] = useState(false)
+  const expiresAt = useRef(saved?.expiresAt ?? Date.now() + RESUME_LIFETIME)
   const diagnosis = useMemo(() => payment ? diagnosePayment(payment) : null, [payment])
   const caseCopy = payment ? getCaseCopy(payment.reference, language) : null
   const diagnosisCopy = diagnosis ? getDiagnosisCopy(diagnosis.provenance.ruleId, language) : null
@@ -112,7 +122,7 @@ export default function App({ initialReference = '' }: { initialReference?: stri
   useEffect(() => { document.documentElement.lang = language }, [language])
 
   useEffect(() => {
-    historyGeneration.current = crypto.randomUUID()
+    historyGeneration.current = saved?.generation ?? crypto.randomUUID()
     window.history.replaceState(null, '', window.location.href)
     const onPopState = (event: PopStateEvent) => {
       const restored = readNavigation(event.state, historyGeneration.current, Date.now())
@@ -126,6 +136,21 @@ export default function App({ initialReference = '' }: { initialReference?: stri
     window.addEventListener('popstate', onPopState)
     return () => window.removeEventListener('popstate', onPopState)
   }, [])
+
+  useEffect(() => {
+    try {
+      if (!payment || step === 0) window.localStorage.removeItem(RESUME_KEY)
+      else window.localStorage.setItem(RESUME_KEY, JSON.stringify({ version: 1, generation: historyGeneration.current,
+        reference: payment.reference, step, recoveryState, creditEvent, language, assisted, expiresAt: expiresAt.current }))
+      setStorageUnavailable(false)
+    } catch { setStorageUnavailable(true) }
+  }, [payment, step, recoveryState, creditEvent, language, assisted])
+
+  useEffect(() => {
+    if (!payment) return
+    const timer = window.setTimeout(reset, Math.max(0, expiresAt.current - Date.now()))
+    return () => window.clearTimeout(timer)
+  }, [payment])
 
   useEffect(() => {
     if (error) errorRef.current?.focus()
@@ -174,6 +199,7 @@ export default function App({ initialReference = '' }: { initialReference?: stri
   function lookup(event?: FormEvent<HTMLFormElement>, selectedReference = reference) {
     event?.preventDefault()
     setCreditEvent(null)
+    expiresAt.current = Date.now() + RESUME_LIFETIME
     const result = findPaymentCase(selectedReference)
     if (!result) {
       setPayment(null)
@@ -186,6 +212,9 @@ export default function App({ initialReference = '' }: { initialReference?: stri
     setPayment(result)
     setReference(result.reference)
     setError('')
+    const lookupUrl = new URL(window.location.href)
+    lookupUrl.searchParams.delete('case')
+    window.history.replaceState(null, '', lookupUrl)
     historyGeneration.current = crypto.randomUUID()
     const initialRecovery = getRecoveryStates(diagnosePayment(result).recoveryType)[0]
     setRecoveryState(initialRecovery)
@@ -197,7 +226,9 @@ export default function App({ initialReference = '' }: { initialReference?: stri
     historyGeneration.current = crypto.randomUUID()
     setPayment(null)
     setStartPath(null)
+    setAssisted(false)
     setCreditEvent(null)
+    try { window.localStorage.removeItem(RESUME_KEY) } catch { setStorageUnavailable(true) }
     setError('')
     setStep(0)
     setReference('DBT-SUNITA-001')
@@ -224,6 +255,7 @@ export default function App({ initialReference = '' }: { initialReference?: stri
       <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</div>
       <div className="demo-location"><a href="/">{say('Product', 'प्रोडक्ट')}</a><span aria-hidden="true">/</span><span>{say('Demo workspace', 'डेमो कार्यक्षेत्र')}</span>{payment && <><span aria-hidden="true">/</span><strong>{payment.reference}</strong></>}</div>
       <PrototypeNotice language={language} />
+      {payment && <p className="field-help">{storageUnavailable ? say('Device storage is unavailable. Refresh will clear this demo.', 'डिवाइस स्टोरेज उपलब्ध नहीं है। रीफ्रेश करने पर यह डेमो मिट जाएगा।') : say('Demo progress stays on this device for 24 hours. Start over clears it.', 'डेमो की प्रगति इस डिवाइस पर 24 घंटे रहती है। फिर से शुरू करने पर यह मिट जाती है।')}</p>}
       {step > 0 && <nav className="case-navigation" data-progress-target="steps" aria-label={t(language, 'recoveryTracker')}><button onClick={() => goTo(1)} aria-current={step < 4 ? 'step' : undefined}>{say('Case answer', 'मामले का उत्तर')}</button><span aria-hidden="true">→</span><span aria-current={step === 4 ? 'step' : undefined}>{say('Action packet', 'कार्रवाई पैकेट')}</span><span aria-hidden="true">→</span><span aria-current={step > 4 ? 'step' : undefined}>{say('Follow-up', 'आगे की कार्रवाई')}</span></nav>}
 
       {step === 0 && <section className="card hero-card" aria-labelledby="lookup-title">
