@@ -6,14 +6,15 @@ how to follow simulated recovery.
 
 ## Current release
 
-Version 1.0.0 is the redesigned synthetic demo. The product landing page is at
+Version 1.1.0 is the redesigned synthetic demo with a simplified presentation
+toolbar. The product landing page is at
 <https://dbt-rescue.aakashpawar1999.chatgpt.site/>; the full interactive demo is at
 <https://dbt-rescue.aakashpawar1999.chatgpt.site/demo>.
 
 GitHub Actions verifies feature and promotion PRs and publishes tagged GitHub
 Releases. The existing ChatGPT Sites project hosts the public app. Site version
 numbers are independent of package versions; deployment evidence records the
-exact source and rollback target. See [release notes](docs/releases/v1.0.0.md).
+exact source and rollback target. See [release notes](docs/releases/v1.1.0.md).
 
 ## Safe demo
 
@@ -53,8 +54,8 @@ print dialog; no document is uploaded anywhere.
 ## What is currently built
 
 - A professional product landing page and separate `/demo` workspace.
-- An interactive `/frame` phone studio for screen recordings, with device
-  finishes, backgrounds, zoom and hidden controls. It does not record video itself.
+- An interactive `/frame` Mobile frame studio for screen recordings, with fit,
+  zoom, reload and hidden controls. It does not record video itself.
 - Four safe starts: safe example, fictional reference, a supported status, or
   guidance when status cannot be accessed.
 - A combined case answer with owner, next action, evidence and follow-up guidance.
@@ -73,14 +74,14 @@ print dialog; no document is uploaded anywhere.
   browser-printable trace or correction request.
 - Simulated acknowledgement and recovery tracking. The trace journey has three
   local states; correction journeys have five local states.
-- English, Hinglish, Hindi, Marathi, Tamil, Telugu and Bengali switching in a compact dropdown, larger-text
-  mode, reset and browser Back behavior, keyboard-visible focus, live
+- English, Hinglish, Hindi, Marathi, Tamil, Telugu and Bengali switching in a compact dropdown,
+  Assisted Mode/Citizen Mode, Reset Demo and browser Back behavior, keyboard-visible focus, live
   announcements, narrow-phone layout, and print styles.
 
 ## Product boundary
 
 The current journey includes seven demo languages, state-preserving
-language switching, larger-text mode in the options menu,
+language switching, presentation-only Assisted Mode/Citizen Mode in the options menu,
 accessible focus and live status announcements, absolute timestamps, low-data
 system-font presentation, and bilingual browser-printable packets. The three
 fictional journeys cover Aadhaar-based and account-based routes: a mapped-bank
@@ -93,9 +94,9 @@ simulated in the browser using local fixtures.
 
 ## Accessibility and language review
 
-Use the language dropdown before lookup or at any later step. Use More options → Larger text
-when a helper is explaining a fictional beneficiary's case; the mode keeps the
-beneficiary and helper roles explicit. The release uses semantic landmarks,
+Use the language dropdown before lookup or at any later step. Use More options → Assisted Mode
+when a helper is explaining a fictional beneficiary's case; choose Citizen Mode to return to a
+citizen-first presentation. The release uses semantic landmarks,
 labelled controls, visible focus, live status announcements, text plus icons,
 system fonts, 44-pixel controls, and browser-native printing.
 

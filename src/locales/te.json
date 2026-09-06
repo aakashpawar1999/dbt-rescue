@@ -187,7 +187,7 @@
   "Skip to content": "విషయానికి వెళ్లండి",
   "DBT Rescue home": "DBT Rescue హోమ్",
   "Interactive demo": "ఇంటరాక్టివ్ డెమో",
-  "iPhone frame": "iPhone ఫ్రేమ్",
+  "Mobile frame": "మొబైల్ ఫ్రేమ్",
   "Product": "ఉత్పత్తి",
   "Demo workspace": "డెమో కార్యస్థలం",
   "Device storage is unavailable. Refresh will clear this demo.": "పరికర నిల్వ అందుబాటులో లేదు. రిఫ్రెష్ చేస్తే ఈ డెమో తొలగిపోతుంది.",
@@ -230,7 +230,7 @@
   "Synthetic recovery simulator · Destination bank · Confirmed. No real bank was contacted.": "కృత్రిమ రికవరీ సిమ్యులేటర్ · గమ్య బ్యాంకు · నిర్ధారించబడింది. నిజమైన బ్యాంకును సంప్రదించలేదు.",
   "Change language": "భాష మార్చండి",
   "More options": "మరిన్ని ఎంపికలు",
-  "New example": "కొత్త ఉదాహరణ",
-  "Standard text": "సాధారణ అక్షరాలు",
-  "Larger text": "పెద్ద అక్షరాలు"
+  "Reset Demo": "డెమోను రీసెట్ చేయండి",
+  "Assisted Mode": "సహాయ మోడ్",
+  "Citizen Mode": "పౌర మోడ్"
 }

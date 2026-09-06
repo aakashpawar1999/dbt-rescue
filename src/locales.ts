@@ -6,7 +6,7 @@ import hinglish from './locales/hi-Latn.json'
 import type { Language } from './languages'
 
 export const TRANSLATIONS: Record<string, Record<string, string>> = { mr, ta, te, bn, 'hi-Latn': hinglish }
-const hindiMenu: Record<string, string> = { 'Change language': 'भाषा बदलें', Language: 'भाषा', 'More options': 'और विकल्प', 'New example': 'नया उदाहरण', 'Standard text': 'सामान्य अक्षर', 'Larger text': 'बड़े अक्षर', 'iPhone frame': 'iPhone फ्रेम' }
+const hindiMenu: Record<string, string> = { 'Change language': 'भाषा बदलें', Language: 'भाषा', 'More options': 'और विकल्प', 'Reset Demo': 'डेमो रीसेट करें', 'Assisted Mode': 'सहायता मोड', 'Citizen Mode': 'नागरिक मोड', 'Mobile frame': 'मोबाइल फ्रेम' }
 export function translateText(value: string, language: Language) {
   return (language === 'hi' ? hindiMenu[value] : TRANSLATIONS[language]?.[value]) ?? value
 }

@@ -8,7 +8,7 @@ export default function Landing() {
     <a className="skip-link" href="#main-content">Skip to content</a>
     <header className="landing-nav page-width">
       <a className="landing-brand" href="/" aria-label="DBT Rescue home"><img src="/logo.png" alt="" width="40" height="40" /><span>DBT Rescue<span className="brand-subline">Paisa kahan atka?</span></span></a>
-      <nav aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="#coverage">The cases</a><a href="/frame">iPhone frame</a></nav>
+      <nav aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="#coverage">The cases</a></nav>
       <a className="button-dark" href="/demo">Explore the demo <span aria-hidden="true">↗</span></a>
     </header>
     <main id="main-content">

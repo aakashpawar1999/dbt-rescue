@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0] — 2026-09-06
+
+- Removed the direct frame item from the landing-page main navigation and
+  renamed the standalone studio to `Mobile frame` in the demo options menu.
+- Renamed `New example` to `Reset Demo` and the presentation toggle to
+  `Assisted Mode` / `Citizen Mode`.
+- Replaced the language dropdown's text-glyph arrow with a stable CSS chevron
+  and preserved keyboard-safe disclosure behaviour.
+- Simplified the Mobile frame toolbar to Back to demo, zoom, scale, Fit, Reload
+  demo and Recording view; removed Frame colour and Background controls.
+- Preserved the synthetic-only v1.0.0 journeys, local reset/resume behaviour,
+  supported languages, accessibility basics and browser-printable output.
+
 ## [1.0.0] — 2026-09-06
 
 - Added a professional product landing page and a separate redesigned `/demo`.
