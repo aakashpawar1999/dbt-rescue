@@ -9,10 +9,10 @@ describe('Sites deployment artifact', () => {
     expect(existsSync(resolve('dist/server/index.js'))).toBe(true)
   })
 
-  it('maps the Site root to the built index document', () => {
+  it('maps direct demo entry to the canonical root asset', () => {
     const worker = readFileSync(resolve('dist/server/index.js'), 'utf8')
-    expect(worker).toContain('pathname === "/"')
-    expect(worker).toContain('/index.html')
+    expect(worker).toContain('pathname === "/demo"')
+    expect(worker).toContain('pathname = "/"')
   })
 
   it('uses the Sites asset-aware Vite build', () => {

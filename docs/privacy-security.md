@@ -10,7 +10,11 @@ government service.
   are masked.
 - The app has no login, password, OTP, Aadhaar, unrestricted account, upload,
   analytics, model, or external service flow.
-- State stays in the browser during the journey. The print action opens the
+- The development demo saves its fictional case reference, view, recovery
+  position, simulated credit evidence, language and display mode in localStorage
+  for a fixed 24 hours. Start over removes that record and clears assisted mode.
+  Expired or invalid records fail closed. This is device-local storage, not an
+  authenticated service or encrypted evidence vault. The print action opens the
   browser's print dialog and does not upload a document.
 - The public Site contains no secret or real personal data. Site publishing
   uses a short-lived source credential outside the repository and does not put
