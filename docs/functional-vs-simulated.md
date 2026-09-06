@@ -5,11 +5,11 @@ the product contract and should remain visible in the demo and submission.
 The audit view is a functional local disclosure of the evidence attached to a
 synthetic diagnosis; it is not a live source lookup.
 
-The v1.0.0 development candidate adds a landing page at `/`, a separate demo at
+Version 1.0.0 adds a landing page at `/`, a separate demo at
 `/demo`, four safe starts and device-local resume with a fixed 24-hour expiry.
 Start over clears saved progress. A correction tracker requires a separate,
 explicitly simulated bank-credit observation before showing credited success.
-These changes are not yet deployed; the public release remains v0.6.4.
+Deployment identity is recorded in the release evidence; version 1.0.0 remains a synthetic browser-only demo.
 
 The 0.3.0 interface shows this disclosure in both English and Hindi. Switching
 language, assisted mode, printing, and moving the local tracker are functional

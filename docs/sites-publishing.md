@@ -8,10 +8,9 @@ steps for the next release.
 
 - Public URL: <https://dbt-rescue.aakashpawar1999.chatgpt.site/>
 - Access: public; no ChatGPT login is required to view the Site.
-- Current Site version: `6`.
-- Current hosted source: commit `b000c70034a557993ce32f36873f617a3e4f6437`.
-- Last verified: 26 August 2026. The root returned HTTP 200, and the emitted
-  JavaScript and CSS assets also returned HTTP 200.
+- Rollback baseline before v1.0.0: Site version `10`, previously verified for
+  the v0.6.4 release. The v1.0.0 GitHub release and local UltraShip completion
+  record carry the exact new source/deployment evidence.
 - The requested `dbt-rescue.chatgpt.site` hostname is not assigned. Sites
   currently exposes the account-scoped hostname above for this project.
 
@@ -25,8 +24,8 @@ publisher controls; it is not the same as changing the Site slug.
   repository. It stores the existing Site `project_id`.
 - `vite.config.ts` uses the OpenAI Sites Vite plugin for deployment metadata and
   the Cloudflare Vite plugin for the Workers-compatible build.
-- `worker/index.ts` serves `/index.html` for the Site root through the `ASSETS`
-  binding.
+- `worker/index.ts` serves static assets through `ASSETS` and internally maps `/demo`
+  and `/demo/` to the root app document without a browser redirect.
 - `scripts/prepare-sites-artifact.mjs` adapts the Cloudflare output to the
   Sites package contract by placing the worker at `dist/server/index.js`.
 - The Sites package helper stages `dist/`, the hosting metadata, and the

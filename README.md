@@ -4,22 +4,16 @@ An independent hackathon prototype that helps a citizen understand where a
 fictional government benefit payment stopped, why it failed, who can fix it, and
 how to follow simulated recovery.
 
-## Current status
+## Current release
 
-- The public build is hosted on ChatGPT Sites at
-  <https://dbt-rescue.aakashpawar1999.chatgpt.site/>.
-- The Site is public and opens without a ChatGPT login. The root document and
-  its referenced JavaScript and CSS assets were verified from the public URL on
-  28 August 2026.
-- The Site version and hosted source commit are managed separately from the
-  package version and recorded with each production deployment.
-- The shorter hostname `https://dbt-rescue.chatgpt.site/` is not assigned by
-  Sites. The current account-scoped hostname above is the working public URL.
-- GitHub Pages publishing has been removed. GitHub Actions now verifies the
-  application and creates GitHub Releases; ChatGPT Sites is the production host.
-- The `feat/0.6.4` branch carries the next package version, while the current
-  GitHub release remains `0.6.3`. The public Site version and hosted source are
-  recorded separately because Site versioning is managed by the Sites project.
+Version 1.0.0 is the redesigned synthetic demo. The product landing page is at
+<https://dbt-rescue.aakashpawar1999.chatgpt.site/>; the full interactive demo is at
+<https://dbt-rescue.aakashpawar1999.chatgpt.site/demo>.
+
+GitHub Actions verifies feature and promotion PRs and publishes tagged GitHub
+Releases. The existing ChatGPT Sites project hosts the public app. Site version
+numbers are independent of package versions; deployment evidence records the
+exact source and rollback target. See [release notes](docs/releases/v1.0.0.md).
 
 ## Safe demo
 
@@ -57,6 +51,13 @@ browser-native printing. Printing the correction request uses the browser's
 print dialog; no document is uploaded anywhere.
 
 ## What is currently built
+
+- A professional product landing page and separate `/demo` workspace.
+- Four safe starts: safe example, fictional reference, a supported status, or
+  guidance when status cannot be accessed.
+- A combined case answer with owner, next action, evidence and follow-up guidance.
+- Fixed 24-hour device-local resume, with schema validation and explicit reset.
+- A separate simulated bank-credit observation before recovery shows credit.
 
 - Three safe fictional references: `DBT-SUNITA-001`, `DBT-ARJUN-002`, and
   `DBT-MEENA-003`.
