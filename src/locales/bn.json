@@ -187,7 +187,7 @@
   "Skip to content": "মূল বিষয়বস্তুতে যান",
   "DBT Rescue home": "DBT Rescue হোম",
   "Interactive demo": "ইন্টারঅ্যাক্টিভ ডেমো",
-  "iPhone frame": "iPhone ফ্রেম",
+  "Mobile frame": "মোবাইল ফ্রেম",
   "Product": "পণ্য",
   "Demo workspace": "ডেমো কর্মক্ষেত্র",
   "Device storage is unavailable. Refresh will clear this demo.": "ডিভাইসের স্টোরেজ পাওয়া যাচ্ছে না। রিফ্রেশ করলে এই ডেমো মুছে যাবে।",
@@ -230,7 +230,7 @@
   "Synthetic recovery simulator · Destination bank · Confirmed. No real bank was contacted.": "কৃত্রিম পুনরুদ্ধার সিমুলেটর · গন্তব্য ব্যাংক · নিশ্চিত। কোনো আসল ব্যাংকের সঙ্গে যোগাযোগ করা হয়নি।",
   "Change language": "ভাষা বদলান",
   "More options": "আরও বিকল্প",
-  "New example": "নতুন উদাহরণ",
-  "Standard text": "সাধারণ অক্ষর",
-  "Larger text": "বড় অক্ষর"
+  "Reset Demo": "ডেমো রিসেট করুন",
+  "Assisted Mode": "সহায়তা মোড",
+  "Citizen Mode": "নাগরিক মোড"
 }

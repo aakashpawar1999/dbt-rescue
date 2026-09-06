@@ -187,7 +187,7 @@
   "Skip to content": "मुख्य मजकुराकडे जा",
   "DBT Rescue home": "DBT रेस्क्यू मुख्यपृष्ठ",
   "Interactive demo": "परस्परसंवादी डेमो",
-  "iPhone frame": "iPhone फ्रेम",
+  "Mobile frame": "मोबाइल फ्रेम",
   "Product": "प्रोडक्ट",
   "Demo workspace": "डेमो कार्यक्षेत्र",
   "Device storage is unavailable. Refresh will clear this demo.": "डिव्हाइस स्टोरेज उपलब्ध नाही. रीफ्रेश केल्यास हा डेमो मिटेल.",
@@ -230,7 +230,7 @@
   "Synthetic recovery simulator · Destination bank · Confirmed. No real bank was contacted.": "काल्पनिक वसुली सिम्युलेटर · प्राप्तकर्ता बँक · पुष्टी झाली. कोणत्याही खऱ्या बँकेशी संपर्क केलेला नाही.",
   "Change language": "भाषा बदला",
   "More options": "आणखी पर्याय",
-  "New example": "नवे उदाहरण",
-  "Standard text": "सामान्य अक्षरे",
-  "Larger text": "मोठी अक्षरे"
+  "Reset Demo": "डेमो रीसेट करा",
+  "Assisted Mode": "सहाय्य मोड",
+  "Citizen Mode": "नागरिक मोड"
 }

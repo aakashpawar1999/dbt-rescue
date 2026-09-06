@@ -187,7 +187,7 @@
   "Skip to content": "உள்ளடக்கத்திற்குச் செல்",
   "DBT Rescue home": "DBT ரெஸ்க்யூ முகப்பு",
   "Interactive demo": "ஊடாடும் டெமோ",
-  "iPhone frame": "iPhone ஃப்ரேம்",
+  "Mobile frame": "மொபைல் ஃப்ரேம்",
   "Product": "தயாரிப்பு",
   "Demo workspace": "டெமோ பணியிடம்",
   "Device storage is unavailable. Refresh will clear this demo.": "சாதனச் சேமிப்பகம் கிடைக்கவில்லை. புதுப்பித்தால் இந்த டெமோ அழியும்.",
@@ -230,7 +230,7 @@
   "Synthetic recovery simulator · Destination bank · Confirmed. No real bank was contacted.": "கற்பனை மீட்பு உருவக அமைப்பு · பெறுநர் வங்கி · உறுதி. உண்மையான வங்கியைத் தொடர்புகொள்ளவில்லை.",
   "Change language": "மொழியை மாற்று",
   "More options": "மேலும் விருப்பங்கள்",
-  "New example": "புதிய உதாரணம்",
-  "Standard text": "இயல்பான எழுத்து",
-  "Larger text": "பெரிய எழுத்து"
+  "Reset Demo": "டெமோவை மீட்டமை",
+  "Assisted Mode": "உதவி முறை",
+  "Citizen Mode": "குடிமக்கள் முறை"
 }
