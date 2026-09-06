@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { readResume } from './resume'
+import { LANGUAGES } from '../languages'
 
 const snapshot = { version: 1, generation: 'demo-generation', reference: 'DBT-ARJUN-002', step: 6, recoveryState: 'payment-reissued', language: 'hi', assisted: true, expiresAt: 2000 }
 
@@ -11,6 +12,11 @@ describe('device-local demo resume', () => {
     expect(result?.assisted).toBe(true)
     expect(result?.recoveryState).toBe('payment-reissued')
     expect(result?.expiresAt).toBe(2000)
+  })
+  it.each(LANGUAGES.map(({code}) => code))('restores %s without changing progress', (language) => {
+    const result = readResume(JSON.stringify({...snapshot, language}), 1000)
+    expect(result?.language).toBe(language)
+    expect(result?.recoveryState).toBe('payment-reissued')
   })
   it('normalizes legacy answer positions to the combined answer', () => {
     expect(readResume(JSON.stringify({ ...snapshot, step: 2 }), 1000)?.step).toBe(1)

@@ -7,8 +7,8 @@
   evidence, follow-up guidance, and expandable source provenance.
 - Added an interactive iPhone-style `/frame` studio with finishes, backgrounds,
   zoom, fit, reload and a control-free recording view for your screen recorder.
-- Replaced language buttons with a native English/Hindi dropdown.
-- Preserved the three English/Hindi fictional journeys and printable packets.
+- Added a compact seven-language dropdown, including Hinglish, Marathi, Tamil, Telugu and Bengali; moved extra header actions into an options menu.
+- Preserved the three multilingual fictional journeys and printable packets.
 - Required matching credit evidence, preserved unknown-rule translations, and
   guarded history/reset and invalid recovery transitions.
 - Added separate simulated credit confirmation and fixed 24-hour device-local
