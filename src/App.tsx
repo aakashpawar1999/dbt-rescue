@@ -78,13 +78,13 @@ export default function App() {
   const [announcement, setAnnouncement] = useState('')
   const diagnosis = useMemo(() => payment ? diagnosePayment(payment) : null, [payment])
   const caseCopy = payment ? getCaseCopy(payment.reference, language) : null
-  const diagnosisCopy = payment && diagnosis ? getDiagnosisCopy(payment.reference, language) : null
+  const diagnosisCopy = diagnosis ? getDiagnosisCopy(diagnosis.provenance.ruleId, language) : null
   const localizedPayment = payment && caseCopy ? {
     ...payment,
     scheme: caseCopy.scheme,
     benefit: caseCopy.benefit,
     maskedAccount: caseCopy.maskedAccount,
-    events: payment.events.map((event, index) => ({ ...event, ...caseCopy.events[index] })),
+    events: payment.events.map((event) => ({ ...event, ...caseCopy.events.find((copy) => copy.id === event.id) })),
   } : payment
   const localizedDiagnosis = diagnosis && diagnosisCopy ? { ...diagnosis, ...diagnosisCopy } : diagnosis
   const correctionRequest = payment && diagnosis && localizedDiagnosis && caseCopy ? {
