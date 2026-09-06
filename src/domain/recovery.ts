@@ -21,7 +21,7 @@ export const RECOVERY_STATES = RECOVERY_SEQUENCES.correction
 export const RECOVERY_LABELS: Record<RecoveryState, string> = {
   'needs-correction': 'Correction needed',
   'correction-submitted': 'Correction submitted',
-  'record-updated': 'Pension record updated',
+  'record-updated': 'Scheme record updated',
   'payment-reissued': 'Payment reissued',
   'account-credited': 'Account credited',
   'needs-trace': 'Check mapped bank or request a trace',

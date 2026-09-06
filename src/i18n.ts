@@ -418,7 +418,7 @@ export const RECOVERY_COPY: Record<Language, Record<RecoveryState, string>> = {
   en: {
     'needs-correction': 'Correction needed',
     'correction-submitted': 'Correction submitted',
-    'record-updated': 'Pension record updated',
+    'record-updated': 'Scheme record updated',
     'payment-reissued': 'Payment reissued',
     'account-credited': 'Account credited',
     'needs-trace': 'Check mapped bank or request a trace',
@@ -428,7 +428,7 @@ export const RECOVERY_COPY: Record<Language, Record<RecoveryState, string>> = {
   hi: {
     'needs-correction': 'सुधार ज़रूरी है',
     'correction-submitted': 'सुधार अनुरोध भेजा गया',
-    'record-updated': 'पेंशन रिकॉर्ड अपडेट हुआ',
+    'record-updated': 'योजना रिकॉर्ड अपडेट हुआ',
     'payment-reissued': 'भुगतान फिर भेजा गया',
     'account-credited': 'खाते में जमा हुआ',
     'needs-trace': 'मैप किए गए बैंक को जाँचें या ट्रेस माँगें',

@@ -4,6 +4,11 @@
 
 product
 
+The public root is a professional product landing page. The separate `/demo`
+route contains the complete interactive recovery workspace. Both surfaces are
+being fully redesigned for v1.0.0, with the existing brand and synthetic-only
+boundary preserved. See DESIGN.md for the shared visual and interaction rules.
+
 ## Users
 
 Citizens such as Sunita Devi or Meena Kumari who are checking a government

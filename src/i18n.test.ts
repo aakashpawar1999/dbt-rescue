@@ -1,13 +1,17 @@
 import { describe, expect, it } from 'vitest'
 import { findPaymentCase } from './domain/cases'
 import { diagnosePayment } from './domain/rules'
-import { CASE_REFERENCES, DIAGNOSIS_COPY, EVENT_COPY, TEXT, getCaseCopy, getDiagnosisCopy, t, type TextKey } from './i18n'
+import { CASE_REFERENCES, DIAGNOSIS_COPY, EVENT_COPY, TEXT, getCaseCopy, getDiagnosisCopy, recoveryLabel, t, type TextKey } from './i18n'
 
 function interpolationTokens(value: string) {
   return [...value.matchAll(/\{\{(\w+)\}\}/g)].map((match) => match[1]).sort()
 }
 
 describe('reviewed bilingual copy', () => {
+  it('keeps the shared correction label scheme-neutral', () => {
+    expect(recoveryLabel('en', 'record-updated')).toBe('Scheme record updated')
+    expect(recoveryLabel('hi', 'record-updated')).toBe('योजना रिकॉर्ड अपडेट हुआ')
+  })
   it.each(['en', 'hi'] as const)('localizes the selected fallback without restoring fixture success in %s', (language) => {
     const payment = structuredClone(findPaymentCase('DBT-SUNITA-001')!)
     payment.events = payment.events.filter((event) => event.id !== 'destination-credited')
